@@ -1,13 +1,13 @@
 \documentclass{protokol}
 %------------------- Zde vyplňte údaje -------------------------------
 \autor{Václav Horáček}
-\autorID{123456}
-\autorr{Petr Novotný}
-\autorrID{654321}
-\rocnik{2}
-\merenodne{1.\,1.\,2022}
-\nazev{Název protokolu}
-\predmet{Prostředky průmyslové automatizace}
+\autorID{256296}
+\autorr{Jan Holík}
+\autorrID{256295}
+\rocnik{3}
+\merenodne{23.\,9.\,2025}
+\nazev{Měření otáček}
+\predmet{Snímače}
 %=====================================================================
 \begin{document}
 \maketitle                  % Vygeneruje titulní stránku podle vyplněných údajů
@@ -15,7 +15,49 @@
 %------------------- Zde začíná samotný dokument ---------------------
 
 \section{ZADÁNÍ}\label{kap:zadani}
-Zde vložte zadání
+    \begin{enumerate}
+        \item   Změřte a vyneste do grafu závislost výstupního napětí tachodynama na otáčkách
+                v rozsahu ±2000 ot/min. Určete pomocí MNČ konstantu K tachodynama a porov-
+                nejte ji s údaji výrobce (vypočítejte relativní odchylku). Určete linearitu. Nejistotu
+                konstanty K určete ze dvou měřených bodů (pro tyto dva body hodnotu otáček
+                změřte pomocí čítače).
+
+        \item   Určete počet lamel komutátoru tachodynama.
+                
+        \item   U fotoelektrického odrazového snímače stanovte kolik impulzů připadá na jednu
+                otáčku. Na čem závisí tato hodnota? Je možné na daném přípravku dosáhnout
+                různých výsledků? Podmínky měření si zaznamenejte!
+        
+        \item   Na osciloskopu si prohlédněte a zaznamenejte tvar výstupních impulzů indukčního
+                snímače a Hallovy sondy pro levé ozubené kolo. Průběh si zakreslete spolu s prů
+                během vzdálenosti čela snímače od ozubeného kola tak, aby byla patrná souvislost
+                výstupního signálu s tvarem ozubeného kola. Kdy se indukuje napětí na výstupu
+                snímačů?
+
+        \item   Zaznamenejte průběh signálů pro různé typy ozubených kol, včetně integrace. Jak
+                souvisí tvar zubu a průběh integrálu výstupního napětí? U kterého tvaru zubu lze
+                rozlišit směr otáčení?
+
+        \item   Zobrazte na osciloskopu výstupní signál z optického inkrementální snímače a kva-
+                draturního dekodéru pro oba směry otáčení. Průběhy si zaznamenejte (důležitá je
+                fáze signálů) a zhodnoťte, jak se projeví změna směru na výstupních signálech. U
+                kvadraturního dekodéru určete, v jakém módu pracuje (x1, x2 nebo x4). Srovnejte
+                s teoretickými předpoklady.
+                
+        \item   Určete rozlišení inkrementálního optického snímače (počet impulzů na jednu otáčku)
+                pomocí čítače.
+                
+        \item   Změřte efektivní hodnotu výstupních napětí resolveru v závislosti na úhlu nato-
+                čení v rozsahu 0 až 360$^\circ$. Pro oba výstupy stanovte body, ve kterých se mění fáze
+                vzhledem k budícímu signálu Uref . V intervalech vymezených těmito body změřte,
+                má-li signál souhlasnou nebo opačnou fázi. Naměřená napětí vyneste do grafu. Fázi
+                v grafu rozlište znaménkem (opačná = záporné). Z naměřených napětí vypočtěte
+                úhel natočení a vyčíslete chybu v procentech z rozsahu. Změřte pracovní frekvenci
+                resolveru (Uref ).
+
+        \item   Na přípravku nastavte otáčky 900 ot/min, stroboskopem určete přesnou hodnotu a
+                vypočítejte relativní odchylku.
+    \end{enumerate}
 
 \section{DOMÁCÍ PŘÍPRAVA}
 Zde vložte obrázek domácí přípravy
