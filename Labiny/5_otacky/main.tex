@@ -19,7 +19,7 @@
 
 % command pro psani promennych k rovnicim
 \newenvironment{conditions}
-  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}-{}$} l}}
   {\end{tabular}\par\vspace{\belowdisplayskip}}
 
 % Zadává
@@ -109,22 +109,96 @@
     \end{enumerate}
 
 \section{Úkol 1 - Převodní charakteristika tachodynama}
-    hello \cite{navod}
-    \begin{conditions}
-        \alpha     &  notional permeability factor \\
-        N     &  number of waves \\   
-        S_{d} &  damage level
-    \end{conditions}
+    Cílem měření bylo změřit závislost výstupního napětí na měřených otáčkách, určit převodní konstantu $K$ a linearitu. Je nutné poznamenat, 
+    že pro tento bod není vypočtena nejistota, kvůli organizačním pokynům k prvního měření. 
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+    Tachodynamo je DC motor, který místo běžného pracovního režimu kdy se transformuje elektrický proud na kroutící moment koná tento převod naopak.
+    Otáčením hřídele tachodynama je generováno stejnosměrné elektrické napětí $U$, které je přímo úměrné otáčkám. Převodní konstantu je možné
+    odečíst jako směrnici převodní charakteristiky $U = f(n)$. Linearita průběhu bývá menší jak 1$\%$\cite{navod}.
+
+    Pomocí tachodynama lze měřit velice jednoduše díky vysoké hodnotě výstupního signálu a možnosti zjištění směru otáčení díky polaritě výstupního signálu. 
+    
+    Nevýhodou je vysoká zvlněnost výstupního signálu a nutnost senzor zatěžovat minimálně. 
+
+    Napětí na svorkách tachodynama lze vyjádřit následujícím způsobem:
+    \begin{equation}
+        E = B \cdot l \cdot v \rightarrow U = \dfrac{B \cdot l \cdot \pi \cdot d \cdot n}{60} \text{ \t [V; T; m;m; otmin]}
+    \end{equation}  
+    
+    \begin{conditions}
+        E & Elektromotorické napětí [V] \\
+        B & Magnetické sycení [T] \\
+        l & Aktivní délka vodiče [m] \\
+        U & Elektrické napětí [V] \\
+        d & Průměr vinutí [m] \\
+        n & Otáčky [ot/min] 
+    \end{conditions}  
+    
     \subsection{Postup měření}
+        \begin{enumerate}
+            \item Na základní desku s motorem bylo připojen přípravek s tachodynamem.
+            \item K výstupním svorkám byl připojen multimetr Keysight 34450A.
+            \item Pro rozsah otáček $[-2000, 2000]$ ot/min po kroku 250 ot/min odečítáno měřené DC napětí na svorkách tachodynama.
+            \item Z naměřených hodnot byla vypočtena převodní konstanta $K$ a chyba linearity $\delta_n$.
+        \end{enumerate}
+    \pagebreak
     \subsection{Naměřené hodnoty}
+        \begin{protocoltable}[Měřená napětí $U$ na svorchách tachodynama v závislosti na otáčkách $n$ ]{|C|C|C|C|C|C|}{tachodynamo}
+            \hline
+            $n$[ot/min] & -2000 & -1750 & -1500 & -1250 & -1000 \\
+            \hline
+            $U$[V] & -3.9757 & -3.4787 & -2.9858 & -2.4873 & -1.9902\\
+            \hline
+            $n$[ot/min] & -750 & -500 & -250 & -0 & 250 \\
+            \hline
+            $U$[V] & -1.4922 & -0.99557 & -0.50150 & -0.000092 & 0.50022 \\
+            \hline
+            $n$[ot/min] & 500 &  750 & 1000 & 1250 & 1500 \\
+            \hline
+            $U$[V] & 1.0033 & 1.5076 & 2.0117 & 2.5144 & 2.9930\\
+            \hline
+            $n$[ot/min] & 1500 & 2000 & X & X & X \\
+            \hline
+            $U$[V] & 3.4802 & 3.9793 & X & X & X\\
+            \hline
+        \end{protocoltable}
+
     \subsection{Zpracované výsledky měření}
+        Pomocí metody nejmenších čtverců\cite{vypocty}(0.12) byla určena lineární regrese naměřených bodů:
+        \begin{equation}
+            K = \left( \dfrac{m \sum_{i}^{m} U_i n_i - \sum_{i}^{m} U_i \sum_{i}^{m} n_i }{n \sum_{i}^{m} n_i^2 - \left(\sum_{i}^{m} n_i \right)^2} \right) = \dfrac{17 \cdot 50810 + 0}{25500000 + 0} = 0.001993 \text{ V/ot·min$^{-1}$}
+        \end{equation}
+        \begin{equation}
+            U_0 = \dfrac{1}{n} \left( \sum_{i}^{n} U_i - K \sum_{u}^{n} n_i\right) = \dfrac{1}{17} \left( 0.08265 - 0.001993 \cdot 0 \right) = 0.08265 \text{ V}
+        \end{equation}
+
+        Lineární aproximace převodní charakteristiky je tedy:
+        \begin{equation}
+            U_L = K\cdot n + u_0 = 0.001993 \cdot n + 0.08265 \text[ V]
+        \end{equation}
+
+        Výrobce udává pro měřené tachodynamo hodnotu K = 2 V/1000 ot·min$^{-1}$\cite{navod}. Relativní odchylka $\delta_K$ je tedy:
+        \begin{equation}
+            \delta_K = \dfrac{K_{m} - K_v}{K_v} \cdot 100 = \dfrac{0.001993 - 0.002}{0.002} \cdot 100  = -0.35\%
+        \end{equation}
+
+        Výpočet chyby linearity\cite{vypocty}(0.10):
+        \begin{equation}
+            \delta_L = \left( \left| \dfrac{U_N - U_L}{U_{Lmax} - U_{Lmin}} \right| \right)_{max} \cdot 100  = \dfrac{2.514 - 2.491}{3.985 - (-3.985)} \cdot 100 = 0.2975\%
+        \end{equation}
+        \linebreak
+        \printfigure[Převodní charakteristika tachodynama]{src/graf1.png}{0.32}{tachodynamo}
     \subsection{Závěr}
+        Pro změřená napětí vychází převodní charakteristika jako lineární s nejvyšší chybou linearity pouze 0.2975$\%$, což je i o proti obvyklým nízkým hodnotám velice dobrý výsledek.
+        
+        Oproti katalogové hodnotě vyšla relativní odchylka převodní konstanty $K$ -0.35$\%$. 
+
+        Nejistota kostanty $K$ kvůli pokynům prvních laboratorních cvičení nebyla vypočtena.
 
 \pagebreak
 
-\section{Úkol 2 - Lamely tachodynama}
+\section{Úkol 2 - Počet lamel tachodynama}
+    []
     \subsection{Teoretický rozbor}
     \subsection{Použité přístroje a přípravky}
     \subsection{Postup měření}
