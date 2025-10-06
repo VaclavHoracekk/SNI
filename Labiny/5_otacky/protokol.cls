@@ -32,6 +32,8 @@
 \usepackage{cmap} 	  % PDF vytvořené `pdflatexem' je plně "prohledávatelné" a "kopírovatelné"
 \usepackage{blindtext} % \Blinddocument
 
+
+
 \fancyhf{}                  % Záhlaví, zápatí
 \hypersetup{hidelinks}      % Odstranění barevného orámování odkazů
 %\hyphenpenalty=10000       % Zákaz rozdělování slov na koncích řádků
@@ -156,3 +158,7 @@
 
 %% Definice prikazu pro sazbu jednotek
 \DeclareMathAlphabet{\jedn}{OT1}{cmr}{m}{n}
+
+
+
+

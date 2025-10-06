@@ -1,5 +1,5 @@
 \documentclass{protokol}
-\usepackage[square,sort,comma,numbers]{natbib}
+\usepackage{array}
 %------------------- Zde vyplňte údaje -------------------------------
 \autor{Václav Horáček}
 \autorID{256296}
@@ -14,6 +14,11 @@
 \maketitle                  % Vygeneruje titulní stránku podle vyplněných údajů
 %\tableofcontents\newpage   % Vygeneruje obsah
 %------------------- Zde začíná samotný dokument ---------------------
+
+% command pro psani promennych k rovnicim
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
 
 % Zadává
 \bibliographystyle{IEEEtran}
@@ -64,7 +69,12 @@
     \end{enumerate}
 
 \section{Úkol 1 - Převodní charakteristika tachodynama}
-    
+    hello \cite{navod}
+    \begin{conditions}
+        \alpha     &  notional permeability factor \\
+        N     &  number of waves \\   
+        S_{d} &  damage level
+    \end{conditions}
     \subsection{Teoretický rozbor}
     \subsection{Použité přístroje a přípravky}
     \subsection{Postup měření}
@@ -72,6 +82,7 @@
     \subsection{Zpracované výsledky měření}
     \subsection{Závěr}
 
+\pagebreak
 
 \section{Úkol 2 - Lamely tachodynama}
     \subsection{Teoretický rozbor}
