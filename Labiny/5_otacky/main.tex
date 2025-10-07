@@ -110,7 +110,7 @@
 
 \section{Úkol 1 - Převodní charakteristika tachodynama}
     Cílem měření bylo změřit závislost výstupního napětí na měřených otáčkách, určit převodní konstantu $K$ a linearitu. Je nutné poznamenat, 
-    že pro tento bod není vypočtena nejistota, kvůli organizačním pokynům k prvního měření. 
+    že pro tento bod není vypočtena nejistota kvůli organizačním pokynům k prvnímu měření. 
     \subsection{Teoretický rozbor}
     Tachodynamo je DC motor, který místo běžného pracovního režimu kdy se transformuje elektrický proud na kroutící moment koná tento převod naopak.
     Otáčením hřídele tachodynama je generováno stejnosměrné elektrické napětí $U$, které je přímo úměrné otáčkám. Převodní konstantu je možné
@@ -122,22 +122,22 @@
 
     Napětí na svorkách tachodynama lze vyjádřit následujícím způsobem:
     \begin{equation}
-        E = B \cdot l \cdot v \rightarrow U = \dfrac{B \cdot l \cdot \pi \cdot d \cdot n}{60} \text{ \t [V; T; m;m; otmin]}
+        E = B \cdot l \cdot v \rightarrow U = \dfrac{B \cdot l \cdot \pi \cdot d \cdot n}{60} \text{\quad [V; T; m; m; ot/min]}
     \end{equation}  
     
     \begin{conditions}
-        E & Elektromotorické napětí [V] \\
-        B & Magnetické sycení [T] \\
-        l & Aktivní délka vodiče [m] \\
-        U & Elektrické napětí [V] \\
-        d & Průměr vinutí [m] \\
-        n & Otáčky [ot/min] 
+        E & elektromotorické napětí [V] \\
+        B & magnetické sycení [T] \\
+        l & aktivní délka vodiče [m] \\
+        U & elektrické napětí [V] \\
+        d & průměr vinutí [m] \\
+        n & otáčky [ot/min] 
     \end{conditions}  
     
     \subsection{Postup měření}
         \begin{enumerate}
             \item Na základní desku s motorem bylo připojen přípravek s tachodynamem.
-            \item K výstupním svorkám byl připojen multimetr Keysight 34450A.
+            \item K výstupním svorkám byl připojen multimetr Keysight 34450A (DC napětí).
             \item Pro rozsah otáček $[-2000, 2000]$ ot/min po kroku 250 ot/min odečítáno měřené DC napětí na svorkách tachodynama.
             \item Z naměřených hodnot byla vypočtena převodní konstanta $K$ a chyba linearity $\delta_n$.
         \end{enumerate}
@@ -198,41 +198,112 @@
 \pagebreak
 
 \section{Úkol 2 - Počet lamel tachodynama}
-    []
+    Cílem měření je pomocí zvlnění průběhu výstupního napětí na nízkých otáčkách určit počet lamel tachodynama. 
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+        V kartáčových DC motorech se polarita budícího napětí mění za běhu pomocí lamel, kterých se musí kotva rotoru dotýkat a tím měnit polaritu magnetického pole k otáčení.
+        
+        Už jen proto, že se kotva rotoru nedotýká pořád, způsobuje zvlnění výstupního napětí. Podle zvlnění na průběhu zvlnění lze určit spočítáním period zvlnění na otáčku tachodynama.
     \subsection{Postup měření}
+        \begin{enumerate}
+             \item Na základní desku s motorem bylo připojen přípravek s tachodynamem.
+             \item Výstup tachodynama a výstup z odrazového snímače byl vyveden na osciloskop Siglent SDS 1102X+.
+             \item Za nízkých otáček při AC vazbě vstupu byl změřen průběh zvlnění výstupního napětí.
+             \item Ze zobrazeného průběhu byl spočítán počet lamel.
+        \end{enumerate}
     \subsection{Naměřené hodnoty}
+        \printfigure[Měřené zvlnění výstupního napětí tachodynama]{src/2_lamely.png}{0.55}{lamely}
+
+    \pagebreak
     \subsection{Zpracované výsledky měření}
+        Aby bylo možné spočítat počet lamel, tak je nutné si určit délku jedné otáčky a k ní počet period "harmonického" zvlnění vztáhnout.
+
+        Na druhý vstup osciloskopu byl přiveden výstup z odrazového snímače. Čtyři periody tohoto snímače jsou jedna otáčka motoru a teď už jen stačí spočítat počet period harmonického zvlnění, kterých se v průběhu na jednu otáčku vyskytuje 19.
+
+   
     \subsection{Závěr}
+        Naměřený počet lamel je rovný s reálným počtem lamel na měřeném tachodynamu. V obou případech vychází 19 lamel.
 
 \pagebreak
 
 \section{Úkol 3 - Odrazový snímač}
-    hello
+    Cílem měření bylo zjisti, kolik impulzů připadá na jednu otázku, na čem tato hodnota závisí a zda-li lze na přípravku změnit.
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+        Odrazový snímač je LED a prvek reagující na světlo(např. fototranzistor)\cite{navod}. V reakci na odraženého signálu z led diody od otáčející se hřídele generuje snímač obdélníkové pulzy.
+
+        Frekvence pulzů je závislá na otáčkách hřídele a na počtu odrazových ploch \cite{navod}.
+
+        \printfigure[Schématický náčrtek fotoelektrického reflexního snímače\cite{navod}]{src/fotoelektro.png}{0.9}{fotoelektro}
     \subsection{Postup měření}
+        \begin{enumerate}
+            \item Signál z odrázového snímače byl připojen na osciloskop Siglent SDS 1102X+.
+            \item Ze spočítání odrazových ploch na motoru a přípravku s tachodynamem byl stanoven počet pulzů na otáčku.
+            \item Po odpojení přípravku byly znovu spočítány odrazové plochy.
+            \item Byly zapsány podmínky měření($t = 24.4 ^\circ$C, $P = 988.1$hPa, $RV = 58.1 \%$)
+        \end{enumerate}
     \subsection{Naměřené hodnoty}
-    \subsection{Zpracované výsledky měření}
+        \begin{itemize}
+            \item Počet odrazových ploch (obdélníkových pulzů na otáčku) s připojeným přípavkem: 4
+            \item -//- bez připojeného přípavku: 2
+        \end{itemize}
     \subsection{Závěr}
+        Pro změnu měřené frekvence obdélníkových pulzů, které jsou výstupem odrazového snímače je možné na přípravku buď možné změnit otáčky motoru nebo odpojit přípravek s jiným snímačem.
+
+        Pokud je připojen přípravek tak jsou pro snímač připraveny 4 odrazové plochy, tudíž by se pro získání frekvence otáčení musela frekvence výstupní pulzů dělit 4.
+
+        V případě odpojeného přípravku je počet odrazových ploch tudíž by se pro získání frekvence otáčení dělit pouze 2.
 
 \pagebreak
 
 \section{Úkol 4 - Indukční snímač/Hallova sonda}
+    V tomto úkolu bylo cílem zaznamenat průběhy signálů z indukčního snímače a snímače s Hallovou sondou pro levé ozubené kolo. 
+    Zároveň bylo třeba vypozororovat souvislost tvaru ozubeného kola s výstupním signálem
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+    
+    Indukční snímač k detekci vodivých předmětů patří k jednomu z nejpouřívanějších na světě díky svému vysoké výstupní úrovni a jednoduchosti. Snímač využívá indukčního zákona pro elektromotrické napětí\cite{navod}:
+
+    \begin{equation}
+        E = -\dfrac{d\phi}{dt} \cdot N \text{\quad [V; Wb/s, -]}     
+    \end{equation}
+    \begin{conditions}
+        E & elektromotorické napětí [V] \\
+        \phi & magnetický tok [Wb/s] \\
+        N & počet závitů cívky [-] 
+    \end{conditions}
+
+    Jelikož je snímač většinou používán k měření polohy, tak je jeho použití limitováno nízkými otáčkami a nutností použít ozubená kola nebo nepravdelné hřídele.
+
+    Další snímač pro detekci otáčení ozubených kol je snímač s Hallovou sondou. Podobně jako indukční snímač, tak i snímač s Hallovou sondou reaguje výstupním dvoustavovým signálem na změnu magnetického pole.
+    Tyto snímače mají automatické nastavování rozhodovací úrovně a omezený dolní mezní kmitočet. Tyto okolnosti mohou zabránit zjištěním, zda-li je snímač měří zub kola nebo mezeru\cite{navod}.
     \subsection{Postup měření}
+            \begin{enumerate}
+            \item Byl připojen přípravek se snímači a ozubenými koly
+            \item Výstupní signály byly přivedeny na vstup oscilloskopu Siglent SDS1102+
+            \item Průběhy signálů byly zaznamenány
+        \end{enumerate}
+        
+    \pagebreak
     \subsection{Naměřené hodnoty}
-    \subsection{Zpracované výsledky měření}
+        \printfigure[Průběhy výstupních signálů z indukčního a snímače s Hallovou sondou]{src/4_hall_indukce.png}{0.55}{indukce_hall}
+
     \subsection{Závěr}
+        Ze zobrazených průběhů lze vypozorovat, že jsou snímače od sebe umístěny tak, že ve chvíli kdy na indukční zachytí zub, tak snímač s Hallovou sondou detekuje mezeru.
+
+        Toto chování si lze odvodit z fyzikální podstaty indukčního snímače. Pokud si určíme signál ze senzoru jako kopii reálného otáčení kola, kdy je vysoká úroveň zub a nízká mezera, tak jeho derivace a otočení polarity vytvoří signál podobný výstupu indukčnímu snímači, což je ve shodě s rovnicí [7].
+
+        Z toho plyne i to, že napětí se na snímači s Hallovou sondou generuje úměrně magnetickému poli, které je nejvyšší při přítomnosti zubu u snímače. Indukční snímač generuje napětí při změně magnetického pole, což je v našem případě přechod zub/mezera.
+
 \pagebreak
 
 \section{Úkol 5 - Průběhy signálů z měření ozubených kol}
     \subsection{Teoretický rozbor}
     \subsection{Použité přístroje a přípravky}
     \subsection{Postup měření}
+    
     \subsection{Naměřené hodnoty}
+        \printfigure[Průběh výstupního signálu pro kolo s hranatými zuby]{src/5_integral_1_kolo.png}{0.6}{hrany}
+        \printfigure[Průběh výstupního signálu pro kolo s mělkými hranatými zuby]{src/5_integral_2_kolo.png}{0.6}{melke_hrany}
+        \printfigure[Průběh výstupního signálu pro kolo s zuby ve tvaru rampy]{src/5_integral_3_kolo.png}{0.6}{rampa}
+        \printfigure[Průběh výstupního signálu pro kolo s trojúhelníkovými zuby]{src/5_integral_4_kolo.png}{0.6}{trojuhelnik}
     \subsection{Zpracované výsledky měření}
     \subsection{Závěr}
 
@@ -284,6 +355,26 @@
 
 \pagebreak
 
+\section{Seznam použitých přístrojů}
+
+\begin{protocoltable}[Seznam použitých přístrojů]{|C|C|C|}{pristroje}
+    \hline
+    Přístroj & Typ & Inventární číslo  \\
+    \hline
+    Keysight 34450A & Digitální multimetr & X \\
+    \hline
+    Hewlett Packard 53131A & Digitální čítač  & X \\
+    \hline
+    Siglent SDS 1102X+ & Digitální osciloskop  & X \\
+    \hline
+    Stroboskop DT-2249 & Stroboskop  & X \\
+    \hline
+    Přípravky se snímači & Přípravky  & X \\
+    \hline
+\end{protocoltable}
+
+\pagebreak
+
 \bibliography{ref}
 
 \pagebreak
@@ -294,14 +385,7 @@
 
 
 
-\begin{protocoltable}[Ukázková tabulka]{|C|C|C|C|C|C|}{ukazka}
 
-    \hline
-    $\alpha$[m] & 1 & 2 & 3 & 4 & 5 \\
-    \hline
-    $\sigma$[s] & 1 & 2 & 3 & 4 & 5\\
-    \hline
-\end{protocoltable}
 
 
 %------------------------------ Ukázky -------------------------------
