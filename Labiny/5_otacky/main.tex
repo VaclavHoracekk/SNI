@@ -109,12 +109,12 @@
     \end{enumerate}
 
 \section{Úkol 1 - Převodní charakteristika tachodynama}
-    Cílem měření bylo změřit závislost výstupního napětí na měřených otáčkách, určit převodní konstantu $K$ a linearitu. Je nutné poznamenat, 
+    Cílem měření bylo změřit závislost výstupního napětí na měřených otáčkách, určit převodní konstantu $K$ achybu linearity. Je nutné poznamenat, 
     že pro tento bod není vypočtena nejistota kvůli organizačním pokynům k prvnímu měření. 
     \subsection{Teoretický rozbor}
-    Tachodynamo je DC motor, který místo běžného pracovního režimu kdy se transformuje elektrický proud na kroutící moment koná tento převod naopak.
+    Tachodynamo je DC motor, který místo běžného pracovního režimu, kdy se transformuje elektrický proud na kroutící moment, koná tento převod naopak.
     Otáčením hřídele tachodynama je generováno stejnosměrné elektrické napětí $U$, které je přímo úměrné otáčkám. Převodní konstantu je možné
-    odečíst jako směrnici převodní charakteristiky $U = f(n)$. Linearita průběhu bývá menší jak 1$\%$\cite{navod}.
+    odečíst jako směrnici převodní charakteristiky $U = f(n)$. Chyba linearity průběhu bývá menší jak 1$\%$\cite{navod}.
 
     Pomocí tachodynama lze měřit velice jednoduše díky vysoké hodnotě výstupního signálu a možnosti zjištění směru otáčení díky polaritě výstupního signálu. 
     
@@ -166,7 +166,7 @@
     \subsection{Zpracované výsledky měření}
         Pomocí metody nejmenších čtverců\cite{vypocty}(0.12) byla určena lineární regrese naměřených bodů:
         \begin{equation}
-            K = \left( \dfrac{m \sum_{i}^{m} U_i n_i - \sum_{i}^{m} U_i \sum_{i}^{m} n_i }{n \sum_{i}^{m} n_i^2 - \left(\sum_{i}^{m} n_i \right)^2} \right) = \dfrac{17 \cdot 50810 + 0}{25500000 + 0} = 0.001993 \text{ V/ot·min$^{-1}$}
+            K = \left( \dfrac{m \sum_{i}^{m} U_i n_i - \sum_{i}^{m} U_i \sum_{i}^{m} n_i }{n \sum_{i}^{m} n_i^2 - \left(\sum_{i}^{m} n_i \right)^2} \right) = \dfrac{17 \cdot 50810 + 0}{25500000 + 0} = 0.001993 \text{ V·min·ot$^{-1}$}
         \end{equation}
         \begin{equation}
             U_0 = \dfrac{1}{n} \left( \sum_{i}^{n} U_i - K \sum_{u}^{n} n_i\right) = \dfrac{1}{17} \left( 0.08265 - 0.001993 \cdot 0 \right) = 0.08265 \text{ V}
@@ -191,9 +191,9 @@
     \subsection{Závěr}
         Pro změřená napětí vychází převodní charakteristika jako lineární s nejvyšší chybou linearity pouze 0.2975$\%$, což je i o proti obvyklým nízkým hodnotám velice dobrý výsledek.
         
-        Oproti katalogové hodnotě vyšla relativní odchylka převodní konstanty $K$ -0.35$\%$. 
+        Oproti katalogové hodnotě vyšla relativní odchylka převodní konstanty \linebreak $\delta_K$ = -0.35$\%$. 
 
-        Nejistota kostanty $K$ kvůli pokynům prvních laboratorních cvičení nebyla vypočtena.
+        Nejistota kostanty $K$ kvůli pokynům k prvním laboratorním cvičením nebyla vypočtena.
 
 \pagebreak
 
@@ -202,7 +202,7 @@
     \subsection{Teoretický rozbor}
         V kartáčových DC motorech se polarita budícího napětí mění za běhu pomocí lamel, kterých se musí kotva rotoru dotýkat a tím měnit polaritu magnetického pole k otáčení.
         
-        Už jen proto, že se kotva rotoru nedotýká pořád, způsobuje zvlnění výstupního napětí. Podle zvlnění na průběhu zvlnění lze určit spočítáním period zvlnění na otáčku tachodynama.
+        Už jen to, že se kotva rotoru nedotýká pořád, způsobuje zvlnění výstupního napětí. Podle zvlnění na průběhu zvlnění lze určit spočítáním period zvlnění na otáčku tachodynama.
     \subsection{Postup měření}
         \begin{enumerate}
              \item Na základní desku s motorem bylo připojen přípravek s tachodynamem.
@@ -235,7 +235,7 @@
         \printfigure[Schématický náčrtek fotoelektrického reflexního snímače\cite{navod}]{src/fotoelektro.png}{0.9}{fotoelektro}
     \subsection{Postup měření}
         \begin{enumerate}
-            \item Signál z odrázového snímače byl připojen na osciloskop Siglent SDS 1102X+.
+            \item Signál z odrazového snímače byl připojen na osciloskop Siglent SDS 1102X+.
             \item Ze spočítání odrazových ploch na motoru a přípravku s tachodynamem byl stanoven počet pulzů na otáčku.
             \item Po odpojení přípravku byly znovu spočítány odrazové plochy.
             \item Byly zapsány podmínky měření($t = 24.4 ^\circ$C, $P = 988.1$hPa, $RV = 58.1 \%$)
@@ -275,10 +275,10 @@
     Další snímač pro detekci otáčení ozubených kol je snímač s Hallovou sondou. Podobně jako indukční snímač, tak i snímač s Hallovou sondou reaguje výstupním dvoustavovým signálem na změnu magnetického pole.
     Tyto snímače mají automatické nastavování rozhodovací úrovně a omezený dolní mezní kmitočet. Tyto okolnosti mohou zabránit zjištěním, zda-li je snímač měří zub kola nebo mezeru\cite{navod}.
     \subsection{Postup měření}
-            \begin{enumerate}
-            \item Byl připojen přípravek se snímači a ozubenými koly
-            \item Výstupní signály byly přivedeny na vstup oscilloskopu Siglent SDS1102+
-            \item Průběhy signálů byly zaznamenány
+        \begin{enumerate}
+            \item Byl připojen přípravek se snímači a ozubenými koly.
+            \item Výstupní signály byly přivedeny na vstup osciloskopu Siglent SDS1102+.
+            \item Průběhy signálů byly zaznamenány pomocí PC interface pro osciloskop.
         \end{enumerate}
         
     \pagebreak
@@ -288,24 +288,40 @@
     \subsection{Závěr}
         Ze zobrazených průběhů lze vypozorovat, že jsou snímače od sebe umístěny tak, že ve chvíli kdy na indukční zachytí zub, tak snímač s Hallovou sondou detekuje mezeru.
 
-        Toto chování si lze odvodit z fyzikální podstaty indukčního snímače. Pokud si určíme signál ze senzoru jako kopii reálného otáčení kola, kdy je vysoká úroveň zub a nízká mezera, tak jeho derivace a otočení polarity vytvoří signál podobný výstupu indukčnímu snímači, což je ve shodě s rovnicí [7].
+        Toto chování si lze odvodit z fyzikální podstaty indukčního snímače. Pokud si určíme signál ze senzoru jako kopii reálného otáčení kola, kdy je vysoká úroveň zub a nízká mezera, tak jeho derivace a otočení polarity vytvoří signál podobný výstupu indukčnímu snímači, což je ve shodě s rovnicí (7).
 
         Z toho plyne i to, že napětí se na snímači s Hallovou sondou generuje úměrně magnetickému poli, které je nejvyšší při přítomnosti zubu u snímače. Indukční snímač generuje napětí při změně magnetického pole, což je v našem případě přechod zub/mezera.
 
 \pagebreak
 
 \section{Úkol 5 - Průběhy signálů z měření ozubených kol}
+    Cílem tohoto úkolu bylo zaznamenat výstupních průběhů indukčního snímače pro různé tvary ozubených kol a zjistit pro jaký tvar lze zjistit tvar otáčení kola.
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+        V úkolu 4 bylo možné pozorovat derivační vztah mezi přítomností zubu u snímače a napětím na výstupu snímače, kdy bylo možné vidět jak hrantatý zub generuje špičatý napěťový pulz.
+
+        Pokud bude zákon fungovat obdobně i pro jiné tvary zubů, tak je možné to pozorovat derivační charakter senzoru detailněji. Pomocí integrace je možné z průběhu výstupného napětí snímače odhadnou tvar zubů ozubeného kola a v některých případech i směr otáčení kola.
     \subsection{Postup měření}
+        \begin{enumerate}
+            \item Byl připojen přípravek se snímači a ozubenými koly.
+            \item Výstupní signály byly přivedeny na vstup osciloskopu Siglent SDS1102+.
+            \item Přípravek s motorem byl spuštěn na frekvenci otáčení v nižších stovkách ot/min.
+            \item Na při osciloskopu byla zobrazen integrál napěťového výstupu snímače.
+            \item Body 3 a 4 bylz provedeny pro všechny 4 ozubená kola.
+            \item Průběhy signálů byly zaznamenány pomocí PC interface pro osciloskop.
+        \end{enumerate}
+
     
     \subsection{Naměřené hodnoty}
-        \printfigure[Průběh výstupního signálu pro kolo s hranatými zuby]{src/5_integral_1_kolo.png}{0.6}{hrany}
-        \printfigure[Průběh výstupního signálu pro kolo s mělkými hranatými zuby]{src/5_integral_2_kolo.png}{0.6}{melke_hrany}
-        \printfigure[Průběh výstupního signálu pro kolo s zuby ve tvaru rampy]{src/5_integral_3_kolo.png}{0.6}{rampa}
-        \printfigure[Průběh výstupního signálu pro kolo s trojúhelníkovými zuby]{src/5_integral_4_kolo.png}{0.6}{trojuhelnik}
-    \subsection{Zpracované výsledky měření}
+        \printfigure[Průběh výstupního signálu pro kolo s hranatými zuby]{src/5_integral_1_kolo.png}{0.43}{hrany}
+        \pagebreak
+        \printfigure[Průběh výstupního signálu pro kolo s mělkými hranatými zuby]{src/5_integral_2_kolo.png}{0.43}{melke_hrany}
+        \printfigure[Průběh výstupního signálu pro kolo s zuby ve tvaru rampy]{src/5_integral_3_kolo.png}{0.43}{rampa}
+        \printfigure[Průběh výstupního signálu pro kolo s trojúhelníkovými zuby]{src/5_integral_4_kolo.png}{0.43}{trojuhelnik}
+    \pagebreak
     \subsection{Závěr}
+        Tvar integrálu výstupního napětí přibližně odpovídal tvaru zubů na odpovídajcím ozubeném kolu. Zajímavý bylo zejména třetí kolo, které mělo zuby ve tvaru pily (periodicky opakující-se lineární funkce).
+        
+        U tohoto kola je totiž možné pozorovat, kterým směrem se otáčí pomocí směrnice lineární části integrálu průběhu. Na obdélníkových a trojúhelníkových kolech nelze kvůli symetrii zubů pozorovat směr otáčení.
 
 \pagebreak
 
@@ -352,6 +368,7 @@
 \pagebreak
 
 \section{Závěr}
+    Při měření otáček tachodynamem bylo možné pozorovat lineární převodní charakteristiku s velice nízkou chybou linearity ($\delta_L = 0.2975\% $) a nízkou chybou převodní konstanty K = {$\delta_K$ = -0.35$\%$}.
 
 \pagebreak
 
@@ -381,7 +398,6 @@
 
 %Ukazka tabulky a obrazku
 
-\printfigure[Obrazek]{src/macho_emote.jpg}{0.5}{macho}
 
 
 
