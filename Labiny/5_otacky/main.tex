@@ -108,6 +108,7 @@
                 vypočítejte relativní odchylku.
     \end{enumerate}
 
+
 \section{Úkol 1 - Převodní charakteristika tachodynama}
     Cílem měření bylo změřit závislost výstupního napětí na měřených otáčkách, určit převodní konstantu $K$ achybu linearity. Je nutné poznamenat, 
     že pro tento bod není vypočtena nejistota kvůli organizačním pokynům k prvnímu měření. 
@@ -326,49 +327,296 @@
 \pagebreak
 
 
+
 \section{Úkol 6 - Inkrementálního optický snímač/Kvadratutní dekodér}
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+    \noindent Rozlišení závisí na počtu rysek optické clony. Skládá se ze zdroje světla, otočné clony, tří fotocitlivých přijímačů a tvarovacích obvodů. Paprsek světla je přerušován značkami na cloně. Vznikají obdelníkové signály. Výstupní signály kanálů A a B jsou vzájemně fázově posunuty o 90°. Toto uspořádání se nazývá kvadraturní dekodér (slouží k vyhodnocení směru). Ten může pracovat s rozlišením x1(jedna hrana signálu), x2(náběžná i sestupná hrana) a x4(náběžná i sestupná hrana obou signálů). Při kladném směru otáčení je při náběžné hraně signálu A signál B vždy v logické úrovni 1. Při záporném směru otáčení je to naopak. 
+
     \subsection{Postup měření}
+    \begin{enumerate}
+        \item Připojili jsme na desku modul s inkrementálním optickým snímačem.
+        \item Na kanály X a Z jsme postupně přivedli signály A,B,U,D. Na vstup EXT jsme přivedli Z.
+        \item Zobrazili jsme a uložili výstupní signály z optického inkrementálního snímače a kvadraturního dekodéru.
+    \end{enumerate}
+
+
+    \clearpage
     \subsection{Naměřené hodnoty}
+    \printfigure[Výstupy A a D při záporném směru otáčení]{src/6_ADMinus.png}{0.6}{ad+}
+    \printfigure[Výstupy A a D při kladném směru otáčení]{src/6_ADPlus.png}{0.6}{ad-}
+    \printfigure[Výstupy B a U při záporném směru otáčení]{src/6_BUMinus.png}{0.6}{bu+}
+    \printfigure[Výstupy B a U při při kladném směru otáčení]{src/6_BUPlus.png}{0.6}{bu-}
+    \printfigure[Výstupy A a B při při záporném směru otáčení]{src/6_zaporny_smer.png}{0.6}{ab-}
+    \printfigure[Výstupy A a B při při kladném směru otáčení]{src/6_kladny_smer.png}{0.6}{ab+}
+
+    \clearpage
     \subsection{Zpracované výsledky měření}
+    \noindent Z obrázků je jasně vidět, že když se clona otáčí v kladném směru, tak čítač snižuje svou hodnotu. Pokud se clona otáči v záporné směru, hodnota čítače se zvyšuje. \\
+    \noindent Na obrazcích je vidět, že za jednu periodu signálu A/B proběhnou 4 pulzy signálu U/D tzn., že kvadratutní dekodér reaguje na náběžnou i sestupnou hranu signálů A a B, které jsou vzájemně fázově posunuty o 90°. Z toho lze vyvodit že dekodér pracuje v módu x4.
+
     \subsection{Závěr}
+    \noindent Zobrazili jsme na osciloskopu výstupní signály optického inkrementálního snímače a kvadraturního dekodéru pro oba směry otáčení. Z uložených obrázků je jasně poznat, že dekodér pracuje v módu x4 díky četnosti pulzů a jejich buzení oběma hranami signálů A a B.
 
 \pagebreak
 
 
 \section{Úkol 7 - Rozlišení inkrementálního optického snímače}
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+    \noindent Rozlišení závisí na počtu rysek optické clony. Skládá se ze zdroje světla, otočné clony, tří fotocitlivých přijímačů a tvarovacích obvodů. Paprsek světla je přerušován značkami na cloně. Vznikají obdelníkové signály. Výstupní signály kanálů A a B jsou vzájemně fázově posunuty o 90°. Toto uspořádání se nazývá kvadraturní dekodér (slouží k vyhodnocení směru). Ten může pracovat s rozlišením x1(jedna hrana signálu), x2(náběžná i sestupná hrana) a x4(náběžná i sestupná hrana obou signálů). Při kladném směru otáčení je při náběžné hraně signálu A signál B vždy v logické úrovni 1. Při záporném směru otáčení je to naopak. 
+
+
     \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Připojili jsme na desku modul s inkrementálním optickým snímačem.
+        \item Změřili jsme počet pulzů na jednu otáčku pomocí čítače.
+    \end{enumerate}
+
     \subsection{Naměřené hodnoty}
+
+    \noindent Změřená hodnota: 2049,9 pulzů za otáčku
+
     \subsection{Zpracované výsledky měření}
+        \begin{equation} \label{rov:neco}
+        2049,9 \doteq 2048 \text{pulzů za otáčku}
+    \end{equation} 
+            
+
     \subsection{Závěr}
+    \noindent Pomocí čítače jsme změřili počet pulzů za otáčku. Naměřená hodnota 2049.9 se téměř neliší od výrobcem udávané hodnoty 2048 pulzů za otáčku. Odchylka může být způsobena neideálitou použitých měřících přístrojů a vlivem okolí.
+
 
 \pagebreak
 \section{Úkol 8 - Výstupní napětí resolveru}
     \subsection{Teoretický rozbor}
-    \subsection{Použité přístroje a přípravky}
+    \noindent Resolver se používá k měření absolutní hodnoty úhlové polohy. Dvě vzájemně pootočené statorové vinutí o 90° a jedno rotorové vinutí\cite{navod}. Na vinutí rotoru přivedeme střídavý proud. Vzniká magnetické pole. To indukuje napětí v cívkách statoru jehož amplituda je dána úhlem natočení rotoru. V ustáleném stavu platí:
+
+    \begin{equation} \label{rov:pythagor}
+        \left( \dfrac{U_{\sin}}{U_{\cos}} \right) = \left(\dfrac{\sin{\varphi}}{\cos{\varphi}} \right) = \tan{\varphi}
+    \end{equation} 
+
     \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Připojili jsme modul se stupnicí indikující natočení a nastavili nulovou polohu resolveru.
+        \item Připojili jsme výstupy resolveru $U_{\sin}$ a $U_{\cos}$ na kanály X a Y osciloskopu a refernční signál $U_{ref}$ na vstup externí synchronizace. Změřili jsme efektivní hodnoty napětí $U_{\sin}$ a $U_{\cos}$ pro všechna natočení s krokem 15°.
+        \item Následně jsme změřili fázi obou výstupních signálů resolveru vůči refernčnímu signálu.
+        \item Z naměřených dat jsme vynesli do grafu průběh výstupních napětí resolveru a spočítali úhel natočení, který jsme následně porovnali s predpokládaným úhlem natočení.
+    \end{enumerate}
+
+    \clearpage
     \subsection{Naměřené hodnoty}
+    $f_{ref} = 8$kHz
+
+    \begin{protocoltable}[Závislost $U_{\sin}$ na úhlu natočení $\varphi_{ref}$]{|C|C|C|C|C|C|}{res1}
+
+    \hline
+    $\varphi_{ref}$[°]  & 0 & 15 & 30 & 45 & 60 \\
+    \hline
+    $U_{\sin}$[V] & -131.9 & 120.5 & 333.8 & 528.4 & 687.6   \\
+    \hline
+    $\varphi_{ref}$[°]  & 75 & 90 & 105 & 120 & 135 \\
+    \hline
+    $U_{\sin}$[V]  & 801.5 & 862.7 & 867.1 & 812.9 & 701.4   \\
+    \hline
+    $\varphi_{ref}$[°] & 150 & 165 & 180 & 195 & 210 \\
+    \hline
+    $U_{\sin}$[V] & 542.5 & 344.6 & 126.4 & -114.8 & -330.4    \\
+    \hline
+    $\varphi_{ref}$[°] & 225 & 240 & 255 & 270 & 285 \\
+    \hline
+    $U_{\sin}$[V] & -524.2 & -687.0 & -802.5 & -864.1 & -868.3 \\
+    \hline
+    $\varphi_{ref}$[°] & 300 & 315 & 330 & 345 & 360 \\
+    \hline
+    $U_{\sin}$[V] & -812.4 & -702.2 & -541.4 & -348.1 & -134.1  \\
+    \hline
+    \end{protocoltable}
+
+    \begin{protocoltable}[Závislost $U_{\cos}$ na úhlu natočení $\varphi_{ref}$]{|C|C|C|C|C|C|}{res2}
+
+    \hline
+    $\varphi_{ref}$[°]  & 0 & 15 & 30 & 45 & 60 \\
+    \hline
+    $U_{\cos}$[mV] & 866.2 & 877.2 & 828.9 & 725.2 & 573.0 \\
+    \hline
+    $\varphi_{ref}$[°]  & 75 & 90 & 105 & 120 & 135 \\
+    \hline
+    $U_{\cos}$[V]  & 385.7 & 175.5 & -871.8 & -291.2 & -496.3  \\
+    \hline
+    $\varphi_{ref}$[°] & 150 & 165 & 180 & 195 & 210 \\
+    \hline
+    $U_{\cos}$[V] & -667.2 & -792.7 & -862.7 & -874.3 & -825.5    \\
+    \hline
+    $\varphi_{ref}$[°] & 225 & 240 & 255 & 270 & 285 \\
+    \hline
+    $U_{\cos}$[V] & -723.6 & -571.3 & -380.0 & -166.1 & 75.79 \\
+    \hline
+    $\varphi_{ref}$[°] & 300 & 315 & 330 & 345 & 360 \\
+    \hline
+    $U_{\cos}$[V] & 293.0 & 498.0 & 669.8 & 793.7 & 864.4  \\
+    \hline
+    \end{protocoltable}
+
+    \clearpage
     \subsection{Zpracované výsledky měření}
+
+    \printfigure[Závislost napětí na úhlu natočení]{src/Bez názvu.png}{0.65}{graf2}
+
+    \noindent Výpočet úhlu natočení:
+    \begin{equation} \label{rov:natoceni}
+        %c^{2} = a^{2} + b^{2}
+        \varphi_{vyp} = \arctan \left( \dfrac{U_{\sin}}{U_{\cos}} \right) = \arctan \left(\dfrac{-131.9}{866.2} \right) = -8.658 \text{°}
+    \end{equation} 
+
+    \noindent Jelikož arctg nabývá pouze hodnot od -90° do +90°, tak logicky nejsme schopni při počítání dosáhnout plného rozsahu 0-360°, proto bylo nutno provést posun mezi kvadranty. \\
+
+    \noindent Pro 1. kvadrant (tj. 0-90°) platí:
+    \begin{equation} \label{rov:kvadrant1}
+        \varphi_{prep} = \varphi_{vyp}
+    \end{equation} 
+
+    \noindent Pro 2. a 3. kvadrant (tj. 90-270°) platí:
+    \begin{equation} \label{rov:kvadrant2}
+        \varphi_{prep} = 180\text{°} + \varphi_{vyp}
+    \end{equation}
+
+    \noindent Pro 4. kvadrant (tj. 270-360°) platí:
+    \begin{equation} \label{rov:kvadrant3}
+        \varphi_{prep} = 360\text{°} + \varphi_{vyp}
+    \end{equation}
+
+    \noindent Výpočet absolutní odchylky:
+    \begin{equation} \label{rov:kvadrant4}
+        %c^{2} = a^{2} + b^{2}
+        \Delta_{\varphi} = \varphi_{prep} - \varphi_{ref} = -8.658 - 0 = -8.658 \text{°}
+    \end{equation}
+
+     \begin{protocoltable}[Úhel natočení vypočtený z naměřených napětí a jeho absolutní odchylka]{|C|C|C|C|C|C|}{natocen2}
+
+    \hline
+     $\varphi_{ref}$[°]  & 0 & 15 & 30 & 45 & 60 \\
+    \hline
+    $U_{\sin}$[mV]  & -131.9 & 120.5 & 333.8 & 528.4 & 687.6 \\
+    \hline
+    $U_{\cos}$[mV] & 866.2 & 877.2 & 828.9 & 725.2 & 573.0 \\
+    \hline
+    $\varphi_{prep}$[°] & -8.658  & 7.822 & 21.93 & 36.08 & 50.19 \\
+    \hline
+    $\Delta_{\varphi}$[°] & -8.658 & -7.175 & -8.065 & -8.921 & -9.806\\
+    \hline
+    \hline
+
+    $\varphi_{ref}$[°]  & 75 & 90 & 105 & 120 & 135 \\
+    \hline
+    $U_{\sin}$[mV]   & 801.5 & 862.7 & 867.1 & 812.9 & 701.4 \\
+    \hline
+    $U_{\cos}$[mV]  & 385.7 & 175.5 & -871.8 & -291.2 & -496.3  \\
+    \hline
+    $\varphi_{prep}$[°] & 64.30 & 78.50 & 95.74 & 109.7 & 125.3 \\
+    \hline
+    $\Delta_{\varphi}$[°] & -10.70 & -11.50 & -9.259 & -10.29 & -9.717 \\
+    \hline
+    \hline
+
+    $\varphi_{ref}$[°]  & 150 & 165 & 180 & 195 & 210 \\
+    \hline
+    $U_{\sin}$[mV] & 542.5 & 344.6 & 126.4 & -114.8 & -330.4 \\
+    \hline
+    $U_{\cos}$[mV] & -667.2 & -792.7 & -862.7 & -874.3 & -825.5    \\
+    \hline
+    $\varphi_{prep}$[°] & 140.9 & 156.5 & 171.7 & 187.5 & 201.8 \\    
+    \hline
+    $\Delta_{\varphi}$[°] & -9.115 & -8.495 & -8.335 & -7.520 & -8.187 \\
+    \hline
+    \hline
+
+    $\varphi_{ref}$[°]  & 225 & 240 & 255 & 270 & 285 \\
+    \hline
+    $U_{\sin}$[mV] & -524.2 & -687.0 & -802.5 & -864.1 & -868.3 \\
+    \hline
+    $U_{\cos}$[mV] & -723.6 & -571.3 & -380.0 & -166.1 & 75.79 \\
+    \hline
+    $\varphi_{prep}$[°] & 215.9 & 230.3 & 244.7 & 259.1 & 275.0 \\
+    \hline
+    $\Delta_{\varphi}$[°] & -9.079 & -9.746 & -10.34 & -10.88 & -10.01  \\
+    \hline
+    \hline
+    
+    $\varphi_{ref}$[°]  & 300 & 315 & 330 & 345 & 360 \\
+    \hline
+    $U_{\sin}$[mV] & -812.4 & -702.2 & -541.4 & -348.1 & -134.1 \\
+    \hline
+    $U_{\cos}$[mV] & 293.0 & 498.0 & 669.8 & 793.7 & 864.4  \\
+    \hline
+    $\varphi_{prep}$[°] & 289.8 & 305.3 & 321.1 & 336.2 & 351.2 \\
+    \hline
+    $\Delta_{\varphi}$[°] & -10.17 & -9.656 & -8.949 & -8.681 & -8.818 \\
+    \hline
+    \end{protocoltable}
+
+    \newpage
     \subsection{Závěr}
+    \noindent V tomto úkolu jsme měřili amplitudu výstupních napětí resolveru a jejich fázi. Při určování fáze u napětí jsme si nebyli jistí jaké znamínko zvolit v místech kde bylo napětí ve fázi. Zvolili jsme proto takové znamínko, které co nejlépe sedělo do harmonického průběhu. U výpočtu úhlu natočení nám všechny úhly vyšli posunuté a to v intervalu od -7,520° do -11,50°. Jelikož byl tento posun velmi konzistentní, tak usuzujeme, že se jedná o chybu aditivní. Také připouštíme, že mohlo dojít i k nepřesnostem při měření a vlivem vnějšího okolí.
+
 
 \pagebreak
 
 
 \section{Úkol 9 - Měření otáček stroboskopem}
     \subsection{Teoretický rozbor}
+    \noindent Zařízení, které vytváří rychlé, periodické záblesky světla, aby vytvořilo iluzi zpomaleného nebo zmrazeného pohybu. Při souhlasném nastavení frekvence záblesků světla s rychlostí otáček se začne jevit tečka na otáčejícím se disku nehybně.
+
     \subsection{Použité přístroje a přípravky}
     \subsection{Postup měření}
+    \begin{enumerate}
+        \item Na otáčkoměru jsme nastavili otáčky.
+        \item Pomocí stroboskopu jsme změřili rychlost otáček.
+        
+    \end{enumerate}
+
+
+
     \subsection{Naměřené hodnoty}
+
+    $n_{ref}$ = 900 ot/min \\
+    $n_{strob}$ = 900.5 ot/min
+
     \subsection{Zpracované výsledky měření}
+    
+    \begin{equation} \label{rov:pythagor}
+        %c^{2} = a^{2} + b^{2}
+        \delta_{n} = \dfrac{n_{ref}-n_{strob}}{n_{strob}}*100 = \dfrac{900-900.5}{900.5}*100 = -0.055 \%
+    \end{equation}
+
+
     \subsection{Závěr}
+    \noindent Nastavili jsme rychlost otáček na otáčkoměru a potom pomocí stroboskopu ověřili opravdovost hodnotu ukazovaných na otáčkoměru. Zjistili jsme, že se hodnota liší o -0,055\%. To je způsobeno vlivy okolí a neideálností měřících přístrojů.
 
 \pagebreak
 
 \section{Závěr}
     Při měření otáček tachodynamem bylo možné pozorovat lineární převodní charakteristiku s velice nízkou chybou linearity ($\delta_L = 0.2975\% $) a nízkou chybou převodní konstanty K = {$\delta_K$ = -0.35$\%$}.
+
+    Podle počtu harmonických kmitů v po odfiltrování DC složky výstupního signálu Tachodynama bylo možné vypočítat počet lamel tachodynama, což v bylo v tomto případě 19.
+
+    Při měření odrazovým snímačem se výsledná frekvence inverzí periody obdélníkového pulzu podělenou počtem odrazových ploch. Na přípravku bylo možné odebráním modulu snímače od motoru odebrat 2 odrazové plochy.
+
+    Indukční snímač a snímač s Hallovou sondou reagují na magnetické pole, které vzniká přiblížením zubů ozubeného kola ke snímačům. Indukční snímač reaguje na změnu magnetického pole a snímač s Hallovou soundou se rozhoduje dvoustavově.
+
+    Při integrování průběhů výstupního napětí indukčního snímače jsme schopni rekonstruovat tvar zubu detekovaného ozubeného kola. Aby bylo možné poznat směr otáčení, tak je nutné aby zub nebyl symetrický.
+
+    V 6. úkolu byly vyobrazeny výstupní signály kvadraturního dekodéru a inkrementálního snímače. Na obrázku 9 je vidět, že při záporném směru otáčení se na výstupu D nic neděje, tedy nedochází ke snižování hodnoty čítače. Na obrázku 10 je naopak vidět, že při kladném směru otáčení ke snižování hodnoty dochází. Na obrázcích 11 a 12 lze vidět to samé akorát naopak s výstupem, který na kladný směr nereaguje, ale na při záporném směru genruje impulzy. Na obrázcích 13 a 14 jde poznat, že při kladném směru otáčení je při náběžné hraně signálu A signál B vždy v logické úrovni 1 a při záporném směru otáčení má ve stejné situaci signál
+B vždy logickou úroveň 0. Tedy tak, jak to je řečeno v teoretických podkladech. 
+
+    Z obrázku 2 je zřejmé, že kvadratutní dekodér pracuje v módu x4, jelikož za jednu periodu signálu A nastanou 4 pulzy signálu D. 
+    
+    7. úkol obnášel určení rozlišení inkrementálního opticého snímače. Za pomocí čítače byla naměřena hodnota 2049,9 impulzů za otáčku, což téměř přesně odpovídá výrobcem daným 2048 impulzům za otáčku. 
+    
+    V 8. úkolu se změřila efektivní hodnota napětí $U{\sin}$ a $U{\cos}$ pro natočení z rozsahu 0 až 360°. U $U{\sin}$ se mění fáze při úhlu natočení v 10° a 200°. U $U{\cos}$ se mění fáze při úhlu natočení v 90° a 270°. Z naměřených napětí byly vypočteny úhly natočení, tyto úhly se velmi konzistentně liší od referenčních hodnot natočení. Byla také změřena pracovní frekvence resolveru f = 8 kHz. 
+    
+    V posledním úkolu se pomocí stroboskopu "zastavila" točící tečka. Hodnota při které se tak stalo byla zdokumentována. Relativní odchylka vyšla -0,055$\%$.
+
 
 \pagebreak
 
@@ -393,10 +641,6 @@
 \pagebreak
 
 \bibliography{ref}
-
-\pagebreak
-
-%Ukazka tabulky a obrazku
 
 
 
