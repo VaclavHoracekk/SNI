@@ -1,7 +1,8 @@
-\documentclass{protokol}
+\documentclass[fleqn]{protokol}
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{environ}
+
 %------------------- Zde vyplňte údaje -------------------------------
 \autor{Václav Horáček}
 \autorID{256296}
@@ -11,10 +12,17 @@
 \merenodne{14.\,10.\,2025}
 \nazev{Měření ionizujícího záření}
 \predmet{Snímače}
+\teplota{21.4}
+\tlak{992.0}
+\vlhkost{37.3}
 %=====================================================================
+
+\newcommand{\neweq}{\\[0.8ex]}
+
 \begin{document}
+
 \maketitle                  % Vygeneruje titulní stránku podle vyplněných údajů
-%\tableofcontents\newpage   % Vygeneruje obsah
+\tableofcontents\newpage   % Vygeneruje obsah
 %------------------- Zde začíná samotný dokument ---------------------
 
 % command pro psani promennych k rovnicim
@@ -63,7 +71,7 @@
 }
 
 
-\section{ZADÁNÍ}\label{kap:zadani}
+\section{Zadání}\label{kap:zadani}
     \begin{enumerate}
         \item Body zadání 1.-6. realizujte s $\beta$-zářiči Sr-90. Proveďte základní dozimetrická měření:
         
@@ -134,9 +142,93 @@
 % Ukol 5 - 
 \section{Úkol 5 - Hmotnostní koeficient útlumu}
     \subsection{Teoretický rozbor}
+
+        \begin{equation}
+            I = I_0 \cdot e^{-\mu \cdot h} \text{\quad[m$^{-2}$ $\cdot$ s$^{-1}$]}
+        \end{equation}         
+
+        \begin{equation}
+            V = a \cdot b \cdot h \text{\quad[m; m; m; m$^3$]}
+        \end{equation}
+
+        \begin{equation}
+            \rho = \dfrac{m}{V} \text{\quad[kg; m$^3$; kg$\cdot$m$^{-3}$]}
+        \end{equation}
+
+        \begin{equation}
+            \sigma = \rho \cdot h \text{\quad[ kg$\cdot$m$^{-3}$; m; kg$\cdot$m$^{-2}$]}
+        \end{equation}
+
+
     \subsection{Postup měření}
-    \subsection{Naměřené hodnoty}   
+
+    \subsection{Naměřené hodnoty}  
+        \begin{protocoltable}[Naměřené rozměry, hmotnosti a počty pulzů za minutu pro uvedené vzorky]{|C|C|C|C|C|C|}{ukol4-mereni}
+            \hline
+            Vzorek & $a$[mm] & $b$[mm] & $h$[mm] & $m$[g] & $n$[min$^{-1}$] \\
+            \hline
+            1 &  128.6 & 98.10 & 0.2000 & 3.130 & 19560 \\
+            \hline
+            2 & 149.9 & 100.0 & 2.500 & 49.52 & 1840 \\
+            \hline
+            3 & 119.4 & 99.90 & 1.000 & 20.00 & 7139 \\
+            \hline
+            4 & 150.4 & 100.3 & 1.150 & 39.98 & 3442 \\
+            \hline
+            5 & 101.2 & 100.4 & 3.500 & 34.36 & 1801 \\
+            \hline
+            6 & 98.60 & 101.1 & 11.30 & 69.11 & 90 \\ 
+            \hline
+            7 & 117.0 & 116.9 & 38.73 & 15.12 & 13300 \\
+            \hline
+        \end{protocoltable}
+        
+    
     \subsection{Zpracované výsledky měření}
+
+        \printfigure[Graf závislosti pulzů za sekundu na plošné hustotě pro $\beta$ zářič]{src/graf_5.png}{0.42}{sigma-beta}
+
+        \begin{equation}
+            n = f(\sigma) = n_0 \cdot \text{e}^{{ -\mu \cdot \rho}} = n_0 \cdot \text{e}^{ -\mu \cdot h \cdot \sigma}
+        \end{equation}
+
+        \begin{equation*}
+            n = 400.3 \cdot \text{e}^{-0.6836 \cdot \sigma} \rightarrow \boxed{\mu_m = 0.6836 \text{ m$^{-2} \cdot$s$^{-1}$}}
+        \end{equation*}
+
+        \begin{equation*}
+            \mu = \mu_m \cdot \rho = 0.6836 \cdot 2.306 \cdot 10^{3} = 1.576 \cdot 10^3 m^{-1}
+        \end{equation*}
+
+        \begin{protocoltable}[Vypočtené objemy, plošné a objemové hustoty pro uvedené vzorky]{|C|C|C|C|C|C|C|C|}{ukol4-vypocty1}
+            \hline
+            Vzorek & 1 & 2 & 3 & 4  \\
+            \hline
+            $V$[m$^3$]&	$2.522 \cdot 10^{-6}$  & $3.738 \cdot 10^{-5}$ & $1.193 \cdot 10^{-5}$ & $1.734 \cdot 10^{-5}$ \\
+            \hline
+            $\rho$[kg$\cdot$m$^{-3}$] & $1.241 \cdot 10^{-3}$  & $1.321 \cdot 10^{3}$ & $1.677 \cdot 10^{3}$ & $2.306 \cdot 10^{3}$ \\
+            \hline
+            $\sigma$[kg$\cdot$m$^{-2}$] & 0.2482  & 3.304 & 1.677 & 2.652 \\
+            \hline
+            $n$[s$^{-1}$] & 326.3  & 30.67 & 119.0 & 57.37 \\
+            \hline
+            $\mu$[s${}$]
+            \hline
+            \hline
+            Vzorek & 5 & 6 & 7 & X \\
+            \hline
+            $V$[m$^3$]& $3.556 \cdot 10^{-5}$ & $1.126 \cdot 10^{-4}$ & $5.297 \cdot 10^{-4}$ & X\\
+            \hline
+            $\rho$[kg$\cdot$m$^{-3}$] & $9.662 \cdot 10^{2}$ & $6.135 \cdot 10^{2}$ & $2.854 \cdot 10^{1}$ & X \\
+            \hline
+            $\sigma$[kg$\cdot$m$^{-2}$] & 3.382 & 6.933 & 1.106 & X \\
+            \hline
+            $n$[s$^{-1}$] & 30.02 & 1.500 & 221.7 & X \\
+            \hline
+        \end{protocoltable}
+
+        
+        
     \subsection{Závěr}
 
 \pagebreak
@@ -145,8 +237,117 @@
 \section{Úkol 6 - Nejistota určení hustoty}
     \subsection{Teoretický rozbor}
     \subsection{Postup měření}
-    \subsection{Naměřené hodnoty}   
+    \subsection{Naměřené hodnoty}  
+         \begin{protocoltable}[Naměřené rozměry vzorku 4]{|C|C|C|}{ukol6-rozmery}
+            \hline
+            a(délka)[mm] & b(šířka)[mm] & h(tloušťka)[mm]  \\
+            \hline
+            150.4 & 100.3 & 1.150 \\
+            \hline
+        \end{protocoltable}
+
+         \begin{protocoltable}[Naměřené hmotnosti vzorku 5 pro vyhodnocení nejistoty typu A]{|C|C|C|C|C|C|}{ukol6-hmotnosti}
+            \hline
+            Měření[-] & 1 & 2 & 3 & 4 & 5 \\
+            \hline
+            $m$[g] &  39.18 & 39.19 & 39.16 & 39.16 & 39.17  \\
+            \hline
+            Měření[-]&  6 & 7 & 8 & 9 & 10 \\
+            \hline
+            $m$[g] & 39.17 & 39.15 & 39.16 & 39.20 & 39.17 \\
+            \hline
+        \end{protocoltable}
+    
     \subsection{Zpracované výsledky měření}
+
+        \begin{align*}
+            u_B[a] = \dfrac{\Delta_a}{\chi} = \dfrac{5 \cdot 10^{-5}}{\sqrt{2}} = 7.212 \cdot 10^{-2}\text{ m}\\
+            u_B[b] = \dfrac{\Delta_b}{\chi} = \dfrac{5 \cdot 10^{-5}}{\sqrt{2}} = 7.212 \cdot 10^{-2}\text{ m}\\
+            u_B[h] = \dfrac{\Delta_h}{\chi} = \dfrac{5 \cdot 10^{-5}}{\sqrt{2}} = 7.212 \cdot 10^{-2}\text{ m}
+        \end{align*}
+
+        \begin{align*}
+            u_C[V] = &\sqrt{ \left( \dfrac{\partial V}{\partial a} \cdot u_C(a) \right)^2 + \left( \dfrac{\partial V}{\partial b} \cdot u_C(b) \right)^2 + \left( \dfrac{\partial V}{\partial h} \cdot u_C(h) \right)^2} \neweq
+            u_C[V] = &\sqrt{ \left( b \cdot h \cdot u_C(a) \right)^2 + \left( a \cdot h \cdot u_C(b) \right)^2 + \left( a \cdot b \cdot u_C(c) \right)^2 } \neweq
+            u_C[V] = &\sqrt{ \left( 1.159 \cdot 10^{-4} \cdot 7.212 \cdot 10^{-2} \right)^2 + \left(  1.730 \cdot 10^{-4} \cdot 7.212 \cdot 10^{-2} \right)^2 + \dots } \neweq
+            &\overline{\left( 1.510 \cdot 10^{-2} \cdot 7.212 \cdot 10^{-2} \right)^2}  \neweq
+            u_C[V] = &\sqrt{ \left( 4.076 \cdot 10^{-7}\right)^2 + \left(  6.115 \cdot 10^{-7} \right)^2 + \left(  6.115 \cdot 10^{-9} \right)^2 } \neweq
+            u_C[V] = &5.331\cdot 10^{-7} \text{ m$^3$}
+        \end{align*}
+
+        \begin{protocoltable}[Uncertainty budget pro určení objemu vzorku 5]{|C|C|C|C|}{ukol6-budget-objem}
+            \hline
+            Veličina & Hodnota & $\Delta_{MAX}$ & $\chi$ \\
+            \hline
+            $a$[m] & 0.1504 & $5 \cdot 10^{-5} $ m  & $\sqrt{2}$ \\
+            \hline
+            $b$[m] & 0.1003 &  $5 \cdot 10^{-5}$ m & $\sqrt{2}$\\
+            \hline
+            $h$[m] & 0.00115 &  $5 \cdot 10^{-5}$ m & $\sqrt{2}$\\
+            \hline
+            Veličina & $u_{A}$ & $\frac{\partial \rho}{\partial x_i}$ & $u_c$ \\
+            \hline
+            $a$[m] & 0 & $1.153 \cdot 10^{-4}$ m$^2$ & $4.076 \cdot 10^{-9}$ m$^3$\\
+            \hline
+            $b$[m] & 0 & $1.730 \cdot 10^{-4}$ m$^2$ & $6.115 \cdot 10^{-9}$ m$^3$\\
+            \hline
+            $h$[m] & 0 & $1.510 \cdot 10^{-2}$ m$^2$ & $5.331 \cdot 10^{-7}$ m$^3$\\
+            \hline
+            \multicolumn{2}{|c|}{$V = 1.734 \cdot 10^{-5}$ m$^3$} & \multicolumn{2}{c|}{$u_C = 5.331\cdot 10^{-7}$ m$^3$} \\
+            \hline
+        \end{protocoltable}
+
+        \begin{equation*}
+            \overline{m} = \dfrac{1}{n} \sum_{i = 0}^{n} m_i = \dfrac{1}{10} (0.03918 + \dots + 0.03917) = 0.03917\text{ kg}
+        \end{equation*}
+
+        \begin{align*}
+            u_A[m] = &\sqrt{ \dfrac{1}{n(n-1)} \sum_{i = 0}^{n} (m_i - \overline{m})^2 } \neweq
+            u_A[m] = &\sqrt{ \dfrac{1}{10(10-1)} ((0.03918 - 0.03917)^2 + \dots + (0.03917 - 0.03917)^2) } \neweq
+            u_A[m] = &4.819 \cdot 10^{-6} \text{ kg}
+        \end{align*}
+
+        \begin{equation*}
+            u_B[m] = \dfrac{\Delta_m}{\chi} = \dfrac{0.01}{\sqrt{3}} = 5.774 \cdot 10^{-6} \text{ kg}
+        \end{equation*}
+
+        \begin{equation*}
+            u_C[m] = \sqrt{ u_A[m]^2 + u_B[m]^2  } = \sqrt{ (4.819 \cdot 10^{-6})^2 + (5.774 \cdot 10^{-6})^2 } = 7.520 \cdot 10^{-6} \text{ kg}
+        \end{equation*}
+
+        \begin{align*}
+            u_C[\rho] = &\sqrt{ \left( \dfrac{\partial \rho}{\partial V} \cdot u_C(V) \right)^2 + \left( \dfrac{\partial \rho}{\partial m} \cdot u_C(m) \right)^2} \neweq
+            u_C[\rho] = &\sqrt{ \left( \dfrac{-m}{V^2} \cdot u_C(V) \right)^2 + \left( \dfrac{1}{V} \cdot u_C(m) \right)^2  } \neweq
+            u_C[\rho] = &\sqrt{ \left( -1.303 \cdot 10^{8} \cdot 5.331\cdot 10^{-7} \right)^2 + \left( 5.767 \cdot 10^{4} \cdot 7.520 \cdot 10^{-6} \right)^2  } \neweq
+            u_C[\rho] = &\sqrt{ \left( -69.46  \right)^2 + \left( 0.4337 \right)^2  } = 69.46 \text{ kg$\cdot$m$^3$}
+        \end{align*}
+
+        \begin{equation*}
+            U[\rho] = k_r \cdot u_C[\rho] = 2 \cdot 69.46 = 138.9 \text{ kg$\cdot$m$^3$}
+        \end{equation*}
+
+        \begin{equation*}
+            \rho = \rho \pm U[\rho] = (2259 \pm 138.9) \text{ kg$\cdot$m$^3$} \rightarrow \boxed{ \rho = (2260 \pm 140) \text{ kg$\cdot$m$^3$}}
+        \end{equation*}
+
+
+        \begin{protocoltable}[Uncertainty budget pro určení objemové hustoty vzorku 5]{|C|C|C|C|}{ukol6-budget-hustota}
+            \hline
+            Veličina & Hodnota & $\Delta_{MAX}$ & $\chi$ \\
+            \hline
+            $V$[m$^3$] & $3.556 \cdot 10^{-5}$ & X & X \\
+            \hline
+            $m$[kg] & $3.917 \cdot 10^{-2}$  &  $1 \cdot 10^{-5}$ kg & $\sqrt{3}$\\
+            \hline
+            Veličina & $u_{A}$ & $\frac{\partial \rho}{\partial x_i}$ & $u_c$ \\
+            \hline
+            $V$[m$^3$] & 0 & $-1.303 \cdot 10^{8}$ kg & $-69.46$ kg$\cdot$m$^{-3}$ \\
+            \hline
+            $m$[kg] & $4.819 \cdot 10^{-6}$ kg & $5.767 \cdot 10^{4}$ m$^3$& $0.4337$ kg$\cdot$m$^{-3}$\\
+            \hline
+            \multicolumn{2}{|c|}{$\rho = 2259$ kg$\cdot$m$^{-3}$} & \multicolumn{2}{c|}{$u_C = 69.46 $ kg$\cdot$m$^{-3}$} \\
+            \hline
+        \end{protocoltable}
     \subsection{Závěr}
 
 \pagebreak
@@ -155,8 +356,18 @@
 \section{Úkol 7 - Závislost počtu pulzů na hustotě Cs-137}
     \subsection{Teoretický rozbor}
     \subsection{Postup měření}
+
     \subsection{Naměřené hodnoty}   
+        \begin{protocoltable}[Naměřené počty pulzů za minutu při použití gamma zářiče pro určené vzorky]{|C|C|C|C|C|C|C|C|}{ukol7-mereni}
+            \hline
+            Vzorek & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+            \hline
+            $n$[min$^{-1}$] & 177 & 167 & 202 & 171 & 170 & 155 & 189 \\
+            \hline
+        \end{protocoltable}
     \subsection{Zpracované výsledky měření}
+
+         \printfigure[Graf závislosti pulzů za sekundu na plošné hustotě pro $\gamma$ zářič]{src/graf_7.png}{0.45}{sigma-gamma}
     \subsection{Závěr}
 
 \pagebreak
@@ -175,65 +386,5 @@
 
 % Reference
 \bibliography{ref}
-
-
-
-
-
-
-
-%------------------------------ Ukázky -------------------------------
-\begin{comment} % Komentář bloku
-    \newpage % Začátek na nové stránce
-        
-    % Ukázka obrázku
-    \begin{figure}[!h]
-        \centering
-        \includegraphics[scale=0.3]{UAMT_color_CMYK_CZ.pdf}
-        \caption{Logo UAMT}
-        \label{obr:logo}
-    \end{figure}
-
-    % Ukázka tabulky
-    \begin{table}[!h]
-        \caption{Ukázka tabulky}
-        \begin{center}
-            \begin{tabular}{ |c|c|c| } 
-                \hline
-                Jméno & Příjmení & ID \\ 
-                \hline\hline
-                Jan   & Novák    & 16 \\ 
-                \hline
-                Petr  & Novák    & 23 \\ 
-                \hline
-            \end{tabular}
-        \end{center}
-        \label{tab:ukazka}
-    \end{table}
-    
-    % Ukázka rovnice
-    \begin{equation} \label{rov:pythagor}
-        c^{2} = a^{2} + b^{2}
-    \end{equation}
-    
-    % Ukázka číslovaného výčtu
-    \begin{enumerate}
-        \item Úkol č.1
-        \item Úkol č.2
-    \end{enumerate}
-    
-    % Ukázka výčtu
-    \begin{itemize}
-        \item Přístroj č.1
-        \item Přístroj č.2
-    \end{itemize}
-    
-    % Příklad využití odkazů v textu:
-    Na obrázku \ref{obr:logo} se nachází \dots\\
-    V tabulce \ref{tab:ukazka} je uveden \dots\\
-    Rovnice \eqref{rov:pythagor} definuje vztah pro Pythagorovu větu.
-    V kapitole \nameref{kap:zadani} \dots
-    
-\end{comment}
 
 \end{document} % Konec dokumentu
