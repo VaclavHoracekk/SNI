@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  23 OCT 2025 15:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  27 OCT 2025 20:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/Honza/SNI/SNI/Labiny/5_otacky/main.tex
-(c:/Users/Honza/SNI/SNI/Labiny/5_otacky/main.tex
+**c:/Users/Honza/SNI/SNI/Labiny/6_zareni/main_honza.tex
+(c:/Users/Honza/SNI/SNI/Labiny/6_zareni/main_honza.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
 (protokol.cls (C:\Users\Honza\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -758,34 +758,49 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )) (C:\Users\Honza\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count368
-) (main.aux
+) (main_honza.aux
 Package babel Info: 'czech' activates 'czech' shorthands.
 (babel)             Reported on input line 10.
 
 
-LaTeX Warning: Label `rov:pythagor' multiply defined.
+LaTeX Warning: Label `tab:res1' multiply defined.
+
+
+LaTeX Warning: Label `tab:res1' multiply defined.
+
+
+LaTeX Warning: Label `tab:res1' multiply defined.
+
+
+LaTeX Warning: Label `tab:res1' multiply defined.
+
+
+LaTeX Warning: Label `tab:res1' multiply defined.
+
+
+LaTeX Warning: Label `obr:graf2' multiply defined.
 
 )
-\openout1 = `main.aux'.
+\openout1 = `main_honza.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/mathx/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/mathx/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
  (C:\Users\Honza\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count369
@@ -834,268 +849,139 @@ LaTeX Font Info:    ... okay on input line 15.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Command `\dddot' is already robust on input line 15.
-LaTeX Info: Command `\ddddot' is already robust on input line 15.
-Package hyperref Info: Link coloring OFF on input line 15.
-(main.out) (main.out)
+LaTeX Info: Command `\dddot' is already robust on input line 16.
+LaTeX Info: Command `\ddddot' is already robust on input line 16.
+Package hyperref Info: Link coloring OFF on input line 16.
+(main_honza.out) (main_honza.out)
 \@outlinefile=\write4
-\openout4 = `main.out'.
+\openout4 = `main_honza.out'.
 
-<UAMT_color_CMYK_CZ.pdf, id=202, 612.2875pt x 106.3975pt>
+<UAMT_color_CMYK_CZ.pdf, id=162, 612.2875pt x 106.3975pt>
 File: UAMT_color_CMYK_CZ.pdf Graphic file (type pdf)
 <use UAMT_color_CMYK_CZ.pdf>
-Package pdftex.def Info: UAMT_color_CMYK_CZ.pdf  used on input line 16.
+Package pdftex.def Info: UAMT_color_CMYK_CZ.pdf  used on input line 17.
 (pdftex.def)             Requested size: 422.47884pt x 73.41434pt.
-LaTeX Font Info:    Trying to load font information for T1+Vafle on input line 16.
+LaTeX Font Info:    Trying to load font information for T1+Vafle on input line 17.
  (t1vafle.fd
 File: t1vafle.fd VUT Vafle font definition
 )<<t1.cmap>>
 
 LaTeX Font Warning: Font shape `T1/Vafle/b/n' undefined
-(Font)              using `T1/Vafle/m/n' instead on input line 16.
+(Font)              using `T1/Vafle/m/n' instead on input line 17.
 
-<<ot1.cmap>>
-
-[1
-
-{./a_trqo3o.enc} <./UAMT_color_CMYK_CZ.pdf>]<<oml.cmap>><<oms.cmap>><<omx.cmap>>
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 100.
+<<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 69.
  (C:\Users\Honza\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 100.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 69.
  (C:\Users\Honza\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 100.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 69.
  (C:\Users\Honza\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
+[1
+
+{./a_trqo3o.enc} <./UAMT_color_CMYK_CZ.pdf>]
+Overfull \hbox (1.4139pt too wide) in paragraph at lines 74--75
+[]\OT1/cmr/m/n/12 Zv^^Sy^^Tsen^^Se hod-noty z^^Sa^^Tren^^S^^P zp^^Wusoben^^Se $\OML/cmm/m/it/12 ^^L$\OT1/cmr/m/n/12 -z^^Sa^^Tri^^Tcem b^^Tehem la-bo-ra-torn^^S^^Pho cvi^^Tcen^^S^^P
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 83--84
+[]\OT1/cmr/m/n/12 Ur^^Tcete vliv st^^S^^Pn^^S^^Pc^^S^^P p^^Trep^^Sa^^Tzky p^^Tri m^^Te^^Tren^^S^^P z^^Savislosti $\OML/cmm/m/it/12 I \U/matha/m/n/12 ^^P \OML/cmm/m/it/12 f\U/matha/m/n/12 p\OML/cmm/m/it/12 d\U/matha/m/n/12 q$\OT1/cmr/m/n/12 , kde $\OML/cmm/m/it/12 d$
+ []
+
+
+Underfull \hbox (badness 1092) in paragraph at lines 89--90
+\OT1/cmr/m/n/12 a po-rov-nejte z^^Savislost po^^Tctu pulz^^Wu na hus-tot^^Te s m^^Te^^Tren^^S^^Pm s $\OML/cmm/m/it/12 ^^L$\OT1/cmr/m/n/12 -z^^Sa^^Tri^^Tcem
+ []
+
+
+
 [2]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 115.
+(hyperref)                be the same. Added a new anchor on input line 97.
 
 
 
 [3]
-<src/graf1.png, id=270, 1206.75844pt x 697.10437pt>
-File: src/graf1.png Graphic file (type png)
-<use src/graf1.png>
-Package pdftex.def Info: src/graf1.png  used on input line 191.
-(pdftex.def)             Requested size: 386.1706pt x 223.07796pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 189--192
-
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
 
 [4]
-Underfull \hbox (badness 3333) in paragraph at lines 195--196
-[]\OT1/cmr/m/n/12 Oproti ka-ta-lo-gov^^Se hod-not^^Te vy^^Tsla re-la-tivn^^S^^P od-chylka p^^Trevodn^^S^^P kon-stanty
- []
-
-
-
-[5 <./src/graf1.png>]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 203.
-
-<src/2_lamely.png, id=289, 602.25pt x 361.35pt>
-File: src/2_lamely.png Graphic file (type png)
-<use src/2_lamely.png>
-Package pdftex.def Info: src/2_lamely.png  used on input line 215.
-(pdftex.def)             Requested size: 331.23851pt x 198.74312pt.
+(hyperref)                be the same. Added a new anchor on input line 149.
 
 
-[6 <./src/2_lamely.png>]
+
+[5]
+
+[6]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 201.
+
+
 
 [7]
+Underfull \hbox (badness 10000) in paragraph at lines 232--240
+
+ []
+
+<pics/dead_time.png, id=251, 481.8pt x 289.08pt>
+File: pics/dead_time.png Graphic file (type png)
+<use pics/dead_time.png>
+Package pdftex.def Info: pics/dead_time.png  used on input line 245.
+(pdftex.def)             Requested size: 385.4405pt x 231.2643pt.
+
+
+[8 <./pics/dead_time.png>]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 231.
-
-<src/fotoelektro.png, id=305, 378.213pt x 139.11975pt>
-File: src/fotoelektro.png Graphic file (type png)
-<use src/fotoelektro.png>
-Package pdftex.def Info: src/fotoelektro.png  used on input line 236.
-(pdftex.def)             Requested size: 340.38855pt x 125.2066pt.
+(hyperref)                be the same. Added a new anchor on input line 259.
 
 
-[8 <./src/fotoelektro.png>]
 
 [9]
+<pics/graph_width.png, id=268, 529.37775pt x 321.6015pt>
+File: pics/graph_width.png Graphic file (type png)
+<use pics/graph_width.png>
+Package pdftex.def Info: pics/graph_width.png  used on input line 319.
+(pdftex.def)             Requested size: 423.50276pt x 257.28154pt.
+
+
+[10 <./pics/graph_width.png>]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 261.
+(hyperref)                be the same. Added a new anchor on input line 343.
 
 
 
-[10]
-<src/4_hall_indukce.png, id=327, 602.25pt x 361.35pt>
-File: src/4_hall_indukce.png Graphic file (type png)
-<use src/4_hall_indukce.png>
-Package pdftex.def Info: src/4_hall_indukce.png  used on input line 287.
-(pdftex.def)             Requested size: 331.23851pt x 198.74312pt.
-
-
-[11 <./src/4_hall_indukce.png>]
+[11]
 
 Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 300.
-
-<src/5_integral_1_kolo.png, id=333, 602.25pt x 361.35pt>
-File: src/5_integral_1_kolo.png Graphic file (type png)
-<use src/5_integral_1_kolo.png>
-Package pdftex.def Info: src/5_integral_1_kolo.png  used on input line 316.
-(pdftex.def)             Requested size: 258.96245pt x 155.37747pt.
+(hyperref)                be the same. Added a new anchor on input line 353.
 
 
-[12 <./src/5_integral_1_kolo.png>]
-<src/5_integral_2_kolo.png, id=345, 602.25pt x 361.35pt>
-File: src/5_integral_2_kolo.png Graphic file (type png)
-<use src/5_integral_2_kolo.png>
-Package pdftex.def Info: src/5_integral_2_kolo.png  used on input line 318.
-(pdftex.def)             Requested size: 258.96245pt x 155.37747pt.
-<src/5_integral_3_kolo.png, id=346, 602.25pt x 361.35pt>
-File: src/5_integral_3_kolo.png Graphic file (type png)
-<use src/5_integral_3_kolo.png>
-Package pdftex.def Info: src/5_integral_3_kolo.png  used on input line 319.
-(pdftex.def)             Requested size: 258.96245pt x 155.37747pt.
-<src/5_integral_4_kolo.png, id=347, 602.25pt x 361.35pt>
-File: src/5_integral_4_kolo.png Graphic file (type png)
-<use src/5_integral_4_kolo.png>
-Package pdftex.def Info: src/5_integral_4_kolo.png  used on input line 320.
-(pdftex.def)             Requested size: 258.96245pt x 155.37747pt.
+
+[12]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 363.
 
 
-[13 <./src/5_integral_2_kolo.png> <./src/5_integral_3_kolo.png> <./src/5_integral_4_kolo.png>]
+
+[13]
 
 [14]
 
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 332.
+[15] (main_honza.bbl) Excluding 'comment' comment.
 
-
-
-[15]
-<src/6_ADMinus.png, id=368, 602.25pt x 361.35pt>
-File: src/6_ADMinus.png Graphic file (type png)
-<use src/6_ADMinus.png>
-Package pdftex.def Info: src/6_ADMinus.png  used on input line 345.
-(pdftex.def)             Requested size: 361.35278pt x 216.81168pt.
-<src/6_ADPlus.png, id=369, 602.25pt x 361.35pt>
-File: src/6_ADPlus.png Graphic file (type png)
-<use src/6_ADPlus.png>
-Package pdftex.def Info: src/6_ADPlus.png  used on input line 346.
-(pdftex.def)             Requested size: 361.35278pt x 216.81168pt.
-<src/6_BUMinus.png, id=370, 602.25pt x 361.35pt>
-File: src/6_BUMinus.png Graphic file (type png)
-<use src/6_BUMinus.png>
-Package pdftex.def Info: src/6_BUMinus.png  used on input line 347.
-(pdftex.def)             Requested size: 361.35278pt x 216.81168pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<src/6_BUPlus.png, id=371, 602.25pt x 361.35pt>
-File: src/6_BUPlus.png Graphic file (type png)
-<use src/6_BUPlus.png>
-Package pdftex.def Info: src/6_BUPlus.png  used on input line 348.
-(pdftex.def)             Requested size: 361.35278pt x 216.81168pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<src/6_zaporny_smer.png, id=372, 602.25pt x 361.35pt>
-File: src/6_zaporny_smer.png Graphic file (type png)
-<use src/6_zaporny_smer.png>
-Package pdftex.def Info: src/6_zaporny_smer.png  used on input line 349.
-(pdftex.def)             Requested size: 361.35278pt x 216.81168pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<src/6_kladny_smer.png, id=373, 602.25pt x 361.35pt>
-File: src/6_kladny_smer.png Graphic file (type png)
-<use src/6_kladny_smer.png>
-Package pdftex.def Info: src/6_kladny_smer.png  used on input line 350.
-(pdftex.def)             Requested size: 361.35278pt x 216.81168pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[16
-
- <./src/6_ADMinus.png> <./src/6_ADPlus.png>]
-
-[17 <./src/6_BUMinus.png> <./src/6_BUPlus.png>]
-
-[18 <./src/6_zaporny_smer.png> <./src/6_kladny_smer.png>]
-
-[19
-
-]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 364.
-
-
-
-[20]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 391.
-
-
-
-[21]
-
-[22
-
-]
-<src/Bez názvu.png, id=420, 587.19376pt x 363.15675pt>
-File: src/Bez názvu.png Graphic file (type png)
-<use src/Bez názvu.png>
-Package pdftex.def Info: src/Bez názvu.png  used on input line 464.
-(pdftex.def)             Requested size: 381.67142pt x 236.04909pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 472--473
-
- []
-
-
-
-[23
-
- <./src/Bez názvu.png>]
-
-[24]
-
-[25]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 567.
-
-
-
-[26]
-Overfull \hbox (18.42905pt too wide) in paragraph at lines 603--604
-[]\OT1/cmr/m/n/12 P^^Tri m^^Te^^Tren^^S^^P od-ra-zov^^Sym sn^^S^^Pma^^Tcem se v^^Sysledn^^Sa frek-vence in-verz^^S^^P pe-ri-ody obd^^Seln^^S^^Pkov^^Seho
- []
-
-
-
-[27]
-
-[28] (main.bbl) Excluding 'comment' comment.
-
-[29] (main.aux)
+[16] (main_honza.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
@@ -1107,21 +993,21 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E09DD147C7D75D5646B2E1CB582F469F;8771.
+Package rerunfilecheck Info: File `main_honza.out' has not changed.
+(rerunfilecheck)             Checksum: 6D74A5D989F75701D82D2955610AC90E;7111.
  ) 
 Here is how much of TeX's memory you used:
- 15567 strings out of 468130
- 243851 string characters out of 5430633
- 717359 words of memory out of 5000000
- 43751 multiletter control sequences out of 15000+600000
- 647341 words of font info for 95 fonts, out of 8000000 for 9000
+ 15374 strings out of 468130
+ 240441 string characters out of 5430633
+ 697565 words of memory out of 5000000
+ 43605 multiletter control sequences out of 15000+600000
+ 647642 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,13n,93p,1090b,576s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Honza\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi720\mathx10.pk> <C:\Users\Honza\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha12.pk> <C:\Users\Honza\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha8.pk> <C:\Users\Honza\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><./VafleVUT-Regular.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (29 pages, 756751 bytes).
+ 90i,12n,93p,1096b,631s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Honza\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\Honza\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha8.pk> <C:\Users\Honza\AppData\Local\MiKTeX\fonts/pk/ljfour/public/mathabx/dpi600\matha12.pk><./VafleVUT-Regular.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Honza/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on main_honza.pdf (16 pages, 448823 bytes).
 PDF statistics:
- 544 PDF objects out of 1000 (max. 8388607)
- 117 named destinations out of 1000 (max. 500000)
- 541 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 368 PDF objects out of 1000 (max. 8388607)
+ 68 named destinations out of 1000 (max. 500000)
+ 396 words of extra memory for PDF output out of 10000 (max. 10000000)
 
