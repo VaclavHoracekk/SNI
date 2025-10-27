@@ -2,6 +2,7 @@
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{environ}
+%\usepackage{pgfplots}
 %------------------- Zde vyplňte údaje -------------------------------
 \autor{Václav Horáček}
 \autorID{256296}
@@ -94,40 +95,246 @@
 % Ukol 1 - 
 \section{Úkol 1 - Základní dozimetrická měření}
     \subsection{Teoretický rozbor}
-    \subsection{Postup měření}
-    \subsection{Naměřené hodnoty}   
-    \subsection{Zpracované výsledky měření}
-    \subsection{Závěr}
+    Nuklidy jsou atomy u nichž není podstatný elektronový obal. Počet neutronů v jádře rozhoduje o stabilitě nuklidu. Buď je stabilní, a nebo tzv. radionuklid. Nuklidy se stejným počtem protonů, ale
+    rozdílným počtem neutronů se nazývají izotopy.\\Druhy ionizujícího záření:
+    \begin{enumerate}
+        \item $\alpha$-záření - Tvořené jádry hélia. Při průchodu prostředím ztrácí velmi rychle energii, proto urazí jen několik milimetrů.
+        \item $\beta$-záření - Tvořené elektrony nebo pozitrony. Při průchodu prostředím ztrácí energii pomaleji než $\alpha$-částice, proto urazí větší vzdálenost (několik metrů).
+        \item $\gamma$-záření - Nenese náboj. Nejpronikavější druh záření (způsobuje popáleniny, rakovinu,...). Ke stínění se používá olovo.
+    \end{enumerate}
+    Systém limitů pro omezování ozáření:
+    \begin{itemize}
+        \item Obecné limity radiační ochrany - 1 mSv za rok
+        \item Limity pro radiační pracovníky - 50 mSv za rok
+        \item Limity pro učně a studenty - 6 mSv za rok
+    \end{itemize}
 
+    \subsection{Postup měření}
+    \begin{enumerate}
+        \item Pomocí dozimetru Gamma-Scout jsme změřili přirozeného pozadí ionizujícího záření.
+        \item Následně jsme změřili zvýšené hodnoty záření způsobené $\beta$-zářičem Sr-90 v laboratorním připravku.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}   
+
+    \begin{protocoltable}[Naměřené hodnoty ionizujícího záření pomocí dozimetru Gamma-Scout]{|C|C|C|}{res1}
+        \hline
+        Umístění zářiče & Olověný kryt & Laboratorní přípravek \\ \hline
+        Dose Rate[µSv/h] & 0.160 & 44.6  \\ \hline
+    \end{protocoltable}
+
+\pagebreak
+    \subsection{Zpracované výsledky měření}
+
+    t - doba expozice = 3 h
+
+    \begin{equation}
+            H_{Tvyp} =  {\text{Dose Rate}_{\text{příp}}} \cdot t  = 44.6 \cdot 3 = 133.8 \text{ $\mu$Sv}
+    \end{equation}
+
+    \begin{protocoltable}[Porovnání naměřených hodnot s limitními]{|C|C|C|C|}{res1}
+        \hline
+         & Obecné lim. & Radiační prac. & Učni studenti \\ \hline
+        $H_{Tlim}$[mSv] & 1 & 50 & 6 \\ \hline
+        $H_{Tvyp}$[mSv] & 0.134 & 0.134 & 0.134 \\ \hline
+
+    \end{protocoltable}
+
+    \subsection{Závěr}
+    Změřili jsme hodntou ionizujícího záření při umístění zářiče v olověném krytu 0,160 $\mu$Sv a v laboratorním přípravku 44.6 $\mu$Sv. Z toho jde jasně vidět, že olověný kryt velmi účinně stíní ionizující záření. Dále jsme spočítali hodnotu záření, již jsme byli vystaveni za dobu měření (3 hodiny), která činí 133.8 $\mu$Sv. Tato hodnota je výrazně nižší než obecný limit radiační ochrany (1 mSv za rok), limit pro radiační pracovníky (50 mSv za rok) a limit pro učně a studenty (6 mSv za rok). Z toho vyplývá, že měření bylo provedeno v bezpečných podmínkách a nedošlo k překročení stanovených limitů.
 \pagebreak
 
 % Ukol 2 - 
 \section{Úkol 2 - Impulzová charakteristika GM trubice}
     \subsection{Teoretický rozbor}
+
+    Geiger-Müllerova (GM) trubice je zařízení používané k detekci ionizujícího záření. Levná a jednoduchá. Impulsní charakteristika G-M čítače je závislost počtu detekovaných impulsů na napětí přiváděném k trubici. $U_P$ - napětí u něhož je počet pulzů téměř nezávislý na napětí. $U_k$ - konocové napětí. Mezi $U_P$ a $U_k$ je oblast zvaná plateau, kde je počet pulzů téměř konstantní. Strmost stoupání a délka plateau určují kvalitu GM trubice.
     \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Nejprve jsme zapnuli napájení přípravku.
+        \item Následně jsme pomocí stínících fólií nastavili četnost impulzů na 180 až 220 za minutu při napětí 600 V.
+        \item Zjistili jsme napětí $U_S$
+        \item V rozsahu od $U_S$ do 750 V jsme měřili četnost impulzů po dobu 1 minuty.
+    \end{enumerate}
+
     \subsection{Naměřené hodnoty}   
+
+    $U_S$ = 405 V
+
+    \begin{protocoltable}[Naměřené hodnoty impulsové charakteristiky GM trubice]{|C|C|C|C|C|}{res1}
+        \hline
+        U[V] & 410 & 430 & 450 & 470   \\ \hline
+        N[pulzů/min] & 45 & 486 & 1296 & 4780   \\ \hline
+        \hline
+        U[V] & 490 & 510 & 560 & 610   \\ \hline
+        N[pulzů/min] & 10354 & 10955 & 11292 & 11379   \\ \hline
+        \hline
+        U[V] & 660 & 710 & 760 & X \\ \hline
+        N[pulzů/min] & 11622 & 12117 & 13458 & X \\ \hline
+    \end{protocoltable}
+\pagebreak
     \subsection{Zpracované výsledky měření}
+
+    Z grafu jsme určili $U_p$ a $U_k$:
+    \\
+    $U_p$ = 510 V\\
+    $U_k$ = 710 V
+
+    Délka plateau:
+    \begin{equation}
+        U_{plateau} = U_k - U_p = 710 - 510 = 200 \text{ V}
+    \end{equation}
+
+    Strmost plateau:
+    \begin{equation}   
+        S =  \dfrac{\dfrac{N_2-N_1}{(N_2+N_1)/2}}{U_2-U_1} \cdot 100 = \dfrac{\dfrac{12117-10955}{(12117+10955)/2}}{710-510} \cdot 100 = 0.05  \% / \text{V}
+    \end{equation}
+    
     \subsection{Závěr}
+    Z naměřených hodnot byl vytvořen graf impulsové charakteristiky GM trubice. Z grafu byla určena napětí $U_p$ a $U_k$, která jsou 510 V a 710 V. Dále byla spočtena délku plateau, která činí 200 V, a strmost plateau, která je 0.05 \%/V. Tyto hodnoty nám poskytují informace o kvalitě GM trubice a její schopnosti detekovat ionizující záření v daném napěťovém rozsahu.
 
 \pagebreak
 
 % Ukol 3 - 
 \section{Úkol 3 - Mrtvá doba GM trubice}
     \subsection{Teoretický rozbor}
+
+    Mrtvá doba $t_u$ je časový úsek, ve kterém detektor není registrovat záření. Obvykle 100-500 µs. Pokud $t_u$ $\ll$  platí:
+    \begin{equation}   
+        t_u =  \dfrac{N_1+N_2-N_{12}}{2N_1N_2}  \text{     [s]}
+    \end{equation}
+
     \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Umístili jsme jeden $\beta$-zářič do laboratorního přípravku a provedli 3 nezávislé měření impulzů.
+        \item Následně jsme k němu přidali druhý $\beta$-zářič a provedli 3 nezávislé měření impulzů.
+        \item Nakonec jsme odebrali první $\beta$-zářič a provedli 3 nezávislé měření impulzů druhého $\beta$-zářiče.
+        
+    \end{enumerate}
+
     \subsection{Naměřené hodnoty}   
+
+    \begin{protocoltable}[Měření metodou dvou zářičů]{|C|C|C|C|}{res1}
+        \hline
+        Měření & 1 & 2 & 3   \\ \hline
+        $N_1$[pulzů/min] & 21397 & 21635 & 21651   \\ \hline
+        $N_{12}$[pulzů/min] & 42056 & 42328 & 42309   \\ \hline
+        $N_2$[pulzů/min] & 24503 & 24439 & 24434 \\ \hline
+    \end{protocoltable}
+\pagebreak
     \subsection{Zpracované výsledky měření}
+
+    Měření bylo prováděno při napájecím napětí 600 V.
+    \begin{equation}
+    \overline{N_1} = \dfrac{N_{1,1}+N_{1,2}+N_{1,3}}{3} = \dfrac{21397+21635+21651}{3} = 21561 \text{ pulzů/min}
+    \end{equation}
+    Pro přepočet na pulzy za sekundu podělíme 60:
+    \\
+    $\overline{N_1}$ = 359.35 pulzů/s \\
+    $\overline{N_{12}}$ = 703.85 pulzů/s \\
+    $\overline{N_2}$ = 407.64 pulzů/s
+    \\\\
+    Mrtvá doba:
+    \begin{equation}   
+        t_{uvyp} =  \dfrac{\overline{N_1}+\overline{N_2}-\overline{N_{12}}}{2\overline{N_1}\overline{N_2}} = \dfrac{359.35+407.64-703.85}{2 \cdot 359.35 \cdot 407.64} = 226.5 \text{ µs}    
+    \end{equation}
+
+
+    \printfigure[Mrtvá doba změřená na osciloskopu]{pics/dead_time.png}{0.8}{graf2}
+
+    $t_{umer}$ = 204 µs
+    
+
+
     \subsection{Závěr}
+
+    Metodou dvou zářičů byla změřena mrtvá doba GM trubice, která činí 226.5 µs. Pro porovnání byla také změřena mrtvá doba přímo na osciloskopu, která je 204 µs. Naměřené hodnoty jsou si velice podobné. Rozdíl mezi vypčtenou a naměřenou hodnotou může být způseoben nepřesností metody a tolerancemi přístrojů.
 
 \pagebreak
 
 % Ukol 4 - 
 \section{Úkol 4 - Vliv stínící přepážky}
     \subsection{Teoretický rozbor}
+
+    Absorpce u $\beta$-záření i u $\gamma$-záření je popsána vztahem:
+    \begin{equation}   
+        I = I_0 \cdot e^{-\mu d}      \quad \quad    \text{[$s^{-1}$$\cdot$$m^{-2}$]}
+    \end{equation}
+    \\
+    Součinitel zeslabení $\mu$ je popsán vztahem:
+    \begin{equation}   
+        \mu =  \mu_m \cdot \rho      \quad \quad    \text{[$m^{-1}$;$m^2$$\cdot$$kg^{-1}$, kg $\cdot$ $m^{-3}$]}
+    \end{equation}
+    \\
+    $\gamma$-záření narozdíl od $\beta$-záření klesá asymptoticky k nule. K charakterizování záření slouží polotloušťka $d_{1/2}$. Ta je definována jako tloušťka materiálu, při které intenzita klesne na polovinu původní hodnoty. Polotloušťka je dána vztahem:
+
+    \begin{equation}   
+        d_{1/2} =  \dfrac{\ln{2}}{\mu}      \quad \quad    \text{[m;-,$m^{-1}$]}
+    \end{equation}
+
     \subsection{Postup měření}
-    \subsection{Naměřené hodnoty}   
+
+    \begin{enumerate}
+        \item Nechali jsme zářič v laboratornímp řípravku a změřili četnost impulzů bez stínící přepážky.
+        \item Následně jsme přidali jednu stínící přepážku a změřili četnost impulzů.
+        \item Tento postup jsme opakovali až do přidání 10 stínících přepážek.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty} 
+    
+    Tloušťka jedné stínící přepážky d = 0.2 mm = 0.0002 m
+
+     \begin{protocoltable}[Naměřené hodnoty závislosti impulzů na počtu stínících přepážek]{|C|C|C|C|C|}{res1}
+        \hline
+        Počet vzorků & 0 & 1 & 2 & 3    \\ \hline
+        N[pulzů/min] & 24785 & 19798 & 15853 & 12912   \\ \hline
+        \hline
+        Počet vzorků & 4 & 5 & 6 & 7    \\ \hline
+        N[pulzů/min] & 10535 & 8636 & 6994 & 5765   \\ \hline
+        \hline
+        Počet vzorků & 8 & 9 & 10 & X    \\ \hline
+        N[pulzů/min] & 4624 & 3771 & 3089 & X   \\ \hline
+    \end{protocoltable}
+
+
+
     \subsection{Zpracované výsledky měření}
+
+
+    \begin{protocoltable}[Přepočtené hodnoty závislosti impulzů na šířce stínící přepážky]{|C|C|C|C|C|}{res1}
+        \hline
+        d[m] & 0 & 0.0002 & 0.0004 & 0.0006    \\ \hline
+        N[pulzů/s] & 413.08 & 329.97 & 264.22 & 215.20   \\ \hline
+        \hline
+        d[m] & 0.0008 & 0.0010 & 0.0012 & 0.0014    \\ \hline
+        N[pulzů/s] & 175.58 & 143.93 & 116.57 & 96.08   \\  \hline
+        \hline
+        d[m] & 0.0016 & 0.0018 & 0.0020 & X    \\ \hline
+        N[pulzů/s] & 77.07 & 62.85 & 51.48 & X   \\ \hline
+    \end{protocoltable}
+
+
+    \printfigure[Závislost počtu pulzů na šířce stínící vrstvy]{pics/graph_width.png}{0.8}{graf2}
+    
+    \begin{flushleft}
+    Z rovnice funkce lze určit součinitel zeslabení $\mu = 1035 \, \text{m}^{-1}$.
+    \end{flushleft}
+    
+    \begin{flushleft}
+        Z toho jsme schopni vypočíst polotloušťku:
+    \end{flushleft}
+
+        \begin{equation}
+        d_{1/2} =  \dfrac{\ln{2}}{\mu} = \dfrac{\ln{2}}{1035} = 6.7 \cdot 10^{-4} \text{ m}
+        \end{equation}
+    
+
+
     \subsection{Závěr}
+
+    V této úloze byla změřena závislost počtu pulzů na šířce stínící přepážky. Z naměřených hodnot byl vytvořen graf, ze kterého byl určen součinitel zeslabení $\mu$, který činí 1035 m$^{-1}$. Dále jsme spočítali polotloušťku $d_{1/2}$, která je 6.7 $\cdot$ 10$^{-4}$ m.
 
 \pagebreak
 
@@ -163,7 +370,17 @@
 
 % Velký závěr
 \section{Závěr}
+
+        V 1. úkolu bylo nejprve změřeno přirozené pozadí ionizujícího záření pomocí dozimetru Gamma-Scout, které činilo 0.160 µSv/h. Následně bylo změřeno zvýšené záření způsobené $\beta$-zářičem Sr-90 v laboratorním přípravku, které dosáhlo hodnoty 44.6 µSv/h. Z těchto měření bylo vypočteno celkové ozáření za dobu 3 hodin (doba trvání měření), které činilo 133.8 µSv, což je výrazně pod stanovenými limity radiační ochrany.
+        
+        Ve 2. úkolu byla změřena impulzová charakteristika GM trubice. Z naměřených hodnot byly určeny napětí $U_p$ a $U_k$, které jsou 510 V a 710 V. Dále byla spočítána délka plateau, která činí 200 V, a strmost plateau, která je 0.05 \%/V.
+
+        V úkolu 3 byla metodou dvou zářičů změřena mrtvá doba GM trubice, která činí 226.5 µs. Pro porovnání byla také změřena mrtvá doba přímo na osciloskopu, která je 204 µs. Odchylka mezi těmito hodnotami může být způsobena nepřesnostmi měření a tolerancemi přístrojů.
+
+        Ve 4. úkolu byla změřena závislost počtu pulzů na šířce stínící přepážky. Z naměřených hodnot byl vytvořen graf. Závislost má charakter klesající exponenciály, což lze vidět z grafu, kde po nastavení osy Y do logarimtického měřítka je závislost téměř linearní. Z rovnice proložené funkce byl určen součinitel zeslabení $\mu$, který činí 1035 m$^{-1}$. Dále byla spočítána polotloušťka $d_{1/2}$, která je 6.7 $\cdot$ 10$^{-4}$ m.
+
     \cite{navod}
+    \cite{vyhlaska}
 
 \pagebreak
 
