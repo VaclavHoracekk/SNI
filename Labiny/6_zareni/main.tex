@@ -1,0 +1,741 @@
+\documentclass[fleqn]{protokol}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{environ}
+
+%------------------- Zde vyplňte údaje -------------------------------
+\autor{Václav Horáček}
+\autorID{256296}
+\autorr{Jan Holík}
+\autorrID{256295}
+\rocnik{3}
+\merenodne{14.\,10.\,2025}
+\nazev{Měření ionizujícího záření}
+\predmet{Snímače}
+\teplota{21.4}
+\tlak{992.0}
+\vlhkost{37.3}
+%=====================================================================
+
+\newcommand{\neweq}{\\[0.8ex]}
+
+\begin{document}
+
+\maketitle                  % Vygeneruje titulní stránku podle vyplněných údajů
+\tableofcontents\newpage   % Vygeneruje obsah
+%------------------- Zde začíná samotný dokument ---------------------
+
+% command pro psani promennych k rovnicim
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}-{}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
+
+% Zadává
+\bibliographystyle{acm}
+
+% Uprava tabulek
+\def\arraystretch{1.3}
+\setlength{\headheight}{15pt}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+% FUNKCE PRO GENEROVANI TABULEK 
+%   1. argument popisek
+%   2. argument format
+%   3. argument label
+%   Do tela psat data a \hline
+\NewEnviron{protocoltable}[3][Tabulka]{%
+    \begin{table}[!h]
+        \centering
+        \caption{#1}\label{tab:#3}
+        \vspace{0.3cm}
+        \begin{tabularx}{\textwidth}{#2}
+            \BODY
+        \end{tabularx}
+    \end{table}
+}
+
+% FUNKCE PRO TISK OBRAZKU
+%  1. argument titulek
+%  2. argument cesta napr. src\neco.png
+%  3. argument scale - velikost rozsah 0.0-1.0
+%  4. argument label
+\newcommand{\printfigure}[4][Obrazek]{%
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=#3]{#2}
+        \caption{#1}
+        \label{obr:#4}
+    \end{figure}
+}
+
+
+\section{Zadání}\label{kap:zadani}
+    \begin{enumerate}
+        \item Body zadání 1.-6. realizujte s $\beta$-zářiči Sr-90. Proveďte základní dozimetrická měření:
+        
+            \begin{enumerate}
+                \item Změřte hodnotu přirozeného pozadí ionizujícího záření pomoci dozimetru Gamma-Scout.
+                
+                \item Zvýšené hodnoty záření způsobené $\beta$-zářičem během laboratorního cvičení pomocí dozimetru Gamma-Scout.
+            
+                \item V tabulce přehledně porovnejte hodnoty naměřené dozimetrem s hodnotami odpovídajícími hygienickým limitům.
+            \end{enumerate}
+           
+        \item Proměřte impulzovou charakteristiku GM trubice, určete délku „plateau“ \linebreak a jeho strmost.
+
+        \item Určete mrtvou dobu GM trubice, napájecí napětí volte ze středu plateau, porovnejte výsledky získané metodou dvou zářičů a přímým měřením na osciloskopu.
+
+        \item Určete vliv stínící přepážky při měření závislosti $I = f(d)$, kde $d$\linebreak je tloušťka materiálu. Závislost vyneste do grafu. Určete součinitel zeslabení $\mu$  \linebreak a polotloušťku $d_{1/2}$.
+
+        \item Určete hmotnostní koeficient útlumu $\mu_m$ charakterizující útlum ionizujícího záření v předložených materiálech, porovnejte hodnotu získanou výpočtem pro každý materiál s hodnotou stanovenou z grafu závislosti funkce intenzity \linebreak plošné hustotě.
+
+        \item Stanovte nejistotu určení hustoty pro jeden materiál.
+
+        \item S $\gamma$-zářičem Cs-137 změřte četnost impulzů pro sadu vzorků s různou hustotou \linebreak a porovnejte závislost počtu pulzů na hustotě s měřením s $\beta$-zářičem \linebreak z bodu 5.
+
+    \end{enumerate}
+
+\pagebreak 
+
+% Ukol 1 - 
+\section{Úkol 1 - Základní dozimetrická měření}
+    Kapitola vychází ze zdroje \cite{navod} a \cite{vyhlaska}.
+\subsection{Teoretický rozbor}
+    Nuklidy jsou atomy u nichž není podstatný elektronový obal. Počet neutronů v jádře rozhoduje o stabilitě nuklidu. Buď je stabilní, a nebo tzv. radionuklid. Nuklidy se stejným počtem protonů, ale
+    rozdílným počtem neutronů se nazývají izotopy.\\Druhy ionizujícího záření \cite{navod}:
+    \begin{enumerate}
+        \item $\alpha$-záření - Tvořené jádry hélia. Při průchodu prostředím ztrácí velmi rychle energii, proto urazí jen několik milimetrů.
+        \item $\beta$-záření - Tvořené elektrony nebo pozitrony. Při průchodu prostředím ztrácí energii pomaleji než $\alpha$-částice, proto urazí větší vzdálenost (několik metrů).
+        \item $\gamma$-záření - Nenese náboj. Nejpronikavější druh záření (způsobuje popáleniny, rakovinu,...). Ke stínění se používá olovo.
+    \end{enumerate}
+    Systém limitů pro omezování ozáření \cite{vyhlaska}:
+    \begin{itemize}
+        \item Obecné limity radiační ochrany - 1 mSv za rok
+        \item Limity pro radiační pracovníky - 50 mSv za rok
+        \item Limity pro učně a studenty - 6 mSv za rok
+    \end{itemize}
+
+    \subsection{Postup měření}
+    \begin{enumerate}
+        \item Pomocí dozimetru Gamma-Scout bylo změřeno přirozené pozadí ionizujícího záření.
+        \item Následně byly změřeny zvýšené hodnoty záření způsobené $\beta$-zářičem Sr-90 v laboratorním přípravku.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}   
+
+    \begin{protocoltable}[Naměřené hodnoty ionizujícího záření pomocí dozimetru Gamma-Scout]{|C|C|C|}{res1}
+        \hline
+        Umístění zářiče & Olověný kryt & Laboratorní přípravek \\ \hline
+        Dose Rate[µSv/h] & 0.160 & 44.6  \\ \hline
+    \end{protocoltable}
+
+\pagebreak
+    \subsection{Zpracované výsledky měření}
+
+    t - doba expozice = 3 h
+
+    \begin{equation}
+            H_{Tvyp} =  {\text{Dose Rate}_{\text{příp}}} \cdot t  = 44.6 \cdot 3 = 133.8 \text{ $\mu$Sv}
+    \end{equation}
+
+    \begin{protocoltable}[Porovnání naměřených hodnot s limitními]{|C|C|C|C|}{res1}
+        \hline
+         & Obecné lim. & Radiační prac. & Učni studenti \\ \hline
+        $H_{Tlim}$[mSv] & 1 & 50 & 6 \\ \hline
+        $H_{Tvyp}$[mSv] & 0.134 & 0.134 & 0.134 \\ \hline
+
+    \end{protocoltable}
+
+    \subsection{Závěr}
+    Byla změřena hodnota ionizujícího záření při umístění zářiče v olověném krytu 0,160 $\mu$Sv a v laboratorním přípravku 44,6 $\mu$Sv. Z toho je jasně patrné, že olověný kryt velmi účinně stíní ionizující záření. Dále jsme spočítali hodnotu záření, kterému jsme byli vystaveni za dobu měření (3 hodiny), která činí 133,8 $\mu$Sv. Tato hodnota je výrazně nižší než obecný limit radiační ochrany (1 mSv za rok), limit pro radiační pracovníky (50 mSv za rok) a limit pro učně a studenty (6 mSv za rok). Z toho vyplývá, že měření bylo provedeno v bezpečných podmínkách a nedošlo k překročení stanovených limitů.
+\pagebreak
+
+% Ukol 2 - 
+\section{Úkol 2 - Impulzová charakteristika GM trubice}
+    Kapitola vychází ze zdroje \cite{navod}.
+    \subsection{Teoretický rozbor}
+
+    Geiger-Müllerova (GM) trubice je zařízení používané k detekci ionizujícího záření. Levná a jednoduchá. Impulsní charakteristika G-M čítače je závislost počtu detekovaných impulsů na napětí přiváděném k trubici. $U_P$ - napětí u něhož je počet pulzů téměř nezávislý na napětí. $U_k$ - konocové napětí. Mezi $U_P$ a $U_k$ je oblast zvaná plateau, kde je počet pulzů téměř konstantní. Strmost stoupání a délka plateau určují kvalitu GM trubice\cite{navod}.
+    \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Nejprve bylo zapnuto napájení přípravku.
+        \item Následně pomocí stínících fólií byla nastavena četnost impulzů na 180-220 za minutu při napětí 600 V.
+        \item Bylo zjištěno napětí $U_S$
+        \item V rozsahu od $U_S$ do 750 V byla měřena četnost impulzů po dobu 1 minuty.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}   
+
+    $U_S$ = 405 V
+
+    \begin{protocoltable}[Naměřené hodnoty impulsové charakteristiky GM trubice]{|C|C|C|C|C|}{res1}
+        \hline
+        U[V] & 410 & 430 & 450 & 470   \\ \hline
+        N[pulzů/min] & 45 & 486 & 1296 & 4780   \\ \hline
+        \hline
+        U[V] & 490 & 510 & 560 & 610   \\ \hline
+        N[pulzů/min] & 10354 & 10955 & 11292 & 11379   \\ \hline
+        \hline
+        U[V] & 660 & 710 & 760 & X \\ \hline
+        N[pulzů/min] & 11622 & 12117 & 13458 & X \\ \hline
+    \end{protocoltable}
+\pagebreak
+    \subsection{Zpracované výsledky měření}
+
+    Z grafu jsme určili $U_p$ a $U_k$:
+    \\
+    $U_p$ = 510 V\\
+    $U_k$ = 710 V
+
+    Délka plateau:
+    \begin{equation}
+        U_{plateau} = U_k - U_p = 710 - 510 = 200 \text{ V}
+    \end{equation}
+
+    Strmost plateau:
+    \begin{equation}   
+        S =  \dfrac{\dfrac{N_2-N_1}{(N_2+N_1)/2}}{U_2-U_1} \cdot 100 = \dfrac{\dfrac{12117-10955}{(12117+10955)/2}}{710-510} \cdot 100 = 0.05  \% / \text{V}
+    \end{equation}
+
+    \printfigure[Impulzová charakteristika GM trubice]{src/graf_2.png}{0.43}{impulz_GM}
+    
+    \subsection{Závěr}
+    Z naměřených hodnot byl vytvořen graf impulsové charakteristiky GM trubice. Z grafu byla určena napětí $U_p$ = 510 V a $U_k$ = 710 V. Dále byla spočtena délka plateau, která činí 200 V, a strmost plateau, která je 0,05 \%/V. Tyto hodnoty nám poskytují informace o kvalitě GM trubice a její schopnosti detekovat ionizující záření v daném napěťovém rozsahu.
+
+\pagebreak
+
+% Ukol 3 - 
+\section{Úkol 3 - Mrtvá doba GM trubice}
+    Kapitola vychází ze zdroje \cite{navod}.
+    \subsection{Teoretický rozbor}
+
+    Mrtvá doba $t_u$ je časový úsek, ve kterém detektor není schopen registrovat záření. Obvykle 100-500 µs. Pokud $t_u$ $\ll$  platí \cite{navod}:
+    \begin{equation}   
+        t_u =  \dfrac{N_1+N_2-N_{12}}{2N_1N_2}  \text{     [s]}
+    \end{equation}
+
+    \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Jeden $\beta$-zářič byl umístěn do laboratorního přípravku a byla provedena 3 nezávislá měření impulzů.
+        \item Následně k němu byl přidán druhý $\beta$-zářič a provedena 3 nezávislá měření impulzů.
+        \item Nakonec byl odebrán první $\beta$-zářič a provedena 3 nezávislá měření impulzů druhého $\beta$-zářiče.
+        
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}   
+
+    \begin{protocoltable}[Měření metodou dvou zářičů]{|C|C|C|C|}{res1}
+        \hline
+        Měření & 1 & 2 & 3   \\ \hline
+        $N_1$[pulzů/min] & 21397 & 21635 & 21651   \\ \hline
+        $N_{12}$[pulzů/min] & 42056 & 42328 & 42309   \\ \hline
+        $N_2$[pulzů/min] & 24503 & 24439 & 24434 \\ \hline
+    \end{protocoltable}
+\pagebreak
+    \subsection{Zpracované výsledky měření}
+
+    Měření bylo prováděno při napájecím napětí 600 V.
+    \begin{equation}
+    \overline{N_1} = \dfrac{N_{1,1}+N_{1,2}+N_{1,3}}{3} = \dfrac{21397+21635+21651}{3} = 21561 \text{ pulzů/min}
+    \end{equation}
+    Pro přepočet na pulzy za sekundu podělíme 60:
+    \\
+    $\overline{N_1}$ = 359.35 pulzů/s \\
+    $\overline{N_{12}}$ = 703.85 pulzů/s \\
+    $\overline{N_2}$ = 407.64 pulzů/s
+    \\\\
+    Mrtvá doba:
+    \begin{equation}   
+        t_{uvyp} =  \dfrac{\overline{N_1}+\overline{N_2}-\overline{N_{12}}}{2\overline{N_1}\overline{N_2}} = \dfrac{359.35+407.64-703.85}{2 \cdot 359.35 \cdot 407.64} = 226.5 \text{ µs}    
+    \end{equation}
+
+
+    \printfigure[Mrtvá doba změřená na osciloskopu]{pics/dead_time.png}{0.8}{graf2}
+
+    $t_{umer}$ = 204 µs
+    
+
+
+    \subsection{Závěr}
+
+    Metodou dvou zářičů byla změřena mrtvá doba GM trubice, která činí 226,5 µs. Pro porovnání byla také změřena mrtvá doba přímo na osciloskopu, která je 204 µs. Naměřené hodnoty jsou si velmi podobné. Rozdíl mezi vypočtenou a naměřenou hodnotou může být způsoben nepřesností metody a tolerancemi přístrojů.
+
+\pagebreak
+
+% Ukol 4 - 
+\section{Úkol 4 - Vliv stínící přepážky}
+    Kapitola vychází ze zdroje \cite{navod}.
+    \subsection{Teoretický rozbor}
+
+    Absorpce u $\beta$-záření i u $\gamma$-záření je popsána vztahem:
+    \begin{equation}   
+        I = I_0 \cdot e^{-\mu d}      \quad \quad    \text{[$s^{-1}$$\cdot$$m^{-2}$]}
+    \end{equation}
+    \\
+    Součinitel zeslabení $\mu$ je popsán vztahem:
+    \begin{equation}   
+        \mu =  \mu_m \cdot \rho      \quad \quad    \text{[$m^{-1}$;$m^2$$\cdot$$kg^{-1}$, kg $\cdot$ $m^{-3}$]}
+    \end{equation}
+    \\
+    $\gamma$-záření narozdíl od $\beta$-záření klesá asymptoticky k nule. K charakterizování záření slouží polotloušťka $d_{1/2}$. Ta je definována jako tloušťka materiálu, při které intenzita klesne na polovinu původní hodnoty. Polotloušťka je dána vztahem\cite{navod}:
+
+    \begin{equation}   
+        d_{1/2} =  \dfrac{\ln{2}}{\mu}      \quad \quad    \text{[m;-,$m^{-1}$]}
+    \end{equation}
+
+    \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Zářič byl ponechán v laboratorním přípravku a změřila se četnost impulzů bez stínící přepážky.
+        \item Následně byla přidána jedna stínící přepážka a změřila se četnost impulzů.
+        \item Tento postup byl opakován až do přidání 10 stínících přepážek.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty} 
+    
+    Tloušťka jedné stínící přepážky d = 0.2 mm = 0.0002 m
+
+     \begin{protocoltable}[Naměřené hodnoty závislosti impulzů na počtu stínících přepážek]{|C|C|C|C|C|}{res1}
+        \hline
+        Počet vzorků & 0 & 1 & 2 & 3    \\ \hline
+        N[pulzů/min] & 24785 & 19798 & 15853 & 12912   \\ \hline
+        \hline
+        Počet vzorků & 4 & 5 & 6 & 7    \\ \hline
+        N[pulzů/min] & 10535 & 8636 & 6994 & 5765   \\ \hline
+        \hline
+        Počet vzorků & 8 & 9 & 10 & X    \\ \hline
+        N[pulzů/min] & 4624 & 3771 & 3089 & X   \\ \hline
+    \end{protocoltable}
+
+
+
+    \subsection{Zpracované výsledky měření}
+
+
+    \begin{protocoltable}[Přepočtené hodnoty závislosti impulzů na šířce stínící přepážky]{|C|C|C|C|C|}{res1}
+        \hline
+        d[m] & 0 & 0.0002 & 0.0004 & 0.0006    \\ \hline
+        N[pulzů/s] & 413.08 & 329.97 & 264.22 & 215.20   \\ \hline
+        \hline
+        d[m] & 0.0008 & 0.0010 & 0.0012 & 0.0014    \\ \hline
+        N[pulzů/s] & 175.58 & 143.93 & 116.57 & 96.08   \\  \hline
+        \hline
+        d[m] & 0.0016 & 0.0018 & 0.0020 & X    \\ \hline
+        N[pulzů/s] & 77.07 & 62.85 & 51.48 & X   \\ \hline
+    \end{protocoltable}
+
+
+    \printfigure[Závislost počtu pulzů na šířce stínící vrstvy]{pics/graph_width.png}{0.8}{graf2}
+    
+    \begin{flushleft}
+    Z rovnice proložené funkce lze určit součinitel zeslabení $\mu = 1035 \, \text{m}^{-1}$.
+    \end{flushleft}
+    
+    \begin{flushleft}
+        Z toho jsme schopni vypočítat polotloušťku:
+    \end{flushleft}
+
+        \begin{equation}
+        d_{1/2} =  \dfrac{\ln{2}}{\mu} = \dfrac{\ln{2}}{1035} = 6.7 \cdot 10^{-4} \text{ m}
+        \end{equation}
+    
+
+
+    \subsection{Závěr}
+
+    V této úloze byla změřena závislost počtu pulzů na šířce stínící přepážky. Z naměřených hodnot byl vytvořen graf, ze kterého byl určen součinitel zeslabení $\mu$, který činí 1035 m$^{-1}$. Dále byla spočtena polotloušťka $d_{1/2}$, která vyšla 6.7 $\cdot$ 10$^{-4}$ m.
+
+\pagebreak
+
+% Ukol 5 - 
+\section{Úkol 5 - Hmotnostní koeficient útlumu}
+    Kapitola čerpá ze zdroje \cite{navod}.
+    \subsection{Teoretický rozbor}
+        Při měření ionizujícího záření je možné pozorovat následující exponenciální závislost:
+        \begin{equation}\label{rov:vyzarovani}
+            I = I_0 \cdot e^{-\mu \cdot h} \text{\quad[m$^{-2}$ $\cdot$ s$^{-1}$]}
+        \end{equation}         
+        \begin{conditions}
+            I & hustota částic dopadajících kolmo na danou vrstvu [m$^{-2}$ $\cdot$ s$^{-1}$] \\
+            I_0 & počáteční hustota částic \\
+            \mu & lineární součinitel zeslabení\\
+            h & tlouška vrstvy \\
+        \end{conditions}
+
+        Tato rovnice vyjadřuje závislost hustoty částic na tloušce vrstvy násobeným lineárním součinitelem zeslabení $\mu$. Tato konstanta určuje velikost útlumu, který působí na záření po průchodu absorbční vrstvou.
+
+        Tento parametr se dá měřit pomocí měření četnosti pulzů GM trubice v závislosti na měnící se tloušce vrstvy jako v přechozím úkolu, nicméně se rovnice dá upravit \\i na tento tvar:
+        \begin{equation}
+            I = I_0 \cdot e^{-\mu \cdot h} = I_0 \cdot e^{-\mu_m \cdot \rho \cdot h} = I_0 \cdot e^{-\mu_m \cdot \sigma} \text{\quad[m$^{-2}$ $\cdot$ s$^{-1}$]}
+        \end{equation} 
+        Nyní je nezávislá proměnná plošná hustota $\sigma$, která je násobená konstantou $\mu_m$, což je hmotnostní koeficient útlumu, který je v našem případě konstanta závislá na objemové hustotě materiálu $\rho$ a součiniteli zeslabení $\mu$. Z úpravy rovnic lze pozorovat vztah:
+        \begin{equation}
+           \mu = \mu_m \cdot \rho \text{\quad[m$^{-1}$; m$^{2}$ $\cdot$ kg$^{-1}$, kg$\cdot$m$^{-3}$]}
+        \end{equation} 
+
+        Pro určení hmotnostního koeficientu útlumu je nutné určit rozměry, hmotnost a pulzy GM trubice za minutu.
+    \pagebreak
+    \subsection{Postup měření}
+        \begin{enumerate}
+            \item Vložení $\beta$ zářiče do měřící polohy.
+            \item Změření rozměrů vzorků pomocí posuvného měřítka.
+            \item Změření hmotnosti každého vzorků pomocí precizní váhy.
+            \item Vložení vzorku do mezi zářič a GM trubici.
+            \item Změření počtu pulzů za minutu pro jednotlivé vzorky.
+            \item Zpracování dat a výpočet žádaných veličin. 
+        \end{enumerate}
+
+    \subsection{Naměřené hodnoty}  
+        
+        \begin{protocoltable}[Naměřené rozměry, hmotnosti a počty pulzů za minutu pro uvedené vzorky]{|C|C|C|C|C|C|}{ukol4-mereni}
+            \hline
+            Vzorek & $a$[mm] & $b$[mm] & $h$[mm] & $m$[g] & $n$[min$^{-1}$] \\
+            \hline
+            1 &  128.6 & 98.10 & 0.2000 & 3.130 & 19560 \\
+            \hline
+            2 & 149.9 & 100.0 & 2.500 & 49.52 & 1840 \\
+            \hline
+            3 & 119.4 & 99.90 & 1.000 & 20.00 & 7139 \\
+            \hline
+            4 & 150.4 & 100.3 & 1.150 & 39.98 & 3442 \\
+            \hline
+            5 & 101.2 & 100.4 & 3.500 & 34.36 & 1801 \\
+            \hline
+            6 & 98.60 & 101.1 & 11.30 & 69.11 & 90 \\ 
+            \hline
+            7 & 117.0 & 116.9 & 38.73 & 15.12 & 13300 \\
+            \hline
+        \end{protocoltable}
+        
+    
+    \subsection{Zpracované výsledky měření}
+
+        Pro nalezení $\mu_m$ je možné nahradit rovnici[\ref{rov:vyzarovani}] pomocí vztahu:
+        \begin{equation}
+            n = f(\sigma) = n_0 \cdot \text{e}^{{ -\mu \cdot h}} = n_0 \cdot \text{e}^{ -\mu_m  \cdot \sigma}
+        \end{equation}
+
+        Nyní je nutné sestrojit závislost pulzů GM trubice za sekundu $n$ na plošné hustotě $\sigma$ a získat rovnici exponenciálního proložení, kde v exponentu bude figurovat hmotnostní koeficient útlumu $\mu_m$.
+       
+        Ukázka výpočtu plošné hustoty pro vzorek č. 4:
+        \begin{align*}
+            V &= a \cdot b \cdot c = 0.1504 \cdot 0.1003 \cdot 0.00115 = 1.734 \cdot 10^{-5} \text{ m}^3 \neweq
+            \rho &= \dfrac{m}{V} = \dfrac{0.03998}{1.734 \cdot 10^{-5}} = 2.306 \cdot 10^3 \text{ kg$\cdot$m$^{-3}$} \neweq
+            \sigma &= \rho \cdot h = 2.306 \cdot 10^3 \cdot 0.00115 = 2.652  \text{ kg$\cdot$m$^{-2}$}
+        \end{align*}
+
+        Po určení bodů charakteristiky byla pomocí programu MATLAB vynešena následující závislost:
+
+        \printfigure[Graf závislosti pulzů za sekundu na plošné hustotě pro $\beta$ zářič]{src/graf_5.png}{0.42}{sigma-beta}
+
+        Pro aproximaci exponenciální funkce byla použita funkce fit() z toolboxu \textit{Curve fitting toolbox}. Funkce z bodů určila aproximaci, ze které lze přibližně určit hmotnostní koeficient útlumu $\mu_m$:
+        \begin{equation*}
+            n = 400.3 \cdot \text{e}^{-0.6836 \cdot \sigma} \rightarrow \boxed{\mu_m = 0.6836 \text{ m$^{-2} \cdot$s$^{-1}$}}
+        \end{equation*}
+
+        Pokud máme k dispozici aproximaci $\mu_m$, tak je možné aproximovat i linární součinitel zeslabení $\mu$ pro jiné materiály:
+        \begin{equation*}
+            \mu = \mu_m \cdot \rho = 0.6836 \cdot 2.306 \cdot 10^{3} = 1.576 \cdot 10^3 m^{-1}
+        \end{equation*}
+
+        \begin{protocoltable}[Vypočtené objemy, plošné a objemové hustoty pro uvedené vzorky]{|C|C|C|C|C|C|C|C|}{ukol4-vypocty1}
+            \hline
+            Vzorek & 1 & 2 & 3 & 4  \\
+            \hline
+            $V$[m$^3$]&	$2.522 \cdot 10^{-6}$  & $3.738 \cdot 10^{-5}$ & $1.193 \cdot 10^{-5}$ & $1.734 \cdot 10^{-5}$ \\
+            \hline
+            $\rho$[kg$\cdot$m$^{-3}$] & $1.241 \cdot 10^{-3}$  & $1.321 \cdot 10^{3}$ & $1.677 \cdot 10^{3}$ & $2.306 \cdot 10^{3}$ \\
+            \hline
+            $\sigma$[kg$\cdot$m$^{-2}$] & 0.2482  & 3.304 & 1.677 & 2.652 \\
+            \hline
+            $n$[s$^{-1}$] & 326.3  & 30.67 & 119.0 & 57.37 \\
+            \hline
+            $\mu$[m$^{-1}$] & 848.4 & 903.3 & 1146 &	1576\\
+            \hline
+            \hline
+            Vzorek & 5 & 6 & 7 & X \\
+            \hline
+            $V$[m$^3$]& $3.556 \cdot 10^{-5}$ & $1.126 \cdot 10^{-4}$ & $5.297 \cdot 10^{-4}$ & X\\
+            \hline
+            $\rho$[kg$\cdot$m$^{-3}$] & $9.662 \cdot 10^{2}$ & $6.135 \cdot 10^{2}$ & $2.854 \cdot 10^{1}$ & X \\
+            \hline
+            $\sigma$[kg$\cdot$m$^{-2}$] & 3.382 & 6.933 & 1.106 & X \\
+            \hline
+            $n$[s$^{-1}$] & 30.02 & 1.500 & 221.7 & X \\
+            \hline
+            $\mu$[m$^{-1}$] & 660.5 & 419.4 & 19.51 & X\\
+            \hline
+        \end{protocoltable}
+
+        
+    \pagebreak 
+    \subsection{Závěr}
+    V tomto úkolu byl měřen koeficient hmotnostního útlumu pomocí exponenciální aproximace závislosti měřených pulzů za sekundu na plošné hustotě vzorku. Výsledná hodnota aproximace koeficientu je $\mu_m = 0.6836 $ m$^{2}$ $\cdot$ kg$^{-1}$.
+
+    Vhodné je také poznamenat rozdíl měřených koeficientů útlumu mezi měřením v úkolu 4 a úkolu 5. V úkolu 4 vyšel činitel pro vícero vzorků č. 1 $\mu = 1035 \, \text{ m}^{-1}$, kdežto v úkolu 5 vyšla jeho aproximace $\mu = 848.4 \, \text{m}^{-1}$. Možné příčiny rozdílu jsou vzduchové mezery mezi vzorky při měření 4. úkolu a volená měřící metoda.
+
+\pagebreak
+
+% Ukol 6 - 
+\section{Úkol 6 - Nejistota určení hustoty}
+    V kapitole se vychází ze zdrojů \cite{nejistoty_prezentace}, \cite{zaokrouhlovani} a \cite{nejistoty}.
+    \subsection{Teoretický rozbor}
+    Určení nejistoty objemové hustoty je určení nejistoty nepřímého měření, \linebreak kdy je nejdříve nutné spočítat nejistoty měření objemu a hmotnosti vzorku.
+
+    Pro výpočet nejistoty byl vybrán vzorek č.4.
+    \printfigure[Vzorek č.4]{pics/vzorek4.jpg}{0.07}{vzorek4}
+
+    Je nutné si určit koeficienty pro přepočet na Gaussovo rozdělení $\chi$. Koeficient pro převod měření pomocí bimodálního rozdělení měření posuvným měřítkem je $\chi = \sqrt{2}$ a pro rovnoměrné rozdělení váhy je $\chi = \sqrt{3}$\cite{nejistoty_prezentace}.
+    \subsection{Postup měření}
+        \begin{enumerate}
+            \item Změření rozměrů vzorku pomocí posuvného měřítka.
+            \item Změření hmotnosti vzorku pomocí precizní váhy. Měření bylo opakováno desetkrát.
+            \item Určení váhovacích koeficientů pro vybrané měřící metody.
+            \item Výpočet nejistoty přímých měření(rozměry, hmotnost).
+            \item Výpočet nejistoty nepřímých měření(objem, objemová hustota). 
+        \end{enumerate}
+
+    \pagebreak
+
+    \subsection{Naměřené hodnoty}  
+         \begin{protocoltable}[Naměřené rozměry vzorku 4]{|C|C|C|}{ukol6-rozmery}
+            \hline
+            a(délka)[mm] & b(šířka)[mm] & h(tloušťka)[mm]  \\
+            \hline
+            150.4 & 100.3 & 1.150 \\
+            \hline
+        \end{protocoltable}
+
+         \begin{protocoltable}[Naměřené hmotnosti vzorku 5 pro vyhodnocení nejistoty typu A]{|C|C|C|C|C|C|}{ukol6-hmotnosti}
+            \hline
+            Měření[-] & 1 & 2 & 3 & 4 & 5 \\
+            \hline
+            $m$[g] &  39.18 & 39.19 & 39.16 & 39.16 & 39.17  \\
+            \hline
+            Měření[-]&  6 & 7 & 8 & 9 & 10 \\
+            \hline
+            $m$[g] & 39.17 & 39.15 & 39.16 & 39.20 & 39.17 \\
+            \hline
+        \end{protocoltable}
+    
+    \subsection{Zpracované výsledky měření}
+        Pro určení nejistoty objemu je nutné určit nejistoty měření rozměrů posuvným měřítkem. Výrobce udává maximální chybu $\Delta_a = 5\cdot10^{-5}\text{ m}$.
+        \begin{align*}
+            u_B[a] = \dfrac{\Delta_a}{\chi} = \dfrac{5 \cdot 10^{-5}}{\sqrt{2}} = 7.212 \cdot 10^{-2}\text{ m}\\
+            u_B[b] = \dfrac{\Delta_b}{\chi} = \dfrac{5 \cdot 10^{-5}}{\sqrt{2}} = 7.212 \cdot 10^{-2}\text{ m}\\
+            u_B[h] = \dfrac{\Delta_h}{\chi} = \dfrac{5 \cdot 10^{-5}}{\sqrt{2}} = 7.212 \cdot 10^{-2}\text{ m}
+        \end{align*}
+
+        Jelikož se při měření rozměrů posuvným měřítkem neprojeví stochastické jevy, tak je možné usoudit, že: $u_A \approx 0$. Tudíž $u_C = \sqrt{u_A^2 + u_B^2} \approx u_C = u_B$.
+        
+        Nejistota objemu vzorku je tedy:
+        \begin{align*}
+            u_C[V] = &\sqrt{ \left( \dfrac{\partial V}{\partial a} \cdot u_C(a) \right)^2 + \left( \dfrac{\partial V}{\partial b} \cdot u_C(b) \right)^2 + \left( \dfrac{\partial V}{\partial h} \cdot u_C(h) \right)^2} \neweq
+            u_C[V] = &\sqrt{ \left( b \cdot h \cdot u_C(a) \right)^2 + \left( a \cdot h \cdot u_C(b) \right)^2 + \left( a \cdot b \cdot u_C(h) \right)^2 } \neweq
+            u_C[V] = &\sqrt{ \left( 1.159 \cdot 10^{-4} \cdot 7.212 \cdot 10^{-2} \right)^2 + \left(  1.730 \cdot 10^{-4} \cdot 7.212 \cdot 10^{-2} \right)^2 + \dots } \neweq
+            &\overline{\left( 1.510 \cdot 10^{-2} \cdot 7.212 \cdot 10^{-2} \right)^2}  \neweq
+            u_C[V] = &\sqrt{ \left( 4.076 \cdot 10^{-7}\right)^2 + \left(  6.115 \cdot 10^{-7} \right)^2 + \left(  6.115 \cdot 10^{-9} \right)^2 } \neweq
+            u_C[V] = &5.331\cdot 10^{-7} \text{ m$^3$}
+        \end{align*}
+
+        \begin{protocoltable}[Uncertainty budget pro určení objemu vzorku 5]{|C|C|C|C|}{ukol6-budget-objem}
+            \hline
+            Veličina & Hodnota & $\Delta_{MAX}$ & $\chi$ \\
+            \hline
+            $a$[m] & 0.1504 & $5 \cdot 10^{-5} $ m  & $\sqrt{2}$ \\
+            \hline
+            $b$[m] & 0.1003 &  $5 \cdot 10^{-5}$ m & $\sqrt{2}$\\
+            \hline
+            $h$[m] & 0.00115 &  $5 \cdot 10^{-5}$ m & $\sqrt{2}$\\
+            \hline
+            Veličina & $u_{A}$ & $\frac{\partial \rho}{\partial x_i}$ & $u_c$ \\
+            \hline
+            $a$[m] & 0 & $1.153 \cdot 10^{-4}$ m$^2$ & $4.076 \cdot 10^{-9}$ m$^3$\\
+            \hline
+            $b$[m] & 0 & $1.730 \cdot 10^{-4}$ m$^2$ & $6.115 \cdot 10^{-9}$ m$^3$\\
+            \hline
+            $h$[m] & 0 & $1.510 \cdot 10^{-2}$ m$^2$ & $5.331 \cdot 10^{-7}$ m$^3$\\
+            \hline
+            \multicolumn{2}{|c|}{$V = 1.734 \cdot 10^{-5}$ m$^3$} & \multicolumn{2}{c|}{$u_C = 5.331\cdot 10^{-7}$ m$^3$} \\
+            \hline
+        \end{protocoltable}
+
+        Aby bylo možné určit nejistotu objemové hustoty, tak je potřebné určit i nejistotu hmotnosti. 
+
+        Pro nejistotu typu A je nutné spočítat průměrnou hmotnost.
+        \begin{equation*}
+            \overline{m} = \dfrac{1}{n} \sum_{i = 0}^{n} m_i = \dfrac{1}{10} (0.03918 + \dots + 0.03917) = 0.03917\text{ kg}
+        \end{equation*}
+        Výpočet nejistoty typu A\cite{nejistoty}:
+        \begin{align*}
+            u_A[m] = &\sqrt{ \dfrac{1}{n(n-1)} \sum_{i = 0}^{n} (m_i - \overline{m})^2 } \neweq
+            u_A[m] = &\sqrt{ \dfrac{1}{10(10-1)} ((0.03918 - 0.03917)^2 + \dots + (0.03917 - 0.03917)^2) } \neweq
+            u_A[m] = &4.819 \cdot 10^{-6} \text{ kg}
+        \end{align*}
+        Výpočet nejistoty typu B\cite{nejistoty_prezentace}:
+        \begin{equation*}
+            u_B[m] = \dfrac{\Delta_m}{\chi} = \dfrac{0.01}{\sqrt{3}} = 5.774 \cdot 10^{-6} \text{ kg}
+        \end{equation*}
+        Výpočet nejistoty typu C\cite{nejistoty_prezentace}:
+        \begin{equation*}
+            u_C[m] = \sqrt{ u_A[m]^2 + u_B[m]^2  } = \sqrt{ (4.819 \cdot 10^{-6})^2 + (5.774 \cdot 10^{-6})^2 } = 7.520 \cdot 10^{-6} \text{ kg}
+        \end{equation*}
+
+        \pagebreak
+        Po určení nejistot potřebných pro výpočet můžeme určit nejistotu měření objemové hustoty $\rho$\cite{nejistoty}:
+        \begin{align*}
+            u_C[\rho] = &\sqrt{ \left( \dfrac{\partial \rho}{\partial V} \cdot u_C(V) \right)^2 + \left( \dfrac{\partial \rho}{\partial m} \cdot u_C(m) \right)^2} \neweq
+            u_C[\rho] = &\sqrt{ \left( \dfrac{-m}{V^2} \cdot u_C(V) \right)^2 + \left( \dfrac{1}{V} \cdot u_C(m) \right)^2  } \neweq
+            u_C[\rho] = &\sqrt{ \left( -1.303 \cdot 10^{8} \cdot 5.331\cdot 10^{-7} \right)^2 + \left( 5.767 \cdot 10^{4} \cdot 7.520 \cdot 10^{-6} \right)^2  } \neweq
+            u_C[\rho] = &\sqrt{ \left( -69.46  \right)^2 + \left( 0.4337 \right)^2  } = 69.46 \text{ kg$\cdot$m$^3$}
+        \end{align*}
+        Aby bylo možné uvádět výsledek s nejistotou, tak je nutné nejistotu vynásobit koeficientem rozšíření $k_r = 2$\cite{nejistoty_prezentace}.
+        \begin{equation*}
+            U[\rho] = k_r \cdot u_C[\rho] = 2 \cdot 69.46 = 138.9 \text{ kg$\cdot$m$^3$}
+        \end{equation*}
+        Nyní je nutné výsledek s nejistotou zaokrouhlit\cite{zaokrouhlovani}: 
+        \begin{equation*}
+            \rho = \rho \pm U[\rho] = (2259 \pm 138.9) \text{ kg$\cdot$m$^3$} \rightarrow \boxed{ \rho = (2260 \pm 140) \text{ kg$\cdot$m$^{-3}$}}
+        \end{equation*}
+
+        \begin{protocoltable}[Uncertainty budget pro určení objemové hustoty vzorku 5]{|C|C|C|C|}{ukol6-budget-hustota}
+            \hline
+            Veličina & Hodnota & $\Delta_{MAX}$ & $\chi$ \\
+            \hline
+            $V$[m$^3$] & $3.556 \cdot 10^{-5}$ & X & X \\
+            \hline
+            $m$[kg] & $3.917 \cdot 10^{-2}$  &  $1 \cdot 10^{-5}$ kg & $\sqrt{3}$\\
+            \hline
+            Veličina & $u_{A}$ & $\frac{\partial \rho}{\partial x_i}$ & $u_c$ \\
+            \hline
+            $V$[m$^3$] & 0 & $-1.303 \cdot 10^{8}$ kg & $-69.46$ kg$\cdot$m$^{-3}$ \\
+            \hline
+            $m$[kg] & $4.819 \cdot 10^{-6}$ kg & $5.767 \cdot 10^{4}$ m$^3$& $0.4337$ kg$\cdot$m$^{-3}$\\
+            \hline
+            \multicolumn{2}{|c|}{$\rho = 2259$ kg$\cdot$m$^{-3}$} & \multicolumn{2}{c|}{$u_C = 69.46 $ kg$\cdot$m$^{-3}$} \\
+            \hline
+        \end{protocoltable}
+    \subsection{Závěr}
+    Po vypočtení nejistoty je zřejmé, že je měření značně nepřesné a výsledek je po zaokrouhlení nutné uvádět jako $(2260 \pm 140) \text{ kg$\cdot$m$^{-3}$}$.
+
+    Z velké části je nejistota tvořená nejistotou měření tlouštky vzorku pomocí posuvného měřítka, jelikož chyba měřidla přímo řádově zasahuje do měřené hodnoty.\linebreak Pro přesnější měření je tedy nutné měřit rozměry přesnější metodou.
+
+\pagebreak
+
+% Ukol 7 - 
+\section{Úkol 7 - Závislost počtu pulzů na hustotě Cs-137}
+    Kapitola vychází ze zdroje \cite{navod}.
+    \subsection{Teoretický rozbor}
+    V přechozích měření byl využit $\beta$ zářič, který vyzařuje elektronové záření.
+
+    Pro následující měření byl využit $\gamma$ zářič, který vyzařuje $\gamma$ záření, které je podstatně pronikavější a škodlivější\cite{navod}.
+
+    Pokud je možné změřit četnost pulzů za minutu pro zadané vzorku, tak je podobně jako v úkolu 5 možné změřit hmotnostní koeficient útlumu $\mu_m$.
+    \subsection{Postup měření}
+        \begin{enumerate}
+            \item Vložení $\gamma$ zářiče do měřící polohy.
+            \item Změření rozměrů vzorků pomocí posuvného měřítka.
+            \item Změření hmotnosti každého vzorků pomocí precizní váhy.
+            \item Vložení vzorku do mezi zářič a GM trubici.
+            \item Změření počtu pulzů za minutu pro jednotlivé vzorky.
+            \item Zpracování dat a výpočet žádaných veličin. 
+        \end{enumerate}
+    \subsection{Naměřené hodnoty}   
+        \begin{protocoltable}[Naměřené počty pulzů za minutu při použití gamma zářiče pro určené vzorky]{|C|C|C|C|C|C|C|C|}{ukol7-mereni}
+            \hline
+            Vzorek & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+            \hline
+            $n$[min$^{-1}$] & 177 & 167 & 202 & 171 & 170 & 155 & 189 \\
+            \hline
+        \end{protocoltable}
+
+    
+    \subsection{Zpracované výsledky měření}
+    Veškeré hodnoty objemů, objemových hustot a plošných hustot byly převzaty z úkolu 5.
+        Po určení bodů charakteristiky byla pomocí programu MATLAB vynešena následující závislost:
+        \pagebreak
+        \printfigure[Graf závislosti pulzů za sekundu na plošné hustotě pro $\gamma$ zářič]{src/graf_7.png}{0.45}{sigma-gamma}
+
+        Exponenciální aproximace:
+        \begin{equation*}
+            n = 3.180 \cdot \text{e}^{-0.03027 \cdot \sigma} \rightarrow \boxed{\mu_m = 0.03027 \text{ m$^{-2} \cdot$s$^{-1}$}}
+        \end{equation*}
+
+        \begin{protocoltable}[Vypočtené objemy, plošné a objemové hustoty pro uvedené vzorky]{|C|C|C|C|C|C|C|C|}{ukol4-vypocty1}
+            \hline
+            Vzorek & 1 & 2 & 3 & 4  \\
+            \hline
+            $V$[m$^3$]&	$2.522 \cdot 10^{-6}$  & $3.738 \cdot 10^{-5}$ & $1.193 \cdot 10^{-5}$ & $1.734 \cdot 10^{-5}$ \\
+            \hline
+            $\rho$[kg$\cdot$m$^{-3}$] & $1.241 \cdot 10^{-3}$  & $1.321 \cdot 10^{3}$ & $1.677 \cdot 10^{3}$ & $2.306 \cdot 10^{3}$ \\
+            \hline
+            $\sigma$[kg$\cdot$m$^{-2}$] & 0.2482  & 3.304 & 1.677 & 2.652 \\
+            \hline
+            $n$[s$^{-1}$] & 2.950 &	2.783 & 3.367 & 2.850 \\	
+            \hline
+            \hline
+            Vzorek & 5 & 6 & 7 & X \\
+            \hline
+            $V$[m$^3$]& $3.556 \cdot 10^{-5}$ & $1.126 \cdot 10^{-4}$ & $5.297 \cdot 10^{-4}$ & X\\
+            \hline
+            $\rho$[kg$\cdot$m$^{-3}$] & $9.662 \cdot 10^{2}$ & $6.135 \cdot 10^{2}$ & $2.854 \cdot 10^{1}$ & X \\
+            \hline
+            $\sigma$[kg$\cdot$m$^{-2}$] & 3.382 & 6.933 & 1.106 & X \\
+            \hline
+            $n$[s$^{-1}$] & 2.833 & 2.583 & 3.150  & X \\
+            \hline
+        \end{protocoltable}
+    \subsection{Závěr}
+    Oproti $\beta$ zářiči byl $\gamma$ zářič méně aktivní, co se počtu pulzů GM trubice týče, nicméně $\gamma$ bylo mnohem méně tlumeno vzorky a počet impulzů byl pro všechny vzorky řádově stejný.
+
+    Tuto skutečnost potvrzuje i hodnota hmotnostního koeficientu útlumu, která vyšla $\mu_m = 0.03027 \text{ m$^{-2} \cdot$s$^{-1}$}$. 
+
+\pagebreak
+
+% Velký závěr
+\section{Závěr}
+    V úkolu č. 1 byla měřená hodnota ionizujícího záření v okolí bez a v přítomnosti $\beta$ žářiče. Hodnota záření, které jsme byli za měření vystaveni je 0.134 $\mu$Sv, což je za 3 hodiny, které měření trvalo bezpečné, nicméně je třeba vyhýbat se delšímu vystavení.
+
+    Pro úkol č. 2 byla měřena impulzová charakteristika GM trubice, kdy se pro různá napájecí napětí měřil počet pulzů GM trubice buzených $\beta$ zářičem. Délka plateau vycházela přibližně 200 V a její strmost $0.05\%$.
+
+    Určení mrtvé doby GM trubice vyšlo podobně pro metodu dvou zářičů i přímé změření osciloskopem, v obou případech přibližně 200 $\mu$s.
+
+    V úkolu 4 byl z proložení závislosti tloušťky stínící přepážky odečten součinitel zeslabení $\mu = 1035 \text{ m$^{-1}$}$ a byla spočtena polotoloušťka $6.7 \cdot 10^{-4}$ m.
+
+    Hmotnostní koeficient útlumu $\mu_m$ v úkolu číslo 5 vyšel $\mu_m = 0.6836 $ m$^{2}$ $\cdot$ kg$^{-1}$. Součinitel zeslabení v tomto úkolu vyšel menší, konkrétně $\mu = 848.4 \, \text{m}^{-1}$. Příčina rozdílu je pravděpodobně volba různých metod měření.
+    
+    Rozšířená zaokrouhlená nejistota objemu pro vzorek č. 4 vyšla $\pm 140 \text{ kg$\cdot$m$^{-3}$}$, což je přibližně 5$\%$ vypočtené hustoty vzorku. Největší přínos do nejistoty je měření tenkého vzorku posuvným měřítkem.
+
+    Při měření hmotnostního koeficientu pro $\gamma$ zářič vycházely počty pulzů GM trubice výrazně menší, ale díky průbojnosti záření bylo možné pozorovat podobný počet měřených impulzů na většině vzorků. Hmotnostní koeficient útlumu vyšel $\mu_m = 0.03027 \text{ m$^{-2} \cdot$s$^{-1}$}$, což je podstaně menší než pro $\beta$ zářič.
+
+\pagebreak
+
+
+% Seznam přístrojů
+\section{Seznam použitých přístrojů}
+    \begin{protocoltable}[Seznam použitých přístrojů]{|C|C|C|}{pristroje}
+        \hline
+        Přístroj & Typ & Inventární číslo  \\
+        \hline
+        Gamma Scout & Dozimetr & 081149 \\
+        \hline
+        Posuvné měřítko & Posuvné měřítko & COXT710416 \\
+        \hline
+        Siglent SDS 1102X+ & Digitální osciloskop  & SDS1XECQ2R0903 \\
+        \hline
+        EKS-4040-SL & Precizní váha & 2021404009 \\
+        \hline
+        Přípravky se snímači & Přípravky  & X \\
+        \hline
+    \end{protocoltable}
+
+\pagebreak
+
+% Reference
+\bibliography{ref}
+
+\end{document} % Konec dokumentu
