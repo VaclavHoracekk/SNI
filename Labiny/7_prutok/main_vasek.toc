@@ -1,0 +1,33 @@
+\babel@toc {czech}{}\relax 
+\contentsline {section}{Zadání}{4}{Doc-Start}%
+\contentsline {section}{Úkol 1 - Převodní charakteristiky průtokoměrů}{5}{Item.9}%
+\contentsline {subsection}{Teoretický rozbor}{5}{section*.1}%
+\contentsline {subsection}{Postup měření}{6}{equation.6}%
+\contentsline {subsection}{Naměřené hodnoty}{6}{Item.12}%
+\contentsline {subsection}{Zpracované výsledky měření}{6}{table.4}%
+\contentsline {subsection}{Závěr}{9}{figure.4}%
+\contentsline {section}{Úkol 2 - Tlaková ztráta průtokoměrů}{10}{figure.4}%
+\contentsline {subsection}{Teoretický rozbor}{10}{section*.2}%
+\contentsline {subsection}{Postup měření}{10}{section*.2}%
+\contentsline {subsection}{Naměřené hodnoty}{10}{Item.14}%
+\contentsline {subsection}{Zpracované výsledky měření}{11}{table.5}%
+\contentsline {subsection}{Závěr}{11}{figure.5}%
+\contentsline {section}{Úkol 3 - Tlaková diference clony}{12}{figure.5}%
+\contentsline {subsection}{Teoretický rozbor}{12}{section*.3}%
+\contentsline {subsection}{Postup měření}{12}{figure.6}%
+\contentsline {subsection}{Naměřené hodnoty}{12}{Item.16}%
+\contentsline {subsection}{Zpracované výsledky měření}{13}{table.6}%
+\contentsline {subsection}{Závěr}{13}{figure.7}%
+\contentsline {section}{Úkol 4 - Porovnání hodnot s výrobcem}{14}{figure.7}%
+\contentsline {subsection}{Teoretický rozbor}{14}{section*.4}%
+\contentsline {subsection}{Postup měření}{14}{equation.9}%
+\contentsline {subsection}{Zpracované výsledky měření}{14}{Item.18}%
+\contentsline {subsection}{Závěr}{15}{equation.11}%
+\contentsline {section}{Úkol 5 - Nejistota citlivosti}{16}{equation.11}%
+\contentsline {subsection}{Teoretický rozbor}{16}{section*.5}%
+\contentsline {subsection}{Postup měření}{16}{equation.12}%
+\contentsline {subsection}{Naměřené hodnoty}{16}{Item.22}%
+\contentsline {subsection}{Zpracované výsledky měření}{17}{table.8}%
+\contentsline {subsection}{Závěr}{19}{equation.27}%
+\contentsline {section}{Závěr}{20}{equation.27}%
+\contentsline {section}{Seznam použitých přístrojů}{21}{equation.27}%

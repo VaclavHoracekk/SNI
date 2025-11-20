@@ -1,0 +1,46 @@
+\babel@toc {czech}{}\relax 
+\contentsline {section}{Zadání}{3}{Doc-Start}%
+\contentsline {section}{Úkol 1 - Základní dozimetrická měření}{4}{Item.10}%
+\contentsline {subsection}{Teoretický rozbor}{4}{section*.1}%
+\contentsline {subsection}{Postup měření}{4}{Item.13}%
+\contentsline {subsection}{Naměřené hodnoty}{4}{Item.15}%
+\contentsline {subsection}{Zpracované výsledky měření}{5}{table.1}%
+\contentsline {subsection}{Závěr}{5}{table.2}%
+\contentsline {section}{Úkol 2 - Impulzová charakteristika GM trubice}{6}{table.2}%
+\contentsline {subsection}{Teoretický rozbor}{6}{section*.2}%
+\contentsline {subsection}{Postup měření}{6}{section*.2}%
+\contentsline {subsection}{Naměřené hodnoty}{6}{Item.19}%
+\contentsline {subsection}{Zpracované výsledky měření}{7}{table.3}%
+\contentsline {subsection}{Závěr}{7}{figure.1}%
+\contentsline {section}{Úkol 3 - Mrtvá doba GM trubice}{8}{figure.1}%
+\contentsline {subsection}{Teoretický rozbor}{8}{section*.3}%
+\contentsline {subsection}{Postup měření}{8}{equation.4}%
+\contentsline {subsection}{Naměřené hodnoty}{8}{Item.22}%
+\contentsline {subsection}{Zpracované výsledky měření}{9}{table.4}%
+\contentsline {subsection}{Závěr}{9}{figure.2}%
+\contentsline {section}{Úkol 4 - Vliv stínící přepážky}{10}{figure.2}%
+\contentsline {subsection}{Teoretický rozbor}{10}{section*.4}%
+\contentsline {subsection}{Postup měření}{10}{equation.9}%
+\contentsline {subsection}{Naměřené hodnoty}{10}{Item.25}%
+\contentsline {subsection}{Zpracované výsledky měření}{10}{table.5}%
+\contentsline {subsection}{Závěr}{11}{equation.10}%
+\contentsline {section}{Úkol 5 - Hmotnostní koeficient útlumu}{12}{equation.10}%
+\contentsline {subsection}{Teoretický rozbor}{12}{section*.5}%
+\contentsline {subsection}{Postup měření}{13}{equation.13}%
+\contentsline {subsection}{Naměřené hodnoty}{13}{Item.31}%
+\contentsline {subsection}{Zpracované výsledky měření}{13}{table.7}%
+\contentsline {subsection}{Závěr}{15}{table.8}%
+\contentsline {section}{Úkol 6 - Nejistota určení hustoty}{16}{table.8}%
+\contentsline {subsection}{Teoretický rozbor}{16}{section*.6}%
+\contentsline {subsection}{Postup měření}{16}{figure.5}%
+\contentsline {subsection}{Naměřené hodnoty}{17}{Item.36}%
+\contentsline {subsection}{Zpracované výsledky měření}{17}{table.10}%
+\contentsline {subsection}{Závěr}{19}{table.12}%
+\contentsline {section}{Úkol 7 - Závislost počtu pulzů na hustotě Cs-137}{20}{table.12}%
+\contentsline {subsection}{Teoretický rozbor}{20}{section*.7}%
+\contentsline {subsection}{Postup měření}{20}{section*.7}%
+\contentsline {subsection}{Naměřené hodnoty}{20}{Item.42}%
+\contentsline {subsection}{Zpracované výsledky měření}{20}{table.13}%
+\contentsline {subsection}{Závěr}{21}{table.14}%
+\contentsline {section}{Závěr}{22}{table.14}%
+\contentsline {section}{Seznam použitých přístrojů}{23}{table.14}%

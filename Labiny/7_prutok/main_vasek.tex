@@ -1,0 +1,635 @@
+\documentclass[fleqn]{protokol}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{environ}
+
+\usepackage[style=iso-numeric]{biblatex}
+\usepackage{csquotes}
+\addbibresource{ref.bib}
+%------------------- Zde vyplňte údaje -------------------------------
+\autor{Václav Horáček}
+\autorID{256296}
+\autorr{Jan Holík}
+\autorrID{256295}
+\rocnik{3}
+\merenodne{4.\,11.\,2025}
+\nazev{Měření průtoku vzduchu}
+\predmet{Snímače}
+\teplota{23.6}
+\tlak{994.8}
+\vlhkost{35.1}
+%=====================================================================
+
+\newcommand{\neweq}{\\[0.8ex]}
+
+\begin{document}
+
+\maketitle                  % Vygeneruje titulní stránku podle vyplněných údajů
+\tableofcontents\newpage   % Vygeneruje obsah
+%------------------- Zde začíná samotný dokument ---------------------
+
+% command pro psani promennych k rovnicim
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}-{}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
+
+
+% Uprava tabulek
+\def\arraystretch{1.3}
+\setlength{\headheight}{15pt}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+% FUNKCE PRO GENEROVANI TABULEK 
+%   1. argument popisek
+%   2. argument format
+%   3. argument label
+%   Do tela psat data a \hline
+\NewEnviron{protocoltable}[3][Tabulka]{%
+    \begin{table}[!h]
+        \centering
+        \caption{#1}\label{tab:#3}
+        \vspace{0.3cm}
+        \begin{tabularx}{\textwidth}{#2}
+            \BODY
+        \end{tabularx}
+    \end{table}
+}
+
+% FUNKCE PRO TISK OBRAZKU
+%  1. argument titulek
+%  2. argument cesta napr. src\neco.png
+%  3. argument scale - velikost rozsah 0.0-1.0
+%  4. argument label
+\newcommand{\printfigure}[4][Obrazek]{%
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=#3]{#2}
+        \caption{#1}
+        \label{obr:#4}
+    \end{figure}
+}
+
+
+\section{Zadání}\label{kap:zadani}
+    \begin{enumerate}
+         \item Pro různé snímače průtoku:
+         
+         \begin{enumerate}
+            \item škrtící člen (clona) o průměru 12 mm,
+            \item vírový průtokoměr (vortex) \textbf{EGGS DELTA PULSE} FLP15-G2PA,
+            \item termoanemometr \textbf{IST FS5.A}
+            \item a kalorimetrický průtokoměr \textbf{HONEYWELL AWM 720P1}.
+         \end{enumerate}
+        
+        \begin{itemize}
+            \item Změřte převodní charakteristiku $vystup \_ snimace = f(prutok)$, vyneste ji do grafu a vyberte vhodný trend podle očekávané závislosti.
+            \item Paralelně s měřením převodní charakteristiky proměřte i tlakovou ztrátu snímačů, viz bod zadání 2.
+            \item Stanovte citlivost a porovnejte ji s katalogovým údajem.
+            \item Porovnejte měřený rozsah s pracovní oblastí snímače dle specifikace výrobce. Jako referenční měřidlo použijte plováčkový průtokoměr \textbf{KROHNE VA-40}. Proměření tlakového rozdílu u clony použijte tlakoměr \textbf{GREISINGER GDH 200-07}.
+        \end{itemize}
+           
+        \item Změřte tlakovou ztrátu na všech snímačích (včetně referenčního) v závislosti na průtoku měřičem diferenčního tlaku \textbf{ROSEMOUNT 3051C} a vyneste ji do společného grafu.
+        \item U snímače se škrtícím členem (clony) změřte průběh tlakového rozdílu v závislosti na vzdálenosti od clony.
+        \item Porovnejte hodnoty naměřené jednotlivými snímači s katalogovými údaji.
+        \item U snímače \textbf{EGGS DELTA PULSE} stanovte citlivost ze dvou měřených bodů a~to včetně nejistoty.
+    \end{enumerate}
+
+\pagebreak 
+
+% Ukol 1 - 
+\section{Úkol 1 - Převodní charakteristiky průtokoměrů}
+    Kapitola vychází ze zdroje \cite{navod}.
+       \subsection{Teoretický rozbor}
+       V tomto úkolu je měřená převodní charakteristika několika typů průtokoměrů. Měření průtoků kapalin je zcela zásadní pro dávkování, pneumatické/hydraulické obvody a další úlohy v průmyslu.
+       
+       Objemový průtok $Q$ se~definuje jako~časová změna objemu $V$ na~času $t$ a~jeho jednotka je~[m$^3\cdot$s$^{-1}$]. Při~rychlém pohledu na~jednotky si~lze objemový průtok představit i~jako rychlost média protékající skrz element plochy $A$ [m$^2$]. 
+       \begin{equation}
+            Q = \dfrac{dV}{dt} \quad[\text{m}^3\cdot \text{s}^{-1}]
+       \end{equation}
+       Tato rychlost se~nazývá rychlost proudění a~ve~vektorové formě bývá~literatuře uváděna jako~$\overrightarrow{u}$, nicmémě ve~zjednodušených případech se~může uvádět jako rychlost v~jednom směru $v$ [m$\cdot$s$^{-1}$].
+        \begin{equation}
+            Q = A \cdot v \quad[\text{m}^3\cdot \text{s}^{-1}; \text{m}^2, \text{m}\cdot\text{s}^{-1}]
+       \end{equation}
+       Je možné definovat i hmotnostní průtok $Q_m$, který vyjadřuje časovou změnu hmotnosti média.\cite{navod}
+       \begin{equation}
+            Q_m = \rho \cdot Q = \rho \cdot A \cdot v \quad[\text{kg}\cdot\text{s}^{-1};\text{m}^{-3}\cdot \text{kg}, \text{m}^2, \text{m} \cdot \text{s}^{-1}]
+       \end{equation}
+
+       Díky charakteru úlohy je nutné vzít v potaz stavovou rovnici ideálního plynu:
+       \begin{equation}
+            pV = nRT \Rightarrow \dfrac{p_1V_1}{T_1} = \dfrac{p_2V_2}{T_2}
+       \end{equation}
+
+        Při pohledu na rovnici lze určit, že pro znalost objemu plynu je potřeba znát jeho tlak $P$ a~teplotu $T$.
+
+        Principy průtokoměrů jsou různé např. \textit{škrtící člen}(clona) vytváří tlakový pokles úměrný druhé mocnině rychlosti proudění:
+        \begin{equation}
+            v = k \sqrt{\dfrac{2 \Delta p}{\rho}} \quad [\text{m} \cdot \text{s}^{-1}; \text{Pa}, \text{m}^{-3}\cdot \text{kg}]
+       \end{equation}
+       Kde $k$ je konstanta závislá na geometrii clony.
+
+       Další možnost měření průtoku, resp. rychlosti proudění je vírový průtokoměr, který využívá tvoření tzv. \textbf{Karmánových vírů}. 
+
+       Tyto víry v médiu vznikají při srážce s tenkou překážkou a jejich frekvence odtrhávání je možná vyjádřit jako:
+       \begin{equation}
+            f = Sr\dfrac{v}{a}
+       \end{equation} 
+       Kde $Sr$ je Strouhalovo číslo, $v$ je rychlost proudění [m$\cdot$s$^{-1}$] a $a$ [m] je tloušťka překážky.
+    
+       Lze měřit i hmotnostní průtok a pro tento úkol lze využít termoanemometr, který pracuje na změně odporu ohříváním čidla. Výstup snímače je proud, kterým se regulátor vyrovnat rozdíl mezi dvěma měřícími odpory. Ohřev je způsoben viskózním třením a výstupní proud je závislý na rychlost proudění média, které se tře o trubici. Snímač má nízké tlakové ztráty. 
+
+       Poslední zkoumaný princip v úloze je~kalorimetrický průkokoměr, kdy se využívá přímé úměry rozdílu teplot mezi dvěma tepelnými čidly a rychlosti proudění. Tento princip lze použít pro malé průtoky a~lze velice jednoduše zjistit směr proudění. 
+
+    \subsection{Postup měření}
+        \begin{enumerate}
+        \item Pomocí snímače KHRONE VA-40 byla nastavena požadovaná hodnota průtoku.
+        \item Změřili se hodnoty výstupního signálu prvního snímače pro jedenáct průtoků.
+        \item To se provedlo pro všechny snímače.
+    \end{enumerate}
+    \subsection{Naměřené hodnoty}   
+
+        \begin{protocoltable}[Naměřené úbytky tlaku clony v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-clona}
+            \hline
+            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 & 140 & 160 & 180 & 200 & 220\\
+            \hline
+            $P$[Pa] & 11 & 41 & 86 & 164 & 261 & 380 & 515 & 677 & 861 & 1069 & 1300 \\
+            \hline
+            $T$[$^\circ$C] & 24.2 & 24.6 & 24.9 & 25.3 & 25.7 & 26.0 & 26.5 & 26.9 & 27.2 & 27.6 & 28.4 \\
+            \hline
+        \end{protocoltable}
+
+        \begin{protocoltable}[Naměřené frekvence vírového průtokoměru EGGS v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-vir}
+            \hline
+            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
+            \hline
+            $f$[Hz] & 0 & 22.82 & 49.92 & 60.24 & 73.70 & 87.79 \\
+            \hline
+            $T$[$^\circ$C] & 26.8 & 27.1 & 27.3 & 27.6 & 27.8 & 28.4  \\
+            \hline
+            \hline
+            $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
+            \hline
+            $f$[Hz] & 102.4 & 116.6 & 131.3 & 147.0 & 156.2 & X\\
+            \hline
+            $T$[$^\circ$C] & 28.8 & 29.1 & 29.5 & 30.0 & 30.4 & X \\
+            \hline
+        \end{protocoltable}
+
+        \begin{protocoltable}[Naměřené napětí termoanemometru IST v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-term}
+            \hline
+            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
+            \hline
+            $U$[V] & 4.335 & 4.555 & 4.732 & 4.929 & 4.995 & 5.084  \\
+            \hline
+            \hline
+            $T$[$^\circ$C] & 26.2 & 26.5 & 26.9 & 27.2 & 27.6 & 27.0  \\
+            \hline
+            \hline
+             $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
+            \hline
+            $U$[V] & 5.156 & 5.217 & 5.274 & 5.433 & 5.372 & X\\
+            \hline\hline
+            $T$[$^\circ$C] & 27.5 & 27.9 & 28.6 & 29.2 & 29.7 & X  \\
+            \hline
+        \end{protocoltable}
+
+        \begin{protocoltable}[Naměřené napětí kalorimetrického průtokoměru Honeywell v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-kal}
+            \hline
+            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
+            \hline
+            $U$[V] & 2.456 & 3.124 & 3.632 & 3.996 & 4.167 & 4.323 \\
+            \hline
+            $T$[$^\circ$C] & 25.4 & 25.7 & 26.1 & 26.4 & 26.8 & 27.1  \\
+            \hline
+            \hline
+            $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
+            \hline
+            $U$[V] & 4.412 & 4.490 & 4.550 & 4.600 & 4.633 & X\\
+            \hline
+            $T$[$^\circ$C] & 27.5 & 27.8 & 28.1 & 28.6 & 29.1 & X \\
+            \hline
+        \end{protocoltable}
+    
+    \subsection{Zpracované výsledky měření}
+    Převodní charakteristika v souhlasu s teorií kvadratická. Interpolaci měřených bodů lze vyjádřit rovnicí:
+        \begin{equation*}
+            \Delta p = f(Q) = 0.02772 \cdot Q^2  - 0.2096 \cdot Q + 2.65 
+        \end{equation*}
+    Z toho lze určit citlivost pro pracovní průtok $Q$:
+        \begin{equation*}
+            K =\dfrac{df(Q)}{dQ} = 0.05544 \cdot Q - 0.2096 \text{\cite{vypocty}}
+        \end{equation*}
+        \printfigure[Převodní charakteristika clony]{src/prevod_clon.png}{0.33}{ukol1-clona}
+
+    Pro vírový průtokoměr je dle předpokladů převodní charakteristika lineární a regresi měřených bodů lze vyjádřit jako:
+        \begin{equation*}
+            f = f(Q) = 0.7597 \cdot Q - 5.154 
+        \end{equation*}
+    Z rovnice lze určit citlivost snímače K:
+        \begin{equation*}
+            K =\dfrac{df(Q)}{dQ} = 0.7597 \text{ Hz} \cdot \text{m}^{-3} \cdot \text{min}^{-1} 
+        \end{equation*}
+        \printfigure[Převodní charakteristika vírového průtokoměru EGGS]{src/prevod_vir.png}{0.33}{ukol1-vir}
+
+     Měřená data pro termoanemometr odpovídají logaritmu a regresi měřených bodů lze vyjádřit jako:
+        \begin{equation*}
+            U = f(Q) = 0.4774 \cdot \ln(Q) - 2.813
+        \end{equation*}
+     Z rovnice lze určit citlivost snímače K:
+        \begin{equation*}
+            K =\dfrac{df(Q)}{dQ} =   \dfrac{0.4774}{Q} \text{ V} \cdot \text{m}^{-3} \cdot \text{min}^{-1} 
+        \end{equation*}
+        \printfigure[Převodní charakteristika termoanemometru IST]{src/prevod_termo.png}{0.33}{ukol1-term}
+
+    Při měření převodní charakteristiky kalorimetrického průkokoměru se data uspořádala do logaritmické funkce a regresi těchto dat je možné vyjádřit ve tvaru: 
+        \begin{equation*}
+            U = f(Q) = 0.9564 \cdot \ln(Q) - 0.3625
+        \end{equation*}
+    Z toho lze určit citlivost pro pracovní průtok $Q$:
+        \begin{equation*}
+            K =\dfrac{df(Q)}{dQ} =  \dfrac{0.9564}{Q} \text{ V} \cdot \text{m}^{-3} \cdot \text{min}^{-1} 
+        \end{equation*}
+        \printfigure[Převodní charakteristika kalorimetrického průtokoměru Honeywell]{src/prevod_kal.png}{0.33}{ukol1-kal}
+
+    \subsection{Závěr}
+    Převodní charakteristika clony vyšla jako kvadratická a měřenými body prochází přesně. Pro vírový průtkoměr vychází převodní charakteristika lineární a jeho citlivost vychází $K = 0.7597 \text{ Hz} \cdot \text{m}^{-3} \cdot \text{min}^{-1}$. Termoanemometr má podobně jako vírový "lineární" převodní charakteristiku a jeho citlivost vychází $K = 0.005046 \text{ V} \cdot \text{m}^{-3} \cdot \text{min}^{-1}$. Pro kalorimetrický průtokoměr vychází převodní charakteristika logarimická a jeho citlivost jze určit vždy jenom pro pracovní průtok.
+\pagebreak
+
+% Ukol 2 - 
+\section{Úkol 2 - Tlaková ztráta průtokoměrů}
+    \subsection{Teoretický rozbor}
+        Každý průtokoměr vykazuje jisté tlakové ztráty. Cílem této úlohy bylo určit jejich změny v závislosti na průtoku.
+   
+    \subsection{Postup měření}
+        \begin{enumerate}
+            \item Pomocí snímače KHRONE VA-40 byla nastavena požadovaná hodnota průtoku.
+            \item Změřily se hodnoty tlakové ztráty snímačů pomocí ROSEMOUNT 3051C.
+        \end{enumerate}
+    \subsection{Naměřené hodnoty}   
+  
+         \begin{protocoltable}[Naměřené úbytky tlaků průtokoměrů v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol2}
+            \hline
+            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
+            \hline
+            $I_{PLOV}$[mA] & 11.94 & 11.99 & 12.02 & 12.10 & 12.22 & 12.40  \\
+            \hline
+            $I_{CLON}$[mA] & 3.996 & 4.160 & 4.463 & 4.882 & 5.516 & 6.227 \\
+            \hline
+            $I_{VIR}$[mA] & 4.040 & 4.323 & 4.805 & 5.458 & 6.361 & 7.396  \\
+            \hline
+            $I_{KAL}$[mA] & 4.014 & 4.148 & 4.353 & 4.641 & 4.944 & 5.356 \\
+            \hline
+            \hline
+            $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
+            \hline
+            $I_{PLOV}$[mA] & 12.61 & 12.87 & 13.19 & 13.56 & 15.01 & X \\
+            \hline
+            $I_{CLON}$[mA] & 7.033 & 8.017 & 9.096 & 10.27 & 11.64 & X \\
+            \hline
+            $I_{VIR}$[mA] & 8.672 & 10.04 & 11.66 & 13.32 & 15.38 & X \\
+            \hline
+            $I_{KAL}$[mA] &  5.765 & 6.263 & 6.764 & 7.346 & 8.006 & X \\
+            \hline
+        \end{protocoltable}
+        \begin{itemize}
+            \item $Q$ = 200 NL$\cdot$min$^{-1}$
+        \end{itemize}
+    \pagebreak
+    \subsection{Zpracované výsledky měření}
+        \printfigure[Pokles tlaku průtokoměrů na referenčním průtoku]{src/tlaky.png}{0.33}{ukol2}
+    \subsection{Závěr}
+        Většina senzorů vykazuje kvadratický nárůst tlakové ztráty na referenčním průtoku. Nejvyšší tlakové ztráty konzistentně vykazuje plováčkový průtokoměr a nejmenší kalorimetrický průtokoměr.
+
+\pagebreak
+
+% Ukol 3 - 
+\section{Úkol 3 - Tlaková diference clony}
+
+    \subsection{Teoretický rozbor}
+    Clona ve své podstatě vytvoří tlakovou diferenci mezi oblastí před clonou a za clonou. Tato diference je určená geometrií clony a jejím průměrem. Očekávaný průběh je nízký konstantní tlak před clonou a po překročení clony se očekává prudký nárůst tlakové diference a její psotupný pokles s narůstající vzdáleností od clony.
+   
+    \printfigure[Pozice pro hadičky tlakoměru na měřící trubici se clonou]{src/trubice.png}{0.5}{ukol3-trubice}
+    \subsection{Postup měření}
+        \begin{enumerate}
+            \item Nastavil se průtok na konstantní hodnotu pomocí KROHNE VA-40.
+            \item Byl změřen průběh tlakového rozdílu v závislosti na vzdálenosti od clony.
+        \end{enumerate}
+    \subsection{Naměřené hodnoty}   
+  
+        \begin{protocoltable}[Naměřené úbytky tlaku clony v závislosti na pozici hadičky tlakoměru na trubici]{|c|C|C|C|C|C|C|C|C|C|C|}{ukol3}
+            \hline
+            $n[]$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+            \hline
+            $P$[Pa] & 12 & 18 & 4 & 1110 & 1105 & 1084 & 1032 & 794 & 702 & 695 \\
+            \hline
+        \end{protocoltable}
+
+    \pagebreak
+    \subsection{Zpracované výsledky měření}
+
+        \printfigure[Pokles tlaku clony v závislosti na pozici hadičky diferenčního tlakoměru\cite{navod}]{src/trubice_tlaky.png}{0.33}{ukol3}
+
+    \subsection{Závěr}
+
+    Změřená charakteritika odpovídá teoretickým předpokladům. Kmitání měřených tlaků na nízkých hodnotách je způsobeno nepřesností tlakoměru.
+
+\pagebreak
+
+% Ukol 4 - 
+\section{Úkol 4 - Porovnání hodnot s výrobcem}
+
+        \subsection{Teoretický rozbor}
+
+    \textbf{Převody mezi LPM, SLPM a NLPM:}\cite{navod}
+
+    \begin{equation}
+    SLPM = LPM \cdot \frac{294.26}{T_{gas}} \cdot \frac{P_{gas}}{14.696}
+    \end{equation}
+
+    \begin{equation}
+    NLPM = LPM \cdot \frac{273.15}{T_{gas}} \cdot \frac{P_{gas}}{14696}
+    \end{equation}
+
+    Z toho odvodíme:
+
+    \begin{equation}
+    \dfrac{SLPM}{NLPM} = \dfrac{294.26}{273.15}
+    \end{equation}
+
+
+    
+    \subsection{Postup měření}
+    \begin{enumerate}
+        \item Byly naměřeny hodnoty jednotlivými snímači.
+        \item Tyto naměřené hodnoty byly porovnány s katalogovými údaji.
+    \end{enumerate}  
+    \subsection{Zpracované výsledky měření}
+
+    \begin{flushleft}
+    \textbf{GREISINGER GDH 200-07:}
+    \end{flushleft}
+
+    \begin{flushleft}
+    Přístroj má měřicí rozsah 0 - 1999 Pa (přibližně 0 až 19,99 mbar). Námi naměřené hodnoty nabývají 11 až 1300 Pa. Z toho lze usoudit, že měřicí rozsah přístroje je dostačující pro naše měření\cite{greisinger_gdh200}.
+    \end{flushleft}
+
+    \begin{flushleft}
+    \textbf{EGGS DELTA PULSE FLP15-G2PA:}
+    \end{flushleft}
+
+    \begin{equation}
+         LPM = NLPM \cdot \frac{T_{gas}}{273,15} \cdot \frac{14,696}{P_{gas}} = 22.5 \cdot \frac{297.35}{273.15} \cdot \frac{14.696}{14.427} = 25\text{ l/min}
+    \end{equation}
+
+    \begin{flushleft}
+    Kalibrace námi používaného přístroje byla provedena pro údaje uvedené v datasheetu pro nominální velikost 15 mm. Pro tuto nominální hodnotu bylo z datasheetu zjištěno, že rozsah měření je 55 - 283 l/min. Z toho lze poochopit proč při průtoku 22,5 Nl/min (25 l/min) byla získaná nulová frekvence. Obecně pro nízké hodnoty průtoku byla zobrazovaná hodnota frekvence velmi nestabilní. Maximální hodnota frekvence ze snímače by měla být při maximálním průtoku rovna 200 Hz. My se ale nejsme schopni dostat na tuto frekvenci, jelikož jsme limitováni maximální hodnotou, kterou jsme schopni nastavirt na našem referenčním měřidle\cite{oval_eggs_delta}.
+    \end{flushleft}
+
+    \begin{flushleft}
+    \textbf{IST FS5.A:}
+    \end{flushleft}
+
+    \begin{flushleft}
+    Z datasheetu lze vyčíst, že výstupní napětí přístroje nabývá 2,7 - 6 V. Námi naměřené hodnoty napětí se pohybují v rozmezí 4,335 - 5,433 V a leží tedy v měřicím rozsahu přístroje. V grafu v datasheetu je vidět, že s rostoucí rychlostí proudění má logarimicky narůstat i výstupní napětí. Toto chování je patrné i z našich naměřených hodnot, kde hodnoty napětí zpočátku rostou rychle a poté se růst zpomaluje. Jedinou výjimkou je hodnota při průtoku 220 Nl/min, kdy hodnota napětí klesne. To bude patrně chyba měření\cite{ist_fs5}.
+    \end{flushleft}
+
+    \begin{flushleft}
+    \textbf{HONEYWELL AWM 720P1:}
+    \end{flushleft}
+
+    \begin{equation}
+        SLPM = NLPM \cdot \dfrac{294.26}{273.15} = 220 \cdot 1.077 = 237 \text{ SLPM}
+    \end{equation}
+
+    \begin{flushleft}
+    Senzor je kalibrován pro maximální průtok 200 SLPM. My měříme až na hodnotě 220 NLPM (237 SLPM). Proto hodnoty nad 200 SLPM nejsou zaručeně správné. Z charakteristky v datasheetu lze usoudit že výstupní napětí senzoru roste s rostoucím průtokem logaritmicky. Toto chování je patrné i z našich naměřených hodnot, kde hodnoty napětí zpočátku rostou rychle a poté se růst zpomaluje\cite{honeywell_awm720}.
+    \end{flushleft}
+
+    \begin{flushleft}
+    \textbf{KROHNE VA-40:}
+    \end{flushleft}
+
+    \begin{flushleft}
+    Námi naměřená ztráta tlaku se pohybuje od 1000 - 1400 Pa. Maximální tlaková ztráta je 800 Pa, což neodpovídá naměřeným hodnotám\cite{krohne_va40}.
+    \end{flushleft}
+
+    \begin{flushleft}
+    \textbf{ROSEMOUNT 3051C:}
+    \end{flushleft}
+
+    \begin{flushleft}
+    Přístroj má pracovní pásmo 4 - 20 mA. Všechny námi naměřené hodnoty leží v tomto pásmu\cite{rosemount3051}. 
+    \end{flushleft}
+ 
+    \subsection{Závěr}
+    Naměřené hodnoty jednotlivými snímači byly porovnány s katalogovými údaji. Všechny naměřené hodnoty leží v měřicím rozsahu jednotlivých přístrojů.
+
+\pagebreak
+
+
+% Ukol 5 - 
+\section{Úkol 5 - Nejistota citlivosti}
+    Kapitola vychází ze zdrojů \cite{nejistoty}, \cite{nejistoty_prezentace} a \cite{zaokrouhlovani}.
+    \subsection{Teoretický rozbor}
+    Vírový průtokoměr využívá Kármánových vírů, které vznikají při obtékání tělesa neproudnicového tvaru, umístěného kolmo na směr proudění.
+    Jejich frekvenci lze vyjádřit vztahem:
+
+    \begin{equation}
+        f = \dfrac{Sr}{a} v
+    \end{equation}
+
+    \subsection{Postup měření}
+    \begin{enumerate}
+        \item Průtok se nastavil na 100 Nl/min.
+        \item Bylo změřeno deset hodnot frekvence $f_{1}$.
+        \item Průtok se nastavil na 150 Nl/min.
+        \item Bylo změřeno deset hodnot frekvence $f_{2}$.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}   
+
+    \begin{protocoltable}[Deset maměřených hodnot frekvence pro Q = 100 Nl/min]{|C|C|C|C|C|C|}{res1}
+        \hline
+        Měření & 1 & 2 & 3 & 4 & 5   \\ \hline
+        $f_{1}$[Hz] & 74.91 & 74.84 & 75.05 & 74.99 & 74.88  \\ \hline
+        \hline
+        Měření & 6 & 7 & 8 & 9 & 10    \\ \hline
+        $f_{1}$[Hz] & 74.92 & 74.76 & 74.82 & 74.88 &  74.87 \\  \hline
+    \end{protocoltable}
+
+     \begin{protocoltable}[Deset maměřených hodnot frekvence pro Q = 150 Nl/min]{|C|C|C|C|C|C|}{res1}
+        \hline
+        Měření & 1 & 2 & 3 & 4 & 5   \\ \hline
+        $f_{2}$[Hz] & 110,0 & 109,5 & 109,7 & 109,9 & 109,8  \\ \hline
+        \hline
+        Měření & 6 & 7 & 8 & 9 & 10    \\ \hline
+        $f_{2}$[Hz] & 109,7 & 109,7 & 109,9 & 110,0 &  109,9 \\  \hline
+    \end{protocoltable}
+
+    \pagebreak
+
+    \subsection{Zpracované výsledky měření}
+
+        Vypočítáme průměry naměřených frekvencí:
+
+\begin{equation}
+\begin{aligned}
+\overline{f_{1}} 
+    &= \dfrac{1}{10} \sum_{i=1}^{10} f_{1i} = \\
+    &= \dfrac{74.91 + 74.84 + 75.05 + 74.99 + 74.88 + 74.92 + 74.76 + 74.82 + 74.88 + 74.87}{10} = \\
+    &= 74.89 \text{ Hz}
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+    \overline{f_{2}} = 109.8 \text{ Hz}
+\end{equation}
+
+
+\begin{flushleft}
+Výpočet nejistoty typu A:    
+\end{flushleft}
+
+\begin{equation}
+    u_{A}(x) = \sqrt{\dfrac{\sum_{i=1}^{n}(x_{i}-\overline{x})^{2}}{n(n-1)}}  
+\end{equation}
+
+\begin{equation}
+    u_{A}(f_{1}) = \sqrt{\dfrac{\sum_{i=1}^{10}(f_{1i}-\overline{f_{1}})^{2}}{10(10-1)}} = 0.026 \text{ Hz}
+\end{equation}
+
+\begin{equation}
+    u_{A}(f_{2}) = 0.05 \text{ Hz}
+\end{equation}
+
+\begin{flushleft}
+Výpočet nejistoty typu B:    
+\end{flushleft}
+
+\begin{equation}
+    u_{B}(x) = \dfrac{u_{B0}}{\chi }
+\end{equation}
+
+\begin{flushleft}
+Z katalogu snímače byla vyčtena chyba přesnosti 3 \% a rozsah frekvence 200 Hz:    
+\end{flushleft}
+
+\begin{equation}
+    u_{B}(f_{1}) = \dfrac{\Delta{f_{1max}}}{\chi } = \dfrac{0.03 \cdot 200}{\sqrt{3}} = 3.464 \text{ Hz} = u_{B}(f_{2})
+\end{equation}
+
+\begin{flushleft}
+Výpočet kombinované nejistoty C:    
+\end{flushleft}
+
+\begin{equation}
+    u_{C}(x) = \sqrt{u_{A}^{2}(x) + u_{B}^{2}(x)}
+\end{equation}
+
+\begin{equation}
+    u_{C}(f_{1}) = \sqrt{u_{A}^{2}(f1) + u_{B}^{2}(f1)} = \sqrt{0.026^{2} + 3.464^{2}} = 3.464 \text{ Hz}
+\end{equation}
+
+\begin{equation}
+    u_{C}(f_{2}) = 3.464 \text{ Hz}
+\end{equation}
+
+
+\begin{flushleft}
+Vypočet citlivosti (směrnice přímky) z průměru naměřených hodnot pro oba průtoky:
+\end{flushleft}
+
+\begin{equation}
+    \overline{K} =  \dfrac{\overline{f_{2}}-\overline{f_{1}}}{Q_{2}-Q_{1}} = \dfrac{109.8 - 74.89}{150 - 100} = 0.698 \dfrac{Hz}{Nl/min}
+\end{equation}
+
+
+\begin{flushleft}
+Výpočet nejistoty nepřímého měření:
+\end{flushleft}
+
+\begin{equation}
+    u_{y} = \sqrt{\left(\dfrac{\partial y}{\partial x_{1}} \cdot u_{x1}\right)^{2} + \left(\dfrac{\partial y}{\partial x_{2}} \cdot u_{x2}\right)^{2} + ... + \left(\dfrac{\partial y}{\partial x_{n}} \cdot u_{xn}\right)^{2}}
+\end{equation}
+
+
+
+
+\begin{equation}
+\begin{aligned}
+    u_{K} 
+    &= \sqrt{\left(\dfrac{\partial \overline K}{\partial f_{1}} \cdot u_{C}(f_{1})\right)^{2} + \left(\dfrac{\partial \overline K}{\partial f_{2}} \cdot u_{C}(f_{2})\right)^{2}} = \sqrt{\left(\dfrac{-1}{Q_{2}-Q_{1}} \cdot u_{C}(f_{1})\right)^{2} + \left(\dfrac{1}{Q_{2}-Q_{1}} \cdot u_{C}(f_{2})\right)^{2}} \\
+    &= \sqrt{\left(\dfrac{-1}{150-100} \cdot 3.464\right)^{2} + \left(\dfrac{1}{150-100} \cdot 3.464\right)^{2}} = 0.098 \dfrac{Hz}{Nl/min}
+\end{aligned}
+\end{equation}
+
+\begin{flushleft}
+Výpočet rozšířené nejistoty:
+\end{flushleft}
+
+\begin{equation}
+    U_{K} = u_{K} \cdot k = 2 \cdot 0.098 = 0.196 \dfrac{Hz}{Nl/min}
+\end{equation}
+
+\begin{equation}
+    K = (0.698 \pm 0.196) \dfrac{Hz}{Nl/min}
+\end{equation}
+
+
+\subsection{Závěr}
+V prvním úkolu byly naměřeny převodní charakteristiky čtyř různých snímačů průtoku a byly vyneseny do grafů. Následně byla stanovena citlivost a porovnána s katalogovými údaji. Převodní charakteristika clony vyšla jako kvadratická. Převodní charakteristika vírového průtokoměru vyšla lineární a citlivost vyšla K = 0.7597 Hz$\cdot$$m^{-3}\cdot$$min^{-1}$. Převodní charakteristika termoanemometru má logaritmický charakter. Převodní charakteristika kalorimetrického průtokoměru má logaritmický charakter.
+
+Ve druhém úkolu byla změřena talková ztráta na všech snímačích v závislosti na průtoku měřičem diferenčního tlaku ROSEMOUNT 3051C a tyto závislosti byly vyneseny do grafu. Nejvyšší tlakové ztráty má plováčkový průtokoměr a nejmnižší má kalorimetrický průtokoměr.
+
+Ve třetím úkolu byl u snímače se škrtícím členem změřen průběh tlakového rozdílu v závislosti na vzdálenosti od clony. Změřená charakteristika odpovídá teoretickým předpokladům. Kmitání tlaku při nízkých hodnotách je zapříčiněno nepřesností tlakoměru.
+
+Ve čtvrtém úkolu byly naměřené hodnoty jednotlivými snímači porovnány s katalogovými údaji. Všechny naměřené hodnoty leží v měřicím rozsahu jednotlivých přístrojů. Jedinou výjimkou je hodnota při průtoku 220 Nl/min, kdy hodnota napětí klesne. To byla patrně chyba měření. 
+
+V pátém úkolu bylo naměřeno dvakrát deset hodnot frekvence. Z těchto hodnot se vypočetl průměr a citlivost snímače EGGS DELTA PULSE. Nakonec byla vypočtena nejistota \( K = (0.698 \pm 0.196) \dfrac{Hz}{Nl/min} \).
+\pagebreak
+
+
+% Velký závěr
+\section{Závěr}
+
+\pagebreak
+
+
+% Seznam přístrojů
+\section{Seznam použitých přístrojů}
+    \begin{protocoltable}[Seznam použitých přístrojů]{|C|C|C|}{pristroje}
+        \hline
+        Typ & Přístroj & Inventární číslo  \\
+        \hline
+        Multimetr & UNI-T UT804 & SN. 6100019215 \\
+        \hline
+        Multimetr & UNI-T UT804 & SN. 6100019198 \\
+        \hline
+        Digitální osciloskop  &  Siglent SDS1102X+ & SN. SDS1XECC2R0309 \\
+        \hline
+        Meteostanice & Testo 622 & SN. 39507568/505 \\
+        \hline
+        Snímač dif. tlaku & Rosemount 3051C & SN. 7079598/1297 \\
+        \hline
+        Snímač dif. tlaku & Greisinger GDH 200-07 & SN. 1106025\\
+        \hline
+        Vírový průtokoměr & EGGS DELTA PULSE FLP15-G2PA & SN. P16X501F\\
+        \hline
+        Plováčkový průtokoměr & Krohne VA-40 & SN. D120000000285677\\
+        \hline
+        Termoanemometr & IST FS5.A & X\\
+        \hline
+        Kalorimetrický průtokoměr & Honewell AWM 720P1 & SN. 1037N 564482\\
+        \hline
+        Přípravek & Přípravek s turbodmychadlem & SN. IEC39034-01\\
+        \hline
+    \end{protocoltable}%
+
+\pagebreak
+
+% Reference
+{\printbibliography}
+
+\end{document} % Konec dokumentu

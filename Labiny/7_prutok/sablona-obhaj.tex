@@ -1,0 +1,522 @@
+% Soubory musí být v kódování, které je nastaveno v příkazu \usepackage[...]{inputenc}
+
+\documentclass[%        Základní nastavení
+  %draft,    				  % Testovací překlad
+  12pt,       				% Velikost základního písma je 12 bodů
+	t,                  % obsah slajdů bude vždy začínat od shora (nebude vertikálně centrovaný)
+	aspectratio=1610,   % poměr stran bude 16:10 (všechny projektory v učebnách na Technické 12 Brno),
+	                    % další volby jsou 43, 149, 169, 54, 32.
+	unicode,						% Záložky a informace budou v kódování unicode
+]{beamer}				    	% Dokument třídy 'zpráva', vhodná pro sazbu závěrečných prací s kapitolami
+%\usepackage{etex}
+
+\usepackage[utf8]		  % Kódování zdrojových souborů je v UTF-8
+	{inputenc}					% Balíček pro nastavení kódování zdrojových souborů
+	
+\usepackage{graphicx} % Balíček 'graphicx' pro vkládání obrázků
+											% Nutné pro vložení logotypů školy a fakulty
+
+\usepackage[          % Balíček 'acronym' pro sazby zkratek a symbolů
+	nohyperlinks				% Nebudou tvořeny hypertextové odkazy do seznamu zkratek
+]{acronym}						
+											% Nutné pro použití prostředí 'acronym' balíčku 'thesis'
+
+%% Balíček hyperref je volán třídou beamer automaticky, proto není třeba následujícího kódu:
+%\usepackage[
+%	breaklinks=true,		% Hypertextové odkazy mohou obsahovat zalomení řádku
+%	hypertexnames=false % Názvy hypertextových odkazů budou tvořeny
+%											% nezávisle na názvech TeXu
+%]{hyperref}						% Balíček 'hyperref' pro sazbu hypertextových odkazů
+%											% Nutné pro použití příkazu 'nastavenipdf' balíčku 'thesis'
+
+\usepackage{cmap} 		% Balíček cmap zajišťuje, že PDF vytvořené `pdflatexem' je
+											% plně "prohledávatelné" a "kopírovatelné"
+
+%\usepackage{upgreek}	% Balíček pro sazbu stojatých řeckých písmem
+											%% např. stojaté pí: \uppi
+											%% např. stojaté mí: \upmu (použitelné třeba v mikrometrech)
+											%% pozor, grafická nekompatibilita s fonty typu Computer Modern!
+
+%\usepackage{amsmath} %balíček pro sabu náročnější matematiky
+
+\usepackage{booktabs} % Balíček, který umožňuje v tabulce používat
+                      % příkazy \toprule, \midrule, \bottomrule
+
+\usepackage{algorithm2e} %balíček pro sazbu algoritmů/pseudokódu
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%      Definice informací o dokumentu             %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{nastaveni}      % v tomto souboru doplňte údaje o sobě, o názvu práce...
+                       % (tento soubor je sdílený s textem práce)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%     Nastavení polí ve Vlastnostech dokumentu PDF      %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Při vloženém balíčku 'hyperref' lze použít příkaz '\pdfsettings'
+\pdfsettings
+%  Nastavení polí je možné provést také ručně příkazem:
+%\hypersetup{
+%  pdftitle={Název studentské práce},    	% Pole 'Document Title'
+%  pdfauthor={Autor studenstké práce},   	% Pole 'Author'
+%  pdfsubject={Typ práce}, 						  	% Pole 'Subject'
+%  pdfkeywords={Klíčová slova}           	% Pole 'Keywords'
+%}
+\hypersetup{pdfpagemode=FullScreen}       % otevření rovnou v režimu celé obrazovky
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme{VUT} 				% barvy a rozložení prezentace odpovídající VUT FEKT
+% alternativně lze použít jiná berevná témata, ale bez záruky. Například: 
+%\usetheme{Darmstadt} \usecolortheme{default2}
+\logoheader					% vytvoření zkráceného loga VUT FEKT v hlavičce slajdu, nechte odkomentované
+
+
+
+\begin{document}
+
+% v případě zakomentování následujícího se zobrazí v pravém dolním rohu slajdů klikatelné navigační symboly 
+\disablenavigationsymbols
+
+% titulní snímek, vysazen bez horních, dolních a postranních lišt (volba plain),
+% není tak vysazen ani nadpis snímku
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. snímek s cíli (zadaním) práce
+\begin{frame} 
+	% nadpis snímku
+	\frametitle{Úkoly}
+	\begin{enumerate}
+			\item Změřit převodní charakteristiky pro průtokoměry
+				\begin{itemize}
+					\item Škrtící člen (clona) o průměru 12mm
+					\item Vírový průtokoměr EGGS DELTA PULSE FLP15-2PA
+					\item Termoanemometr IST FS5.A
+					\item Kalorimetrický průtokoměr HONEYWELL AWM 720P1
+				\end{itemize}
+			\item Změřit tlakové ztráty snímačů na průtoku
+			\item Změřit tlakové ztráty v závislosti na~pozici hadičky dif.~tlakoměru na~trubici
+			\item Porovnat naměřené údaje s informacemi od výrobce
+				\begin{itemize}
+					\item Měřící rozsahy
+					\item Citlivost snímače
+					\item ...
+				\end{itemize}
+			\item Vyhodnotit nejistotu citlivosti vírového průtokoměru EGGS
+	\end{enumerate}
+\end{frame}
+
+
+%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Teorie ke cloně}
+	\begin{block}{Rovnice rychlosti média při průchodou clonou}
+		$$ v = k \sqrt{\dfrac{2 \Delta p}{\rho}} \quad [\text{m} \cdot \text{s}^{-1}; \text{Pa}, \text{m}^{-3}\cdot \text{kg}]$$
+	\end{block}
+
+	\begin{itemize}
+		\item Po úpravách rovnice lze získat vztah.
+	\end{itemize}
+
+	\begin{alertblock}{Rovnice tlakové ztráty}
+		$$  \Delta p = \dfrac{\rho}{2k^2}v^2 = \dfrac{\rho}{2A^2k^2}Q^2\quad [\text{Pa}; \text{m}^{-3}\cdot \text{kg}, \text{m}^{2}, \text{m}^{3}\cdot \text{s}^{-1}]$$
+	\end{alertblock}
+
+	\begin{itemize}
+		\item Předpokládaná charakteristika je tedy \textbf{kvadratická}.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Převodní charakteristika clony}
+	\begin{figure}%	
+		\centering
+		\vspace{0cm}	              % horizontální mezera
+		\includegraphics[width=1\columnwidth]{src/prechod_clona.png}
+		%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+		%\caption{Popisek obrázku}%
+		\label{obr:prevod_clona}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Teorie k vírům}
+	\begin{block}{Rovnice rychlosti média při průchodou clonou}
+		$$ f = Sr\dfrac{v}{a} \quad [\text{Hz};  \text{m} \cdot \text{s}^{-1}, \text{m}]$$
+	\end{block}
+
+	\begin{itemize}
+		\item Rovnice je přímá úměra, tudíž lze předpokládat \textbf{lineární} převodní charakteristiku.
+	\end{itemize}
+
+	\begin{figure}%	
+		\centering
+		\vspace{0cm}	              % horizontální mezera
+		\includegraphics[width=0.45\columnwidth]{src/karman.png}
+		%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+		\caption{Karmanovy víry}%
+		\label{obr:karman}
+	\end{figure}
+
+
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Převodní charakteristika vírového průtokoměru EGGS}
+	\begin{figure}%	
+		\centering
+		\vspace{0cm}	              % horizontální mezera
+		\includegraphics[width=1\columnwidth]{src/prevod_vir.png}
+		%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+		%\caption{Popisek obrázku}%
+		\label{obr:prevod_vir}
+	\end{figure}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Teorie k termoanemometru a kalorimetrickému průtokoměru}
+	\begin{itemize}
+		\item Oba průtokoměry využívají tepelných jevů spojených s prouděním kapalin
+		\item Termoanemometr se snaží udržet dva rozdílné odpory při stejné teplotě a kompenzační proud je snímán jako výstup snímače
+		\item Kalorimetrický průtokoměr vytvoří tepelné symetrické tepelné rozložení, které je poté působením média deformováno, z čehož se dá určit jeho rychlost
+	\end{itemize}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Převodní charakteristika termoanemometru IST}
+		\begin{figure}%	
+		\centering
+		\vspace{0cm}	              % horizontální mezera
+		\includegraphics[width=1\columnwidth]{src/prevod_termo.png}
+		%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+		%\caption{Popisek obrázku}%
+		\label{obr:prevod_termo}
+	\end{figure}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Převodní charakteristika kal. průtokoměru EGGS}
+	\begin{figure}%	
+		\centering
+		\vspace{0cm}	              % horizontální mezera
+		\includegraphics[width=1\columnwidth]{src/prevod_kal.png}
+		%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+		%\caption{Popisek obrázku}%
+		\label{obr:prevod_kal}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Výsledné převodní charakteristiky}
+
+	Clona
+		$$\Delta p = f(Q) = 0.02772 \cdot Q^2  - 0.2096 \cdot Q + 2.65$$
+	Vírový průtokoměr EGGS
+		$$f = f(Q) = 0.7597 \cdot Q - 5.154 \rightarrow K =\dfrac{df(Q)}{dQ} = 0.7597 \text{ Hz} \cdot \text{m}^{-3} \cdot \text{min}^{1}  $$
+	Termoanemometr IST
+		$$U = f(Q)  = 0.4774 \cdot \ln(Q) + 2.813$$
+	Kalorimetrický průtokoměr Honeywell
+		$$ U = f(Q) = 0.9564 \cdot \ln(Q) - 0.3625$$
+
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tlakové ztráty průtokoměrů}
+
+	\begin{itemize}
+		\item Každý snímač v obvodu vytváří tlakovou diferenci, která je závislá na typu snímače.
+		\item Cílem úkolu je experimentálně zjistit, jaké jsou rozsahy těchto diferencí a jakou závislost mají na referenčním průtoku plováčkového průtokoměru KROHNE.
+	\end{itemize}
+
+
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Tlakové ztráty průtokoměrů}
+	\begin{figure}%	
+		\centering
+		\vspace{0cm}	              % horizontální mezera
+		\includegraphics[width=1\columnwidth]{src/tlaky.png}
+		%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+		%\caption{Popisek obrázku}%
+		\label{obr:tlak}
+	\end{figure}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Tlakové ztráty trubice}
+	\begin{itemize}
+		\item Očekává se, že clona vytvoří tlakovou diferenci, nicméně je potřeba zjistit, jaké tlakové diference lze naměřit v její blízkosti.
+		\item Předpokládaný průběh je téměř konstantní tlak před trubicí, prudký nárůst tlakové diference za ní a postupné klesání při vzdalování se od clony.
+	\end{itemize}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Tlakové ztráty trubice}
+	\begin{figure}%	
+		\centering
+		\vspace{0cm}	              % horizontální mezera
+		\includegraphics[width=1\columnwidth]{src/trubice_tlaky.png}
+		%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+		%\caption{Popisek obrázku}%
+		\label{obr:tlak_trub}
+	\end{figure}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Porovnání hodnot s výrobcem}
+	\begin{itemize}
+		\item GREISINGER GDH 200-07
+			\begin{itemize}
+				\item Přístroj má měřicí rozsah 0 - 1999 Pa (přibližně 0 až 19,99 mbar)
+				\item Naměřené hodnoty nabývají 11 až 1300 Pa. 
+				\item Z toho lze usoudit, že měřicí rozsah přístroje je dostačující pro naše měření
+			\end{itemize}
+		\item EGGS DELTA PULSE FLP15-G2PA
+			\begin{equation*}
+         		LPM = NLPM \cdot \frac{T_{gas}}{273,15} \cdot \frac{14,696}{P_{gas}} = 22.5 \cdot \frac{297.35}{273.15} \cdot \frac{14.696}{14.427} = 25\text{ l/min}
+    		\end{equation*}
+
+    		\begin{itemize}
+   				\item Kalibrace námi používaného přístroje byla provedena pro údaje uvedené v datasheetu pro nominální velikost 15 mm
+				\item Pro tuto nominální hodnotu bylo z datasheetu zjištěno, že rozsah měření je 55 - 283 l/min
+				\item Z toho plyne proč při průtoku 22,5 Nl/min (25 l/min) byla získaná nulová frekvence. 
+				\item Maximální dosažitelná hodnota je 200 Hz
+    		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Porovnání hodnot s výrobcem}
+	\begin{itemize}
+		\item IST FS5.A
+		\begin{itemize}
+			\item Z datasheetu lze vyčíst, že výstupní napětí přístroje nabývá 2,7 - 6 V
+			\item Naměřené hodnoty napětí se pohybují v rozmezí 4,335 - 5,433 V a leží tedy v měřicím rozsahu přístroje. V grafu v datasheetu je vidět, že s rostoucí rychlostí proudění má logarimicky narůstat i výstupní napětí
+			\item Toto chování je patrné i z naměřených hodnot, kde hodnoty napětí zpočátku rostou rychle a poté se růst zpomaluje
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Porovnání hodnot s výrobcem}
+	\begin{itemize}
+		\item HONEYWELL AWM 720P1
+			 \begin{equation}
+				SLPM = NLPM \cdot \dfrac{294.26}{273.15} = 220 \cdot 1.077 = 237 \text{ SLPM}
+			\end{equation}
+			\begin{itemize}
+				\item Senzor má maximální průtok 200 SLPM. Měření proběhlo až na hodnotě 220 NLPM (237 SLPM).
+				\item Hodnoty nad 200 SLPM nejsou zaručeně správné. 
+				\item Z charakteristky v datasheetu lze usoudit, že výstupní napětí senzoru roste s rostoucím průtokem logaritmicky. Toto chování odpovídá naměřenému průběhu.
+			\end{itemize}
+			 
+	\end{itemize}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Porovnání hodnot s výrobcem}
+	\begin{itemize}
+		\item KROHNE VA-40
+			\begin{itemize}
+				\item Naměřená ztráta tlaku se pohybuje od 1000 - 1400 Pa. Maximální tlaková ztráta udávaná výrobcem je 800 Pa, což neodpovídá naměřeným hodnotám.
+			\end{itemize}
+		\item ROSEMOUNT 3051C
+			\begin{itemize}
+				\item Přístroj má pracovní pásmo 4 - 20 mA (0 - 2 kPa), ve kterém leží naměřené hodnoty. 
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Nejistota citlivosti vírového průtokoměru EGGS}
+	\begin{table}[!h]
+        \centering
+		\footnotesize
+        \caption{Hodnoty změřených frekvencí snímače EGGS pro $Q$=100 NL$\cdot$s$-1$}\label{tab:tab_freq}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+             n & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10  \\ 
+			 \hline
+       		 $f_{1}$[Hz] & 74.91 & 74.84 & 75.05 & 74.99 & 74.88 & 74.92 & 74.76 & 74.82 & 74.88 & 74.87 \\ 
+			 \hline
+        \end{tabular}
+    \end{table}
+	\begin{table}[!h]
+        \centering
+		\footnotesize
+        \caption{Hodnoty změřených frekvencí snímače EGGS pro $Q$=100 NL$\cdot$s$-1$}\label{tab:tab_freq}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+             n & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10  \\ 
+			 \hline
+       		 $f_{2}$[Hz] & 74.91 & 74.84 & 75.05 & 74.99 & 74.88 & 74.92 & 74.76 & 74.82 & 74.88 & 74.87 \\ 
+			 \hline
+        \end{tabular}
+    \end{table}
+
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Nejistota citlivosti vírového průtokoměru EGGS}
+	\begin{itemize}
+		\item Nejistota typu A - frekvence
+	\end{itemize}
+	\begin{equation*}
+		 u_{A}(f_{1}) = \sqrt{\dfrac{\sum_{i=1}^{10}(f_{1i}-\overline{f_{1}})^{2}}{10(10-1)}} = 0.026 \text{ Hz};\quad u_{A}(f_{2}) = 0.05 \text{ Hz}
+	\end{equation*}
+	\begin{itemize}
+		\item Nejistota typu B - frekvence (rozsah 200 Hz, chyba $3\%$)
+	\end{itemize}
+	\begin{equation*}
+		u_{B}(f_{1}) = \dfrac{\Delta{f_{1max}}}{\chi } = \dfrac{0.03 \cdot 200}{\sqrt{3}} = 3.464 \text{ Hz} = u_{B}(f_{2})
+	\end{equation*}
+	\begin{itemize}
+		\item Nejistota typu C - frekvence
+	\end{itemize}
+	\begin{align*}
+		u_{C}(f_{1}) = \sqrt{u_{A}^{2}(f1) + u_{B}^{2}(f1)} = \sqrt{0.026^{2} + 3.464^{2}} = 3.464 \text{ Hz}\\
+		u_{C}(f_{2}) = 3.464 \text{ Hz}
+	\end{align*}
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Nejistota citlivosti vírového průtokoměru EGGS}
+	\begin{itemize}
+		\item Citlivost senzoru
+	\end{itemize}
+	\begin{equation*}
+		\overline{K} =  \dfrac{\overline{f_{2}}-\overline{f_{1}}}{Q_{2}-Q_{1}} = \dfrac{109.8 - 74.89}{150 - 100} = 0.698 \dfrac{Hz}{Nl/min}
+	\end{equation*}
+	\begin{itemize}
+		\item Nejistota citlivosti (nepřímé měření)
+	\end{itemize}
+	\begin{align*}
+    u_{K} 
+   		&= \sqrt{\left(\dfrac{\partial \overline K}{\partial f_{1}} \cdot u_{C}(f_{1})\right)^{2} + \left(\dfrac{\partial \overline K}{\partial f_{2}} \cdot u_{C}(f_{2})\right)^{2}} \\
+		&= \sqrt{\left(\dfrac{-1}{Q_{2}-Q_{1}} \cdot u_{C}(f_{1})\right)^{2} + \left(\dfrac{1}{Q_{2}-Q_{1}} \cdot u_{C}(f_{2})\right)^{2}} \\
+   		&= \sqrt{\left(\dfrac{-1}{150-100} \cdot 3.464\right)^{2} + \left(\dfrac{1}{150-100} \cdot 3.464\right)^{2}} = 0.098 \dfrac{Hz}{Nl/min}
+	\end{align*}
+
+\end{frame}
+
+\begin{frame} 
+	\frametitle{Nejistota citlivosti vírového průtokoměru EGGS}
+	\begin{itemize}
+		\item Rozšířená nejistota
+	\end{itemize}
+	\begin{equation*}
+		U_{K} = u_{K} \cdot k = 2 \cdot 0.098 = 0.196 \dfrac{Hz}{Nl/min}
+	\end{equation*}
+	\begin{itemize}
+		\item Výsledek
+	\end{itemize}
+	\begin{equation*}
+     K = (0.698 \pm 0.196) \dfrac{Hz}{Nl/min} \rightarrow \boxed{K = (0.700 \pm 0.200) \dfrac{Hz}{Nl/min}}
+	\end{equation*}
+
+\end{frame}
+
+
+
+
+%\begin{frame}
+%
+%	% prostředí 'alertblock', které slouží pro zdůraznění informace
+%	\begin{alertblock}{Pro práci je klíčový Eulerův vzorec}
+%		$$\eul^{\jmag x}=\cos x + \jmag\sin x$$
+%	\end{alertblock}
+%
+%	\vspace{4ex}
+%	Eulerova identita je speciálním případem tohoto vzorce, jestliže dosadíme $x=\uppi$\,:
+%
+%	% prostředí 'block', které slouží jako informativní
+%	\begin{block}{Eulerova identita}
+%		$$\eul^{\jmag \uppi}=\cos \uppi + \jmag\sin \uppi,$$\\
+%		odkud vyplývá
+%		$$\eul^{\jmag \uppi}+1=0.$$
+%	\end{block}
+%\end{frame} 
+%
+%
+%%%%%%%%%%%%%%
+%\begin{frame} 
+%	\frametitle{Plošný spoj}
+%	
+%	\begin{columns}[T] 								% prostředí sloupce s umístěním nahoře
+%		\begin{column}{0.4\textwidth}		% první sloupec
+%			Obrázek znázorňuje model:\\[2ex]
+%			%
+%			\begin{itemize}
+%				\item Deska
+%				\item Součástky
+%				\item Signály
+%				\item Napájení
+%			\end{itemize}
+%		\end{column}
+%		%
+%		\begin{column}{0.6\textwidth}		% druhý sloupec
+%			\begin{figure}%	
+%				\centering
+%				\vspace{1cm}	              % horizontální mezera
+%				%\includegraphics[width=0.8\columnwidth]{obrazky/soucastky}
+%				%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+%				%\caption{Popisek obrázku}%
+%				%\label{obr:ukazka}
+%			\end{figure}
+%		\end{column}
+%	\end{columns}											% ukončení prostředí sloupce
+%\end{frame}
+%
+%
+%%%%%%%%%%%%%%
+%\begin{frame} 
+%	\frametitle{Výsledky}
+%	\vspace{1cm}
+%	\begin{table}[]
+%		\centering
+%		\caption{Výsledky měření mobilních sítí}
+%		\label{tab:tabulka}
+%			\begin{tabular}{lcc}
+%			\toprule
+%					Technologie  & Rychlost stahování [kB/s] & Rychlost nahrávání [kB/s] \\
+%				\midrule
+%					GPRS (2,5G)	& 7,2 	& 3,6\\
+%					UMTS 3G     & 48 		& 48\\
+%					HSPA (3,5G)	&	1\,706	&	720\\
+%					LTE (4G) 		& 40\,750 & 10\,750\\
+%				\bottomrule                                       
+%			\end{tabular}
+%	\end{table}
+%\end{frame}
+
+
+%%%%%%%%%%%%%
+\begin{frame} 
+	\frametitle{Závěr}
+	\begin{itemize}
+		\item Naměřené převodní charakteristiky mají lineární, kvadratický nebo logaritmický průběh
+		\item Tlakový pokles senzorů bývá kvadraticky závislý na průtoku
+		\item Tlakový pokles ostře stoupne za clonou a poté pomalu klesá
+		\item U většiny přístrojů byly dodrženy měřící rozsahy
+		\item Hodnota citlivosti s nejistotou vyšla $\boxed{K = (0.700 \pm 0.200) \dfrac{Hz}{Nl/min}}$ z důvodu zvolení blízkých bodů v charakteristice
+	\end{itemize}
+\end{frame}
+
+
+% podekovani
+\begin{frame}[c] 
+% bez nadpisu snímku
+	\frametitle{\mbox{ }}
+	\begin{center}
+		{\Huge Děkuji za pozornost!}
+	\end{center}
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,341 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{navod}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=9646ff026e1974f8a47b69ffa1fb5f65}{%
+           family={Beneš},
+           familyi={B\bibinitperiod},
+           given={Petr\bibnamedelimb a\bibnamedelima kolektiv},
+           giveni={P\bibinitperiod\bibinitdelim a\bibinitperiod\bibinitdelim k\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Brno}%
+      }
+      \list{organization}{1}{%
+        {Ústav automatizace a měřící techniky, Fakulta elektrotechniky a komunikační techniky, VUT}%
+      }
+      \strng{namehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{fullhash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{fullhashraw}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{bibnamehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authorbibnamehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authornamehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authorfullhash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authorfullhashraw}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{[cit. 17-11-2025]}
+      \field{title}{Návod k úloze 7 - Měření průtoku vzduchu}
+      \field{year}{2025}
+    \endentry
+    \entry{vypocty}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=9646ff026e1974f8a47b69ffa1fb5f65}{%
+           family={Beneš},
+           familyi={B\bibinitperiod},
+           given={Petr\bibnamedelimb a\bibnamedelima kolektiv},
+           giveni={P\bibinitperiod\bibinitdelim a\bibinitperiod\bibinitdelim k\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Brno}%
+      }
+      \list{organization}{1}{%
+        {Ústav automatizace a měřící techniky, Fakulta elektrotechniky a komunikační techniky, VUT}%
+      }
+      \strng{namehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{fullhash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{fullhashraw}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{bibnamehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authorbibnamehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authornamehash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authorfullhash}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \strng{authorfullhashraw}{9646ff026e1974f8a47b69ffa1fb5f65}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{[cit. 17-11-2025]}
+      \field{title}{Základní terminologie a výpočty}
+      \field{year}{2025}
+    \endentry
+    \entry{greisinger_gdh200}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=3a621d08abccdb6146ec28bd0ff16a1d}{%
+           family={{GREISINGER electronic GmbH}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Regenstauf, Germany}%
+      }
+      \list{organization}{1}{%
+        {GREISINGER electronic GmbH}%
+      }
+      \strng{namehash}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \strng{fullhash}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \strng{fullhashraw}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \strng{bibnamehash}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \strng{authorbibnamehash}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \strng{authornamehash}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \strng{authorfullhash}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \strng{authorfullhashraw}{3a621d08abccdb6146ec28bd0ff16a1d}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Document No. H59.0.01.6C-02 [cit. 17.11.2025]}
+      \field{title}{Operating Manual Manometer GDH 200-07}
+    \endentry
+    \entry{oval_eggs_delta}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=ebf7e1a91f9c6e738321e6eb76df3233}{%
+           family={{OVAL Corporation}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Tokyo, Japan}%
+      }
+      \list{organization}{1}{%
+        {OVAL Corporation}%
+      }
+      \strng{namehash}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \strng{fullhash}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \strng{fullhashraw}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \strng{bibnamehash}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \strng{authorbibnamehash}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \strng{authornamehash}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \strng{authorfullhash}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \strng{authorfullhashraw}{ebf7e1a91f9c6e738321e6eb76df3233}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{12}
+      \field{note}{General Specification GS.No.GBD623E-6 [cit. 17.11.2025]}
+      \field{title}{Eggs DELTA Pulse: Pulse output oriented Vortex Flowmeter}
+      \field{year}{2014}
+    \endentry
+    \entry{ist_fs5}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=90c5ebf8619eacbf7be8fd7cfc4934e6}{%
+           family={{Innovative Sensor Technology AG}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Wattwil, Switzerland}%
+      }
+      \list{organization}{1}{%
+        {Innovative Sensor Technology AG}%
+      }
+      \strng{namehash}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \strng{fullhash}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \strng{fullhashraw}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \strng{bibnamehash}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \strng{authorbibnamehash}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \strng{authornamehash}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \strng{authorfullhash}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \strng{authorfullhashraw}{90c5ebf8619eacbf7be8fd7cfc4934e6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Datasheet DFFS5 E1.0 [cit. 17.11.2025]}
+      \field{title}{Flow Sens FS5 / FS5A: Thermal Mass Flow Sensor for all-purpose use in Gases}
+    \endentry
+    \entry{honeywell_awm720}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=fb198dd76895fa24a9301a3b6f6f52f8}{%
+           family={{Honeywell Sensing and Control}},
+           familyi={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Freeport, IL, USA}%
+      }
+      \list{organization}{1}{%
+        {Honeywell}%
+      }
+      \strng{namehash}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \strng{fullhash}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \strng{fullhashraw}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \strng{bibnamehash}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \strng{authorbibnamehash}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \strng{authornamehash}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \strng{authorfullhash}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \strng{authorfullhashraw}{fb198dd76895fa24a9301a3b6f6f52f8}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{8}
+      \field{note}{Product Sheet 008058-1-EN [cit. 17.11.2025]}
+      \field{title}{Mass Airflow Sensors: AWM720P1 Airflow}
+      \field{year}{2000}
+    \endentry
+    \entry{krohne_va40}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=15b06412944c2b560834f4d15806de0c}{%
+           family={{KROHNE}},
+           familyi={K\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Nová Paka, Česká republika}%
+      }
+      \list{organization}{1}{%
+        {A.P.O. - ELMOS v.o.s.}%
+      }
+      \strng{namehash}{15b06412944c2b560834f4d15806de0c}
+      \strng{fullhash}{15b06412944c2b560834f4d15806de0c}
+      \strng{fullhashraw}{15b06412944c2b560834f4d15806de0c}
+      \strng{bibnamehash}{15b06412944c2b560834f4d15806de0c}
+      \strng{authorbibnamehash}{15b06412944c2b560834f4d15806de0c}
+      \strng{authornamehash}{15b06412944c2b560834f4d15806de0c}
+      \strng{authorfullhash}{15b06412944c2b560834f4d15806de0c}
+      \strng{authorfullhashraw}{15b06412944c2b560834f4d15806de0c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{10}
+      \field{note}{Dokument D 11 VA40 01 CZ [cit. 17.11.2025]}
+      \field{title}{VA 40 Plováčkové průtokoměry}
+      \field{year}{2003}
+    \endentry
+    \entry{rosemount3051}{manual}{}{}
+      \list{organization}{1}{%
+        {Emerson Process Management}%
+      }
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{note}{00813-0100-4001, Rev RC [cit. 17.11.2025]}
+      \field{title}{Rosemount 3051 Pressure Transmitter: Product Data Sheet}
+      \field{year}{2014}
+    \endentry
+    \entry{nejistoty}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=209d8e13405274a44b00dbbe1b4c7463}{%
+           family={Čejka},
+           familyi={Č\bibinitperiod},
+           given={Miroslav},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Brno}%
+      }
+      \list{organization}{1}{%
+        {Ústav automatizace a měřící techniky, Fakulta elektrotechniky a komunikační techniky, VUT}%
+      }
+      \strng{namehash}{209d8e13405274a44b00dbbe1b4c7463}
+      \strng{fullhash}{209d8e13405274a44b00dbbe1b4c7463}
+      \strng{fullhashraw}{209d8e13405274a44b00dbbe1b4c7463}
+      \strng{bibnamehash}{209d8e13405274a44b00dbbe1b4c7463}
+      \strng{authorbibnamehash}{209d8e13405274a44b00dbbe1b4c7463}
+      \strng{authornamehash}{209d8e13405274a44b00dbbe1b4c7463}
+      \strng{authorfullhash}{209d8e13405274a44b00dbbe1b4c7463}
+      \strng{authorfullhashraw}{209d8e13405274a44b00dbbe1b4c7463}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{[cit. 17-11-2025]}
+      \field{title}{Stručný úvod do problematiky nejistot měření}
+      \field{year}{2024}
+    \endentry
+    \entry{nejistoty_prezentace}{manual}{}{}
+      \name{author}{2}{}{%
+        {{hash=9d838a9413a7d31704fbebae32ff3134}{%
+           family={Pikula},
+           familyi={P\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod}}}%
+        {{hash=00023998d414942f6a8945451101f026}{%
+           family={Málek},
+           familyi={M\bibinitperiod},
+           given={Petr},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Brno}%
+      }
+      \list{organization}{1}{%
+        {Ústav automatizace a měřící techniky, Fakulta elektrotechniky a komunikační techniky, VUT}%
+      }
+      \strng{namehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{fullhash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{fullhashraw}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{bibnamehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authorbibnamehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authornamehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authorfullhash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authorfullhashraw}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{[cit. 17-11-2025]}
+      \field{title}{Nejistoty měření}
+      \field{year}{2025}
+    \endentry
+    \entry{zaokrouhlovani}{manual}{}{}
+      \name{author}{2}{}{%
+        {{hash=9d838a9413a7d31704fbebae32ff3134}{%
+           family={Pikula},
+           familyi={P\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod}}}%
+        {{hash=00023998d414942f6a8945451101f026}{%
+           family={Málek},
+           familyi={M\bibinitperiod},
+           given={Petr},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Brno}%
+      }
+      \list{organization}{1}{%
+        {Ústav automatizace a měřící techniky, Fakulta elektrotechniky a komunikační techniky, VUT}%
+      }
+      \strng{namehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{fullhash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{fullhashraw}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{bibnamehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authorbibnamehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authornamehash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authorfullhash}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \strng{authorfullhashraw}{e0efd85cd20caa101e73fa1b7e498e6d}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{[cit. 17-11-2025]}
+      \field{title}{Uvádění nejistot a zaokrouhlování}
+      \field{year}{2025}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

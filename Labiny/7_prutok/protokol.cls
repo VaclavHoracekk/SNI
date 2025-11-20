@@ -31,7 +31,8 @@
 \usepackage{comment}  % Hromadné zakomentování
 \usepackage{cmap} 	  % PDF vytvořené `pdflatexem' je plně "prohledávatelné" a "kopírovatelné"
 \usepackage{blindtext} % \Blinddocument
-
+\usepackage{bm}
+\usepackage{tocloft}
 \fancyhf{}                  % Záhlaví, zápatí
 \hypersetup{hidelinks}      % Odstranění barevného orámování odkazů
 %\hyphenpenalty=10000       % Zákaz rozdělování slov na koncích řádků
@@ -69,6 +70,10 @@
 \def\@predmet{}
 \def\@ustav{}
 \def\@skola{}
+\def\@teplota{}
+\def\@tlak{}
+\def\@vlhkost{}
+\def\@podminky{}
 
 \def\jmeno #1{\def\@jmeno{#1}}
 \def\id #1{\def\@id{#1}}
@@ -92,6 +97,11 @@
 \def\autorr #1{\def\@autorr{#1}}
 \def\autorID #1{\def\@autorID{#1}}
 \def\autorrID #1{\def\@autorrID{#1}}
+
+\def\podminky #1{\def\@podminky{#1}}
+\def\teplota #1{\def\@teplota{#1}}
+\def\tlak #1{\def\@tlak{#1}}
+\def\vlhkost #1{\def\@vlhkost{#1}}
 %=================================================================
 % Sazba titulní stránky
 \renewcommand{\maketitle}{
@@ -121,6 +131,9 @@
         \Vutsmall\textbf{PŘEDMĚT:}	            \> \Vutsmall\textbf{\@predmet}\\
         \\
         \Vutsmall\textbf{DATUM:}	            \> \Vutsmall\textbf{\@merenodne}\\
+        \\
+        \Vutsmall\textbf{MĚŘÍCÍ PODMÍNKY:}	    \> \Vutsmall\textbf{$\bm{T}$ = \@teplota \text{ } $^{\bm{\circ}}$C, $\bm{p}$ = \@tlak \text{ } hPa, $\bm{\phi}$ = \@vlhkost \text{ } $\bm{\%}$}\\
+
         %\textbf{Autor:}		                \> \Large\textbf{\@jmeno} \\                                                              %\> \Large\textbf{\@spolupracoval} \\
     \end{tabbing}
 
@@ -139,6 +152,16 @@
 \newcommand\Vutsmall[1]{\fontsize{13pt}{16pt}\usefont{T1}{Vafle}{m}{n} #1 }
 \newcommand\Vutsub[1]{\fontsize{11pt}{13pt}\usefont{T1}{Vafle}{m}{n} #1 }
 
+\tocloftpagestyle{empty}
+
+\renewcommand{\cfttoctitlefont}{\fontsize{16pt}{20pt}\usefont{T1}{Vafle}{m}{n}\MakeUppercase}
+\renewcommand{\cftsecfont}{\fontsize{13pt}{16pt}\usefont{T1}{Vafle}{m}{n}}
+\renewcommand{\cftsubsecfont}{\fontsize{11pt}{11pt}\usefont{T1}{Vafle}{m}{n}}
+
+\renewcommand{\cftsecpagefont}{\fontsize{13pt}{16pt}\usefont{T1}{Vafle}{m}{n} }
+\renewcommand{\cftsubsecpagefont}{\fontsize{11pt}{11pt}\usefont{T1}{Vafle}{m}{n}}
+\renewcommand{\cftsubsubsecpagefont}{\fontsize{9pt}{9pt}\usefont{T1}{Vafle}{m}{n}}
+
 \pdfmapfile{=vafle.map}
 
 \usepackage{titlesec}
@@ -156,3 +179,5 @@
 
 %% Definice prikazu pro sazbu jednotek
 \DeclareMathAlphabet{\jedn}{OT1}{cmr}{m}{n}
+
+\setlength{\mathindent}{30pt}
