@@ -97,11 +97,65 @@
 % Ukol 1 - 
 \section{Úkol 1 - Popis aparatury Vishay P-3500 a její obshuha}
  
-    \subsection{Teoretický rozbor}
-    \subsection{Postup měření}
-    \subsection{Naměřené hodnoty}
-    \subsection{Zpracované výsledky měření}
+    \subsection{Zpracování}
+
+    
+   
+    \textit{Vishay P-3500} slouží k měření deformací pomocí tenzometrů. Umožňuje měření s jedním tenzometrem, se dvěma tenzometry, nebo s plným mostem. Displej zobrazuje naměřené hodnoty v hodnotách relativního prodloužení, tzv. microstrainech (1$\mu$m/m = $10^{-6}$).
+
+    \printfigure[Přední panel Vishay P-3500]{src/Vishay_P-3500.jpg}{0.15}{ukol1-Vishay P-3500}
+
+    \begin{flushleft}
+        \textit{POWER OFF} - modrá výplň tlačítka. Slouží k vypnutí napájení aparatury.\\[4mm]
+        
+        \textit{AMP ZERO} - oranžová výplň tlačítka. Používá se pro nastavení vyvážení zesilovače měřícího můstku.\\[4mm]
+
+        \textit{GAGE FACTOR} - oranžová výplň tlačítka. Slouží k nastavení činitele deformační citlivosti v rozsahu 0,500 až 9,900.\\[4mm]
+
+        \textit{RUN} - zelená výplň tlačítka. Měřící ústředna je ve stavu měření.\\[4mm]
+
+        \textit{BRIDGE} - plný nebo 1/4, 1/2 můstek – žlutá výplň tlačítka. Tímto tlačítkem nastavíme zapojení tenzometrů celý můstek nebo 1/4, 1/2 -můstek.\\[4mm]
+    
+        \textit{OUTPUT} - analogový výstup ze zesilovače.\\[4mm]
+
+        \textit{BATTERY} - ukazuje stav nabití vnitřní baterie.
+    \end{flushleft}
+    \pagebreak
+
+    \printfigure[Možná zapojení Vishay P-3500]{src/Vishay_zapojeni.png}{0.8}{ukol1-Vishay P-3500}
+
+    \begin{flushleft}
+        \textbf{Přístroj pro zjišťování citlivosti tenzometrů:}
+    \end{flushleft}
+    
+    \printfigure[Přístroj pro cejchování tenzometrů~\cite{navod}]{src/Pristroj_citlivost.png}{0.3}{ejch}
+
+
+        Používá se pro zjišťování součinitele deformační citlivosti K odporových tenzometrů s odměrnou délkou do 50mm. Platí:
+        \begin{equation}
+            \frac{\Delta R}{R} = K \cdot \frac{\Delta l}{l} = K \cdot \epsilon
+        \end{equation}
+
+    Cejchování se provádí na duralovém nosníku ohýbaném ve velkém rozsahu konstantním ohybovým momentem. Část nosníku ve vzdálenosti b mezi podporami má konstantní ohybový moment a tím též konstantní poměrné prodloužení povrchových vláken. 
+    Při lepení tenzometrů je nutné se vyhnout přímému okolí podpor. 
+
+    \pagebreak
+
+    \begin{flushleft}
+        Pro nosník, jehož deformační křivkou je kružnice o poloměru r, platí pro poměrnou deformaci povrchového vlákna o délce l:
+    \end{flushleft}
+    \begin{equation}
+        r = \frac{b^2}{8y} \qquad \frac{\Delta l}{0{,}5h} = \frac{l}{r} \quad \Rightarrow \quad \epsilon = \frac{4h}{b^2}y
+    \end{equation}
+    \linebreak
+    \begin{conditions}
+        $y$  & průhyb nosníku [m] 
+    \end{conditions}
+    
+   
+    
     \subsection{Závěr}  
+    V této úloze bylo provedeno seznámení s aparaturou Vishay P-3500 a přístrojem pro zjišťování citlivosti tenzometrů. Aparatura je určena k měření deformací pomocí tenzometrů a umožňuje měření s jedním tenzometrem, se dvěma tenzometry, nebo s plným mostem.
 
 \pagebreak
 
@@ -170,10 +224,16 @@
             K = \left( \dfrac{n \sum_{i}^{n} \Delta D_i y_i - \sum_{i}^{n} \Delta D_i \sum_{i}^{n} y_i }{n \sum_{i}^{n} y_i^2 - \left(\sum_{i}^{n} y_i \right)^2} \right)
         \end{equation}
 
-        \printfigure[Přístroj pro cejchování tenzometrů~\cite{navod}]{src/cejch.png}{0.65}{cejch}
+       
             \pagebreak
     \subsection{Postup měření}
-
+    \begin{enumerate}
+        \item Tenzometr na kalibračním přípravku byl připojen k Vishay P-3500.
+        \item Byla odečtena hodnota zobrazená na displeji aparatury při nulovém průhybu.
+        \item Průhyb byl nastaven na 0,1 mm.
+        \item Byla odečtena hodnota zobrazená na displeji aparatury.
+        \item Toto bylo opakováno pro průhyby do 1 mm a zpět s krokem 0,1 mm.
+    \end{enumerate}
 
     \subsection{Naměřené hodnoty}
 
@@ -239,7 +299,7 @@
     \subsection{Závěr} 
     Z měření plyne, že závislost mezi relativní změnou elektrického odporu $\Delta R$ a mechanické poměrné deformace $\epsilon$ je skutečně lineární. Díky tomuto zjištění lze určit součinitel deformační citlivosti $K$, který lze spočítat jako směrnice závislosti pomocí metody nejmenších čtverců.
 
-    Součinitel deformační citlivosti $E$ byl z naměřených hodnot určen jako $E = 2.160$, což je o cca $10\%$ více, než je katalogová hodnota~\cite{navod}.
+    Součinitel deformační citlivosti $K$ byl z naměřených hodnot určen jako $K = 2.160$, což je o cca $10\%$ více, než je katalogová hodnota~\cite{navod}.
     
 \pagebreak
 
@@ -256,6 +316,11 @@
     
 
     \subsection{Postup měření}
+    \begin{enumerate}
+        \item K aparatuře Vishay P-3500 byly připojeny tenzometry na malých nosnících.
+        \item K osciloskopu byl na první kanál přiveden analogový výstup z aparatury Vishay P-3500 a na druhý kanál byl přiveden signál z generátoru.
+        \item Na osciloskopu byl nastaveno zobrazení X-Y, tedy Lissajousových obrazců a pomocí nich byl nalezen rezonanční kmitočet nosníků.
+    \end{enumerate}
     \pagebreak
     \subsection{Naměřené hodnoty}
 
@@ -273,7 +338,7 @@
         \end{table}
 
     \subsection{Závěr} 
-    Z naměřených frekvencí lze pozorovat, že menší nosníček má vyšší rezonanční kmitočet. Z geometrických důvodů toto dává smysl, pokud budeme mít jiný přirozený oscilátor například matematické kyvaldo, tak kyvadlo s menším závěsem bude kmitat rychleji, protože svým koncem při podobné rychlosti musí pro jeden kmit opsat menší dráhu~\cite{mkyvadlo}.
+    Z naměřených frekvencí lze pozorovat, že menší nosníček má vyšší rezonanční kmitočet. Z geometrických důvodů toto dává smysl, pokud budeme mít jiný přirozený oscilátor, například matematické kyvaldo, tak kyvadlo s menším závěsem bude kmitat rychleji, protože svým koncem při podobné rychlosti musí pro jeden kmit opsat menší dráhu~\cite{mkyvadlo}.
 
 \pagebreak
 
@@ -319,6 +384,13 @@
             $F$ & síla působící na nosník [N]
         \end{conditions}
     \subsection{Postup měření}
+        \begin{enumerate}
+            \item K aparatuře Vishay P-3500 byl připojen tenzometr na velkém nosníku měřící podélnou složku poměrné deformace. 
+            \item Byla zapsána hodnota zobrazená na displeji pro nezatížený nosník.
+            \item Na nosník by zavěšen závěs a zapsána zobrazená hodnota na displeji.
+            \item K závěsu bylo přidáno závaží 1 kg a zapsána zobrazená hodnota na displeji.
+            \item Tímto zůsobem bylo postupováno s přidáváním závaží vždy po 1 kg až do stavu, kdz na nosníku byl zavěšen závěs a 5 kg.
+        \end{enumerate}
     \subsection{Naměřené hodnoty}
         \begin{itemize}
             \item $r = 0.4$ m
@@ -404,7 +476,7 @@
         Jelikož je možné spočítat $E$ i $\mu$ pro více hodnot zatížení tak je možné je pro přehlednost zprůměrovat (parametry jsou~konstanty a~neměly by se měnit):
 
         \begin{align*}
-            \overline{E} &= \dfrac{1}{N} \sum_{i = 0}^{n} E_i = \dfrac{1}{6} \sum_{i = 1}^{6} E = 224.3 \text{GPa} \\
+            \overline{E} &= \dfrac{1}{N} \sum_{i = 0}^{n} E_i = \dfrac{1}{6} \sum_{i = 1}^{6} E = 224.3 \text{ GPa} \\
             \overline{\mu} &= \dfrac{1}{N} \sum_{i = 0}^{n} \mu_i = \dfrac{1}{6} \sum_{i = 1}^{6} \mu_i = 0.2592 
         \end{align*}
 
@@ -422,6 +494,11 @@
     \subsection{Teoretický rozbor}
     Kapitola obsahuje stejnou teorii jako kapitola 2 a 4. Došlo pouze k výměně aparatury \textit{Vishay P-3500} za trojici přípravků s odporovými můstky, ze kterých získáváme místo $D$ informaci o elektrickém napětí $U$.
     \subsection{Postup měření}
+        \begin{enumerate}
+            \item Napájecí napětí můstku byla nastaveno na 2 V.
+            \item Pro dvouvodičové zapojení čtvrtmůstku byly změřeny hodnoty napětí na výstupu můstků při postupném zatěžování nosníku viz. úkol 4.
+            \item To samé jsme opakovali pro třívodičové zapojení čtvrtmůstku a pro půlmůstek.
+        \end{enumerate}
     \subsection{Naměřené hodnoty}
         \begin{protocoltable}[Naměřená napětí z můstků při zatěžování nosníku]{|c|C|C|C|C|C|C|C|}{ukol5-napeti}
             \hline
@@ -531,6 +608,8 @@
             \hline
         \end{protocoltable}
 
+        \pagebreak
+
         Pro různé můstky vyšly následující průměrné moduly pružnosti $E$:
         
                 % 230.3 327.2 238.4 238.7 233.4 236.0
@@ -586,6 +665,12 @@
             U = f(U_z, R_1, R_2, R_3, R_t) = U_z \cdot \left( \dfrac{R_1}{R_1+R_2} - \dfrac{R_t}{R_3+R_t} \right) \quad [\text{mV}]
         \end{equation}
     \subsection{Postup měření}
+        \begin{enumerate}
+            \item Bylo proměřeno napájecí napětí můstku pomocí multimetru.
+            \item V konfiguraci třívodičového zapojení čtvrtmůstku bylo změřeno výstupní napětí můstku pomocí multimetru.
+            \item Byly změřeny jednotlivé odpory v můstku pomocí multimetru.
+            \item Byl změřen odpor nezatíženého tenzometru pomocí multimetru.
+        \end{enumerate}
 
     \subsection{Naměřené hodnoty}
             \begin{table}[!h]
@@ -629,15 +714,16 @@
         u_B(R_1) &= \dfrac{\dfrac{0.010}{100} \cdot 120.13 +\dfrac{0.001}{100} \cdot 1000}{\sqrt{3}} = 1.270 \cdot 10^{-2} \ \text{V}
     \end{align*}
 
-    Pro výpočet celkové nejistoty je nutné jednotlivé nejistoty vynásobit citlivostními koeficienty $A$. Jejich výpočet je parciální derivací vztahu (\ref{mustek}) podel jednotlivýh veličin, do kterých se dosadí hodnoty z tabulky \ref{tab:nejistota6}. 
+    Pro výpočet celkové nejistoty je nutné jednotlivé nejistoty vynásobit citlivostními koeficienty $A$. Jejich výpočet je parciální derivací vztahu (\ref{mustek}) podel jednotlivých veličin, do kterých se dosadí hodnoty z tabulky \ref{tab:nejistota6}. 
     \begin{align*}
         A_{U_z} &=  \dfrac{\partial f}{\partial U_z} = \left( \dfrac{R_1}{R_1+R_2} - \dfrac{R_t}{R_3+R_t} \right) = 6.875 \cdot 10^{-4}\\
         A_{R_1} &=  \dfrac{\partial f}{\partial R_1} = U_z \cdot \dfrac{R_2}{{(R_1 + R_2)^2}} = 4.160\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1} \\
         A_{R_2} &=  \dfrac{\partial f}{\partial R_2} = -U_z \cdot \dfrac{R_1}{{(R_1 + R_2)^2}} = -4.160\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1} \\
-        A_{R_3} &=  \dfrac{\partial f}{\partial R_3} = -U_z \cdot \dfrac{R_t}{{(R_3 + R_t)^2}} = -4.158\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1} \\
+         A_{R_3} &=  \dfrac{\partial f}{\partial R_3} = -U_z \cdot \dfrac{R_t}{{(R_3 + R_t)^2}} = -4.158\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1} \\
+    \end{align*}
+    \begin{align*}
         A_{R_t} &=  \dfrac{\partial f}{\partial R_4} = U_z \cdot \dfrac{R_3}{{(R_3 + R_t)^2}} = 4.170\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1}\\
     \end{align*}
-
     Jelikož je měření dílčích komponent zatíženo nízkou náhodnou chybou, tak je~možné zavést podmínku $u_A(i) = 0$ a~tím pádem $u_B(i) = u_C(i)$. Nyní je možné pomocí věty o šíření nejistot spočítat celkovou nejistotu $u_C(U_{teor})$.
     \begin{equation*}
         u_c(U_{teor}) = \sqrt{   \sum_{i = 0}^{n} (A_i \cdot u_c(i))^2    } = 9.774 \cdot 10^{-5} \ \text{V}
@@ -688,8 +774,21 @@
     \pagebreak
 
 \section{Závěr}
+Z měření plyne, že závislost mezi relativní změnou elektrického odporu $\Delta R$ a mechanické poměrné deformace $\epsilon$ je skutečně lineární. Díky tomuto zjištění lze určit součinitel deformační citlivosti $K$, který lze spočítat jako směrnice závislosti pomocí metody nejmenších čtverců. Součinitel deformační citlivosti $K$ byl z naměřených hodnot určen jako $K = 2.160$, což je o cca $10\%$ více, než je katalogová hodnota~\cite{navod}.
 
+Z naměřených frekvencí lze pozorovat, že menší nosníček má vyšší rezonanční kmitočet. Z geometrických důvodů toto dává smysl, pokud budeme mít jiný přirozený oscilátor například matematické kyvaldo, tak kyvadlo s menším závěsem bude kmitat rychleji, protože svým koncem při podobné rychlosti musí pro jeden kmit opsat menší dráhu~\cite{mkyvadlo}.
 
+Při postupném zatěžování nosníku a měřením hodnot z aparatury \textit{Vishay P-3500} bylo možné extrapolací naměřených bodů spočítat hmotnost závěsu, která vyšla $m = 2.78\text{ kg}$. Z naměřených hodnot bylo možné spočítat model pružnosti nosníku $E$, který vyšel v průměru $E = 224.4 \text{ GPa}$, což se od běžné hodnoty $220\text{ GPa}$ liší o~cca $2\  \%$. Vypočítáno bylo též \textit{Poissonovo číslo} $\mu$, které vyšlo v průměru $\mu = 0.2592$. Běžná hodnota $\mu$ bývá 0.3, což se od naměřené hodnoty liší o cca $14\  \%$\cite{navod}.
+
+Z naměřených a vypočtených hodnot lze usoudit, že dvouvodičové zapojení \linebreak čtvrtmůstku je ze všech nejméně přesné a stabilní. Při připojení předřadných odporů vodičů se hodnota modulu pružnosti $E$ změní z 230.3 GPa na 327.2 GPa. Vypočtená hmotnost závěsu se změní na 2.35 kg na 2.94 kg. 
+
+Třívodičové zapojení čtvrmůstku je stabilnější a přesnější. Při změně odporu přívodních vodičů se změní modul pružnosti $E$ z 238.4 GPa na 238.7 GPa, což je~nejmenší změna ze všech můstků. Vypočtená hmotnost závěsu se změní na 2.64 kg na 2.76 kg. 
+
+Zapojení půlmůstek používá obě složky tenzometru a při připojení předřadného odporu $R = 50 \ \Omega$ se vypočtená $E$ změní z 233.4 GPa na 236.0 GPa. Tato hodnota je nejblíže referenční 220 GPa. Hmotnost závěsu se změní po připojení předřadného odporu z 2.72 kg na 2.84 kg.
+    
+Zaokrouhlená hodnota výstupního napětí $U_{teor}$ s nejistotou vyšla $(1.4 \pm 0.2) \ \text{mV}$. Hodnota výstupního napětí $U = 1.445$ mV naměřená multimetrem se nachází v~intervalu teoretické hodnoty s nejistotou.
+
+    
 \pagebreak
 
 % Vishay P-3500, SN. 106013

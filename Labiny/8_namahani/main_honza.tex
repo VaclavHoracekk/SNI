@@ -1,3 +1,5 @@
+%chktex 44
+
 \documentclass[fleqn]{protokol}
 \usepackage{array}
 \usepackage{tabularx}
@@ -12,12 +14,12 @@
 \autorr{Jan Holík}
 \autorrID{256295}
 \rocnik{3}
-\merenodne{4.\,11.\,2025}
-\nazev{Měření průtoku vzduchu}
+\merenodne{25.\,11.\,2025}
+\nazev{Měření s odporovými tenzometry}
 \predmet{Snímače}
-\teplota{23.6}
-\tlak{994.8}
-\vlhkost{35.1}
+\teplota{22.2}
+\tlak{969.9}
+\vlhkost{32.6}
 %=====================================================================
 
 \newcommand{\neweq}{\\[0.8ex]}
@@ -29,9 +31,17 @@
 %------------------- Zde začíná samotný dokument ---------------------
 
 % command pro psani promennych k rovnicim
-\newenvironment{conditions}
-  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}-{}$} l}}
-  {\end{tabular}\par\vspace{\belowdisplayskip}}
+
+\NewEnviron{conditions}{%
+    \text{Kde je:}
+    \noindent
+    \begin{table}[!h]
+        \begin{tabular}{@{}ll}
+        \BODY
+        \end{tabular}
+    \end{table}
+    \linebreak
+}
 
 
 % Uprava tabulek
@@ -74,527 +84,639 @@
 
 \section{Zadání}\label{kap:zadani}
     \begin{enumerate}
-         \item Pro různé snímače průtoku:
-         
-         \begin{enumerate}
-            \item škrtící člen (clona) o průměru 12 mm,
-            \item vírový průtokoměr (vortex) \textbf{EGGS DELTA PULSE} FLP15-G2PA,
-            \item termoanemometr \textbf{IST FS5.A}
-            \item a kalorimetrický průtokoměr \textbf{HONEYWELL AWM 720P1}.
-         \end{enumerate}
-        
-        \begin{itemize}
-            \item Změřte převodní charakteristiku $vystup \_ snimace = f(prutok)$, vyneste ji do grafu a vyberte vhodný trend podle očekávané závislosti.
-            \item Paralelně s měřením převodní charakteristiky proměřte i tlakovou ztrátu snímačů, viz bod zadání 2.
-            \item Stanovte citlivost a porovnejte ji s katalogovým údajem.
-            \item Porovnejte měřený rozsah s pracovní oblastí snímače dle specifikace výrobce. Jako referenční měřidlo použijte plováčkový průtokoměr \textbf{KROHNE VA-40}. Proměření tlakového rozdílu u clony použijte tlakoměr \textbf{GREISINGER GDH 200-07}.
-        \end{itemize}
-           
-        \item Změřte tlakovou ztrátu na všech snímačích (včetně referenčního) v závislosti na průtoku měřičem diferenčního tlaku \textbf{ROSEMOUNT 3051C} a vyneste ji do společného grafu.
-        \item U snímače se škrtícím členem (clony) změřte průběh tlakového rozdílu v závislosti na vzdálenosti od clony.
-        \item Porovnejte hodnoty naměřené jednotlivými snímači s katalogovými údaji.
-        \item U snímače \textbf{EGGS DELTA PULSE} stanovte citlivost ze dvou měřených bodů a~to včetně nejistoty.
+        \item Seznamte se s~technickým popisem k~tenzometrické aparatuře Vishay P-3500, její obsluhou a~s~popisem přístroje pro~zjišťování citlivosti tenzometrů.     
+        \item Změřte hodnotu součinitele deformační citlivosti K~tenzometru nalepeného na~přípravku pro~cejchování tenzometrů a~porovnejte ji~s~údaji výrobce. Z~naměřených hodnot vypočítejte i~přírůstek odporu tenzometru při~průhybu 1 mm. Odpor nezatíženého tenzometru je $R = 120\ \Omega$.
+        \item Zjistěte rezonanční kmitočty malých vetknutých nosníčků pomocí nalepených tenzometrů.
+        \item Zjistěte modul pružnosti~$E$, Poissonova číslo~$\mu$ materiálu velkého nosníku a~hmotnost závěsu závaží u~velkého nosníku.
+        \item Zjistěte modul pružnosti~$E$ materiálu velkého nosníku a~hmotnost závěsu závaží při~využití podelně nalepeného tenzometru. Využijte přípravky \linebreak můstkových zapojení, zdroj a~voltmetr jako náhradu ústředny Vishay P-3500 pro varianty: čtvrtmůstek s~dvouvodičovým zapojením, čtvrtmůstek s~třívodičovým zapojením a~půlmůstek. Napájecí napětí můstků nastavte stejné jako u~aparatury Vishay P-3500. Vyhodnoťte schopnost jednotlivých zapojení potlačit vliv odporu přívodních vodičů simulovaných vloženým odporem.
+        \item V konfiguraci třívodičového zapojení jako čtvrmůstek spočítejte ze~známých hodnot odporů a~napájecího napětí výstupní napětí můstku a~stanovte nejistotu tohoto výstupního napětí. Vypočítanou teoretickou hodnotu napětí porovnejte s~naměřenou hodnotou výstupního napětí čtvrtmůstku při~nezatíženém nosníku.
     \end{enumerate}
 
 \pagebreak 
 
 % Ukol 1 - 
-\section{Úkol 1 - Převodní charakteristiky průtokoměrů}
-    Kapitola vychází ze zdroje \cite{navod}.
-       \subsection{Teoretický rozbor}
-       V tomto úkolu je měřená převodní charakteristika několika typů průtokoměrů. Měření průtoků kapalin je zcela zásadní pro dávkování, pneumatické/hydraulické obvody a další úlohy v průmyslu.
-       
-       Objemový průtok $Q$ se~definuje jako~časová změna objemu $V$ na~času $t$ a~jeho jednotka je~[m$^3\cdot$s$^{-1}$]. Při~rychlém pohledu na~jednotky si~lze objemový průtok představit i~jako rychlost média protékající skrz element plochy $A$ [m$^2$]. 
-       \begin{equation}
-            Q = \dfrac{dV}{dt} \quad[\text{m}^3\cdot \text{s}^{-1}]
-       \end{equation}
-       Tato rychlost se~nazývá rychlost proudění a~ve~vektorové formě bývá~literatuře uváděna jako~$\overrightarrow{u}$, nicmémě ve~zjednodušených případech se~může uvádět jako rychlost v~jednom směru $v$ [m$\cdot$s$^{-1}$].
-        \begin{equation}
-            Q = A \cdot v \quad[\text{m}^3\cdot \text{s}^{-1}; \text{m}^2, \text{m}\cdot\text{s}^{-1}]
-       \end{equation}
-       Je možné definovat i hmotnostní průtok $Q_m$, který vyjadřuje časovou změnu hmotnosti média.\cite{navod}
-       \begin{equation}
-            Q_m = \rho \cdot Q = \rho \cdot A \cdot v \quad[\text{kg}\cdot\text{s}^{-1};\text{m}^{-3}\cdot \text{kg}, \text{m}^2, \text{m} \cdot \text{s}^{-1}]
-       \end{equation}
+\section{Úkol 1 - Popis aparatury Vishay P-3500 a její obshuha}
+ 
+    \subsection{Zpracování}
 
-       Díky charakteru úlohy je nutné vzít v potaz stavovou rovnici ideálního plynu:
-       \begin{equation}
-            pV = nRT \Rightarrow \dfrac{p_1V_1}{T_1} = \dfrac{p_2V_2}{T_2}
-       \end{equation}
-
-        Při pohledu na rovnici lze určit, že pro znalost objemu plynu je potřeba znát jeho tlak $P$ a~teplotu $T$.
-
-        Principy průtokoměrů jsou různé např. \textit{škrtící člen}(clona) vytváří tlakový pokles úměrný druhé mocnině rychlosti proudění:
-        \begin{equation}
-            v = k \sqrt{\dfrac{2 \Delta p}{\rho}} \quad [\text{m} \cdot \text{s}^{-1}; \text{Pa}, \text{m}^{-3}\cdot \text{kg}]
-       \end{equation}
-       Kde $k$ je konstanta závislá na geometrii clony.
-
-       Další možnost měření průtoku, resp. rychlosti proudění je vírový průtokoměr, který využívá tvoření tzv. \textbf{Karmánových vírů}. 
-
-       Tyto víry v médiu vznikají při srážce s tenkou překážkou a jejich frekvence odtrhávání je možná vyjádřit jako:
-       \begin{equation}
-            f = Sr\dfrac{v}{a}
-       \end{equation} 
-       Kde $Sr$ je Strouhalovo číslo, $v$ je rychlost proudění [m$\cdot$s$^{-1}$] a $a$ [m] je tloušťka překážky.
+    \begin{flushleft}
+        \textbf{Aparatura Vishay P-3500:}
+    \end{flushleft}
     
-       Lze měřit i hmotnostní průtok a pro tento úkol lze využít termoanemometr, který pracuje na změně odporu ohříváním čidla. Výstup snímače je proud, kterým se regulátor vyrovnat rozdíl mezi dvěma měřícími odpory. Ohřev je způsoben viskózním třením a výstupní proud je závislý na rychlost proudění média, které se tře o trubici. Snímač má nízké tlakové ztráty. 
+    \begin{flushleft}
+    \textit{Vishay P-3500} slouží k měření deformací pomocí tenzometrů. Umožňuje měření s jedním tenzometrem, se dvěma tenzometry, nebo s plným mostem. Displej zobrazuje naměřené hodnoty v hodnotách relativního prodloužení, tzv. microstrainech (1$\mu$m/m = $10^{-6}$).
+    \end{flushleft}
 
-       Poslední zkoumaný princip v úloze je~kalorimetrický průkokoměr, kdy se využívá přímé úměry rozdílu teplot mezi dvěma tepelnými čidly a rychlosti proudění. Tento princip lze použít pro malé průtoky a~lze velice jednoduše zjistit směr proudění. 
+    \printfigure[Přední panel Vishay P-3500]{src/Vishay_P-3500.jpg}{0.15}{ukol1-Vishay P-3500}
 
-    \subsection{Postup měření}
-        \begin{enumerate}
-        \item Pomocí snímače KHRONE VA-40 byla nastavena požadovaná hodnota průtoku.
-        \item Změřili se hodnoty výstupního signálu prvního snímače pro jedenáct průtoků.
-        \item To se provedlo pro všechny snímače.
-    \end{enumerate}
-    \subsection{Naměřené hodnoty}   
+    \begin{flushleft}
+        \textit{POWER OFF} - modrá výplň tlačítka. Slouží k vypnutí napájení aparatury.\\[4mm]
+        
+        \textit{AMP ZERO} - oranžová výplň tlačítka. Používá se pro nastavení vyvážení zesilovače měřícího můstku.\\[4mm]
 
-        \begin{protocoltable}[Naměřené úbytky tlaku clony v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-clona}
-            \hline
-            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 & 140 & 160 & 180 & 200 & 220\\
-            \hline
-            $P$[Pa] & 11 & 41 & 86 & 164 & 261 & 380 & 515 & 677 & 861 & 1069 & 1300 \\
-            \hline
-            $T$[$^\circ$C] & 24.2 & 24.6 & 24.9 & 25.3 & 25.7 & 26.0 & 26.5 & 26.9 & 27.2 & 27.6 & 28.4 \\
-            \hline
-        \end{protocoltable}
+        \textit{GAGE FACTOR} - oranžová výplň tlačítka. Slouží k nastavení činitele deformační citlivosti v rozsahu 0,500 až 9,900.\\[4mm]
 
-        \begin{protocoltable}[Naměřené frekvence vírového průtokoměru EGGS v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-vir}
-            \hline
-            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
-            \hline
-            $f$[Hz] & 0 & 22.82 & 49.92 & 60.24 & 73.70 & 87.79 \\
-            \hline
-            $T$[$^\circ$C] & 26.8 & 27.1 & 27.3 & 27.6 & 27.8 & 28.4  \\
-            \hline
-            \hline
-            $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
-            \hline
-            $f$[Hz] & 102.4 & 116.6 & 131.3 & 147.0 & 156.2 & X\\
-            \hline
-            $T$[$^\circ$C] & 28.8 & 29.1 & 29.5 & 30.0 & 30.4 & X \\
-            \hline
-        \end{protocoltable}
+        \textit{RUN} - zelená výplň tlačítka. Měřící ústředna je ve stavu měření.\\[4mm]
 
-        \begin{protocoltable}[Naměřené napětí termoanemometru IST v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-term}
-            \hline
-            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
-            \hline
-            $U$[V] & 4.335 & 4.555 & 4.732 & 4.929 & 4.995 & 5.084  \\
-            \hline
-            \hline
-            $T$[$^\circ$C] & 26.2 & 26.5 & 26.9 & 27.2 & 27.6 & 27.0  \\
-            \hline
-            \hline
-             $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
-            \hline
-            $U$[V] & 5.156 & 5.217 & 5.274 & 5.433 & 5.372 & X\\
-            \hline\hline
-            $T$[$^\circ$C] & 27.5 & 27.9 & 28.6 & 29.2 & 29.7 & X  \\
-            \hline
-        \end{protocoltable}
-
-        \begin{protocoltable}[Naměřené napětí kalorimetrického průtokoměru Honeywell v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol1-kal}
-            \hline
-            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
-            \hline
-            $U$[V] & 2.456 & 3.124 & 3.632 & 3.996 & 4.167 & 4.323 \\
-            \hline
-            $T$[$^\circ$C] & 25.4 & 25.7 & 26.1 & 26.4 & 26.8 & 27.1  \\
-            \hline
-            \hline
-            $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
-            \hline
-            $U$[V] & 4.412 & 4.490 & 4.550 & 4.600 & 4.633 & X\\
-            \hline
-            $T$[$^\circ$C] & 27.5 & 27.8 & 28.1 & 28.6 & 29.1 & X \\
-            \hline
-        \end{protocoltable}
+        \textit{BRIDGE} - plný nebo 1/4, 1/2 můstek – žlutá výplň tlačítka. Tímto tlačítkem nastavíme zapojení tenzometrů celý můstek nebo 1/4, 1/2 -můstek.\\[4mm]
     
-    \subsection{Zpracované výsledky měření}
-    Převodní charakteristika v souhlasu s teorií kvadratická. Interpolaci měřených bodů lze vyjádřit rovnicí:
-        \begin{equation*}
-            \Delta p = f(Q) = 0.02772 \cdot Q^2  - 0.2096 \cdot Q + 2.65 
-        \end{equation*}
-    Z toho lze určit citlivost pro pracovní průtok $Q$:
-        \begin{equation*}
-            K =\dfrac{df(Q)}{dQ} = 0.05544 \cdot Q - 0.2096 \text{\cite{vypocty}}
-        \end{equation*}
-        \printfigure[Převodní charakteristika clony]{src/prevod_clon.png}{0.33}{ukol1-clona}
+        \textit{OUTPUT} - analogový výstup ze zesilovače.\\[4mm]
 
-    Pro vírový průtokoměr je dle předpokladů převodní charakteristika lineární a regresi měřených bodů lze vyjádřit jako:
-        \begin{equation*}
-            f = f(Q) = 0.7597 \cdot Q - 5.154 
-        \end{equation*}
-    Z rovnice lze určit citlivost snímače K:
-        \begin{equation*}
-            K =\dfrac{df(Q)}{dQ} = 0.7597 \text{ Hz} \cdot \text{m}^{-3} \cdot \text{min}^{-1} 
-        \end{equation*}
-        \printfigure[Převodní charakteristika vírového průtokoměru EGGS]{src/prevod_vir.png}{0.33}{ukol1-vir}
+        \textit{BATTERY} - ukazuje stav nabití vnitřní baterie.
+    \end{flushleft}
+    \pagebreak
 
-     Měřená data pro termoanemometr odpovídají logaritmu a regresi měřených bodů lze vyjádřit jako:
-        \begin{equation*}
-            U = f(Q) = 0.4774 \cdot \ln(Q) - 2.813
-        \end{equation*}
-     Z rovnice lze určit citlivost snímače K:
-        \begin{equation*}
-            K =\dfrac{df(Q)}{dQ} =   \dfrac{0.4774}{Q} \text{ V} \cdot \text{m}^{-3} \cdot \text{min}^{-1} 
-        \end{equation*}
-        \printfigure[Převodní charakteristika termoanemometru IST]{src/prevod_termo.png}{0.33}{ukol1-term}
+    \printfigure[Možná zapojení Vishay P-3500]{src/Vishay_zapojeni.png}{0.8}{ukol1-Vishay P-3500}
 
-    Při měření převodní charakteristiky kalorimetrického průkokoměru se data uspořádala do logaritmické funkce a regresi těchto dat je možné vyjádřit ve tvaru: 
-        \begin{equation*}
-            U = f(Q) = 0.9564 \cdot \ln(Q) - 0.3625
-        \end{equation*}
-    Z toho lze určit citlivost pro pracovní průtok $Q$:
-        \begin{equation*}
-            K =\dfrac{df(Q)}{dQ} =  \dfrac{0.9564}{Q} \text{ V} \cdot \text{m}^{-3} \cdot \text{min}^{-1} 
-        \end{equation*}
-        \printfigure[Převodní charakteristika kalorimetrického průtokoměru Honeywell]{src/prevod_kal.png}{0.33}{ukol1-kal}
+    \begin{flushleft}
+        \textbf{Přístroj pro zjišťování citlivosti tenzometrů:}
+    \end{flushleft}
+    
+    \printfigure[Možná zapojení Vishay P-3500]{src/Pristroj_citlivost.png}{0.3}{ukol1-Vishay P-3500}
 
-    \subsection{Závěr}
-    Převodní charakteristika clony vyšla jako kvadratická a měřenými body prochází přesně. Pro vírový průtkoměr vychází převodní charakteristika lineární a jeho citlivost vychází $K = 0.7597 \text{ Hz} \cdot \text{m}^{-3} \cdot \text{min}^{-1}$. Termoanemometr má podobně jako vírový "lineární" převodní charakteristiku a jeho citlivost vychází $K = 0.005046 \text{ V} \cdot \text{m}^{-3} \cdot \text{min}^{-1}$. Pro kalorimetrický průtokoměr vychází převodní charakteristika logarimická a jeho citlivost jze určit vždy jenom pro pracovní průtok.
+    \begin{flushleft}
+        Používá se pro zjišťování součinitele deformační citlivosti K odporových tenzometrů s odměrnou délkou do 50mm. Platí:
+
+        \begin{equation}
+            \frac{\Delta R}{R} = K \cdot \frac{\Delta l}{l} = K \cdot \epsilon
+        \end{equation}
+
+        Cejchování se provádí na duralovém nosníku ohýbaném ve velkém rozsahu konstantním ohybovým momentem. Část nosníku ve vzdálenosti b mezi podporami má konstantní ohybový moment a tím též konstantní poměrné prodloužení povrchových vláken. 
+        Při lepení tenzometrů je nutné se vyhnout přímému okolí podpor. 
+    \end{flushleft}
+
+    \pagebreak
+
+    \begin{flushleft}
+        Pro nosník, jehož deformační křivkou je kružnice o poloměru r, platí pro poměrnou deformaci povrchového vlákna o délce l:
+    \end{flushleft}
+    
+    \begin{equation}
+        r = \frac{b^2}{8y} \qquad \frac{\Delta l}{0{,}5h} = \frac{l}{r} \quad \Rightarrow \quad \epsilon = \frac{4h}{b^2}y
+    \end{equation}
+
+    \begin{flushleft}
+        \textit{y} - průhyb nosníku [m]
+    \end{flushleft}
+    
+   
+    
+    \subsection{Závěr}  
+    V této úloze bylo provedeno seznámení s aparaturou Vishay P-3500 a přístrojem pro zjišťování citlivosti tenzometrů. Aparatura je určena k měření deformací pomocí tenzometrů a umožňuje měření s jedním tenzometrem, se dvěma tenzometry, nebo s plným mostem
+
 \pagebreak
 
 % Ukol 2 - 
-\section{Úkol 2 - Tlaková ztráta průtokoměrů}
+\section{Úkol 2 - Součinitele deformační citlivosti}
+
     \subsection{Teoretický rozbor}
-        Každý průtokoměr vykazuje jisté tlakové ztráty. Cílem této úlohy bylo určit jejich změny v závislosti na průtoku.
-   
+        Vztah pro relativní změnu odporu na poměrné deformaci $\epsilon$ kovových tenzometrů lze vyjádřit jako:
+        \begin{equation}
+            \label{hlavni rovnice}
+            \dfrac{\Delta R}{R} = K \cdot \dfrac{\Delta l}{l} = K \cdot \epsilon \quad[-]
+        \end{equation}
+        Přičemž relativní změna odporu tenzometru je možná vyjádřit jako:
+        \begin{equation}
+            \label{deltaR}
+            \dfrac{\Delta R}{R} = 4 \cdot \dfrac{\Delta U_2}{U_1} = 4 \cdot \dfrac{U_2 - U_{20}}{U_1} [-]
+        \end{equation}
+        Pro získání informace o $U_2$ lze využít vztah:
+        \begin{equation}
+            \label{napeti}
+            U_2 = \dfrac{U_1\cdot D \cdot 10^{-6} \cdot GF \cdot MULT}{Z}\quad [V]
+        \end{equation}
+        \begin{conditions}
+            $U_1$  & napájecí napětí tenzometrového můstku [V] \\
+            $D$    & hodnota čtená na displeji [-] \\
+            $GF$   & nastavená hodnota GAGE FACTOR [mV/V] \\
+            $MULT$ & koeficient zohledňující změnu zesílení [-] \\
+            $Z$    & vnitřní zesílení aparatury [-]
+        \end{conditions}
+        Po dosazení do vztahu~(\ref{napeti}) dojde ke zjednodušení: 
+        \begin{equation}
+            U_2 = \dfrac{2 \cdot D \cdot 10^{-6} \cdot 1 \cdot 1}{4}\quad = 5\cdot10^{-7} D \quad [V]
+        \end{equation}
+        Po dalším dosazení do vztahu~(\ref{deltaR}):
+        \begin{equation}
+            \label{lepsideltaR}
+            \dfrac{\Delta R}{R} =  4 \cdot 5\cdot 10^{-7} \cdot \dfrac{D - D_{0}}{2} = 10^{-6} (D - D_{0}) \quad [-]
+        \end{equation}
+        Pro poměrné relativní namáhání $\epsilon$ platí:
+        \begin{equation}
+            \label{epsilon}
+           \epsilon = \dfrac{4h}{b^2}y = \dfrac{4 \cdot 9.7 \cdot 10^{-3}}{(200 \cdot 10^{-3})^2} \cdot y = 0.97 \cdot y \quad [-]
+        \end{equation} 
+        Pokud dosadíme závislosti (\ref{epsilon}) a (\ref{lepsideltaR}) do rovnice (\ref{hlavni rovnice}), vznikne závislost:
+        \begin{equation}
+           10^{-6} (D - D_{0}) = K \cdot 0.97 \cdot y \rightarrow \Delta D = K \cdot 0.97 \cdot 10^{6} \cdot y \quad[-] 
+        \end{equation}
+        K lze poté získat proměřením závislosti údajem z aparatury \textit{Vishay P-3500 D} a prohnutím nosníku \textit{y} pomocí metody nejmenších čtverců.
+        \begin{equation}
+            K = \left( \dfrac{n \sum_{i}^{n} \Delta D_i y_i - \sum_{i}^{n} \Delta D_i \sum_{i}^{n} y_i }{n \sum_{i}^{n} y_i^2 - \left(\sum_{i}^{n} y_i \right)^2} \right)
+        \end{equation}
+
+
     \subsection{Postup měření}
-        \begin{enumerate}
-            \item Pomocí snímače KHRONE VA-40 byla nastavena požadovaná hodnota průtoku.
-            \item Změřily se hodnoty tlakové ztráty snímačů pomocí ROSEMOUNT 3051C.
-        \end{enumerate}
-    \subsection{Naměřené hodnoty}   
-  
-         \begin{protocoltable}[Naměřené úbytky tlaků průtokoměrů v závislosti na ref. průtoku]{|c|C|C|C|C|C|C|C|C|C|c|c|}{ukol2}
+
+    \begin{enumerate}
+        \item Tenzometr na kalibračním přípravku byl připojen k Vishay P-3500.
+        \item Byla odečtena hodnota zobrazená na displeji aparatury při nulovém průhybu.
+        \item Průhyb byl nastaven na 0,1 mm.
+        \item Byla odečtena hodnota zobrazená na displeji aparatury.
+        \item Toto bylo opakováno pro průhyby do 1 mm a zpět s krokem 0,1 mm.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}
+
+        \begin{protocoltable}[Naměřené údaje z cejchovací aparatury]{|c|C|C|C|C|C|C|}{ukol2-mereni}
             \hline
-            $Q[NL/min]$ & 22.5 & 40 & 60 & 80 & 100 & 120 \\
+            $l$[mm] & 0 & 0.1 & 0.2 & 0.3 & 0.4 & 0.5  \\ 
             \hline
-            $I_{PLOV}$[mA] & 11.94 & 11.99 & 12.02 & 12.10 & 12.22 & 12.40  \\
+            $D_\downarrow$[$\mu$m$\cdot$m$^{-1}$] & 284 & 78 & -130 & -340 & -551 & -764  \\  
             \hline
-            $I_{CLON}$[mA] & 3.996 & 4.160 & 4.463 & 4.882 & 5.516 & 6.227 \\
-            \hline
-            $I_{VIR}$[mA] & 4.040 & 4.323 & 4.805 & 5.458 & 6.361 & 7.396  \\
-            \hline
-            $I_{KAL}$[mA] & 4.014 & 4.148 & 4.353 & 4.641 & 4.944 & 5.356 \\
+            $D_\uparrow$[$\mu$m$\cdot$m$^{-1}$] & 295 & 86 & -122 & -333 & -546 & -761  \\  
             \hline
             \hline
-            $Q[NL/min]$ & 140 & 160 & 180 & 200 & 220 & X \\
+            $l$[mm] & 0.6 & 0.7 & 0.8 & 0.9 & 1 & X  \\ 
             \hline
-            $I_{PLOV}$[mA] & 12.61 & 12.87 & 13.19 & 13.56 & 15.01 & X \\
+            $D_\downarrow$[$\mu$m$\cdot$m$^{-1}$] & -974 & -1183 & -1388 & -1595 & -1800 & X \\  
             \hline
-            $I_{CLON}$[mA] & 7.033 & 8.017 & 9.096 & 10.27 & 11.64 & X \\
-            \hline
-            $I_{VIR}$[mA] & 8.672 & 10.04 & 11.66 & 13.32 & 15.38 & X \\
-            \hline
-            $I_{KAL}$[mA] &  5.765 & 6.263 & 6.764 & 7.346 & 8.006 & X \\
+            $D_\uparrow$[$\mu$m$\cdot$m$^{-1}$] & -970 & -1180 & -1386 & -1595 & -1800 & X \\  
             \hline
         \end{protocoltable}
-        \begin{itemize}
-            \item $Q$ = 200 NL$\cdot$min$^{-1}$
-        \end{itemize}
-    \pagebreak
-    \subsection{Zpracované výsledky měření}
-        \printfigure[Pokles tlaku průtokoměrů na referenčním průtoku]{src/tlaky.png}{0.33}{ukol2}
-    \subsection{Závěr}
-        Většina senzorů vykazuje kvadratický nárůst tlakové ztráty na referenčním průtoku. Nejvyšší tlakové ztráty konzistentně vykazuje plováčkový průtokoměr a nejmenší kalorimetrický průtokoměr.
 
+
+    \subsection{Zpracované výsledky měření}
+        \begin{equation*}
+            \Delta D = \left| D_{\uparrow} - D_{\uparrow 0} \right| = \left| -1800 - 284 \right| = 2084 \  \mu m / m
+        \end{equation*}
+        \begin{equation*}
+            y = 0.97 \cdot l = 0.97 \cdot 0.001 = 0.00097 \ m = 0.970 \ mm
+        \end{equation*}
+
+        %0	0.097 0.194 0.291	0.388	0.485	0.582	0.679	0.776	0.873	0.970
+        % 0 & 206 &	414 & 624 &	835 & 1048 & 1258 & 1467 & 1672 & 1879 & 2084
+        % 0	& 209 &	417 & 628 &	841 & 1056 & 1265 & 1475 & 1681 & 1890 & 2095
+        \begin{protocoltable}[Vypočtené hodnoty pro výpočet $K$]{|c|C|C|C|C|C|C|}{ukol2-deformace}
+            \hline
+            $y$[mm] & 0 & 0.097 & 0.194 & 0.291 & 0.388 & 0.485  \\ 
+            \hline
+            $\Delta D_\downarrow$[$\mu$m$\cdot$m$^{-1}$] &  0 & 206 &	414 & 624 &	835 & 1048   \\  
+            \hline
+            $\Delta D_\uparrow$[$\mu$m$\cdot$m$^{-1}$] & 0	& 209 &	417 & 628 &	841 & 1056  \\  
+            \hline
+            \hline
+            $l$[mm] & 0.582 & 0.679 & 0.776 & 0.873 & 0.970 & X  \\ 
+            \hline
+            $\Delta D_\downarrow$[$\mu$m$\cdot$m$^{-1}$] & 1258 & 1467 & 1672 & 1879 & 2084 & X \\  
+            \hline
+            $\Delta D_\uparrow$[$\mu$m$\cdot$m$^{-1}$] & 1265 & 1475 & 1681 & 1890 & 2095 & X \\  
+            \hline
+        \end{protocoltable}
+
+        \begin{align*}
+            K_\downarrow &= \left( \dfrac{n \sum_{i}^{n} \Delta D_i l_i - \sum_{i}^{n} \Delta D_i \sum_{i}^{n} l_i }{n \sum_{i}^{n} l_i^2 - \left(\sum_{i}^{n} l_i \right)^2} \right) \\
+            K_\downarrow &= \dfrac{11 \cdot 7.802 \cdot 10^{-6} - 5.335\cdot 10^{-3} \cdot 1.156\cdot 10^{-2}}{11 \cdot 3.622\cdot 10^{-6} \cdot 2.846e{-5}} \rightarrow \boxed{K = 2.155}
+        \end{align*}
+
+        Pro výchylku směrem nahoru vyšlo $\boxed{K_\uparrow = 2.166}$ a byla vypočítána stejně jako $K_\uparrow$. Průměr těchto dvou hodnot je tedy:
+
+        \begin{equation*}
+            \overline{K} = \dfrac{K_\downarrow + K_\uparrow}{2} = \dfrac{2.155 + 2.166}{2} \rightarrow \boxed{K = 2.160}
+        \end{equation*}
+    \subsection{Závěr} 
+    
 \pagebreak
 
-% Ukol 3 - 
-\section{Úkol 3 - Tlaková diference clony}
+\section{Úkol 3 - Rezonanční kmitočty malých nosníčků}
 
     \subsection{Teoretický rozbor}
-    Clona ve své podstatě vytvoří tlakovou diferenci mezi oblastí před clonou a za clonou. Tato diference je určená geometrií clony a jejím průměrem. Očekávaný průběh je nízký konstantní tlak před clonou a po překročení clony se očekává prudký nárůst tlakové diference a její psotupný pokles s narůstající vzdáleností od clony.
-   
-    \printfigure[Pozice pro hadičky tlakoměru na měřící trubici se clonou]{src/trubice.png}{0.5}{ukol3-trubice}
     \subsection{Postup měření}
-        \begin{enumerate}
-            \item Nastavil se průtok na konstantní hodnotu pomocí KROHNE VA-40.
-            \item Byl změřen průběh tlakového rozdílu v závislosti na vzdálenosti od clony.
-        \end{enumerate}
-    \subsection{Naměřené hodnoty}   
-  
-        \begin{protocoltable}[Naměřené úbytky tlaku clony v závislosti na pozici hadičky tlakoměru na trubici]{|c|C|C|C|C|C|C|C|C|C|C|}{ukol3}
-            \hline
-            $n[]$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
-            \hline
-            $P$[Pa] & 12 & 18 & 4 & 1110 & 1105 & 1084 & 1032 & 794 & 702 & 695 \\
-            \hline
-        \end{protocoltable}
 
-    \pagebreak
+    \begin{enumerate}
+        \item K aparatuře Vishay P-3500 byly připojeny tenzometry na malých nosnících.
+        \item K osciloskopu byl na první kanál přiveden analogový výstup z aparatury Vishay P-3500 a na druhý kanál byl přiveden signál z generátoru.
+        \item Na osciloskopu byl nastaveno zobrazení X-Y, tedy Lissajousových obrazců a pomocí nich byl nalezen rezonanční kmitočet nosníků.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}
+
+        \begin{table}[!h]
+            \centering
+            \caption{Naměřené rezonanční frekvencne malých nosníčků}\label{tab:ukol3-frekvence}
+            \vspace{0.3cm}
+            \begin{tabular}{|c|c|}
+                \hline
+                $f$[Hz] & 46.95  \\ 
+                \hline
+                $f$[Hz] & 58.82  \\ 
+                \hline
+            \end{tabular}
+        \end{table}
+
     \subsection{Zpracované výsledky měření}
-
-        \printfigure[Pokles tlaku clony v závislosti na pozici hadičky diferenčního tlakoměru\cite{navod}]{src/trubice_tlaky.png}{0.33}{ukol3}
-
-    \subsection{Závěr}
-
-    Změřená charakteritika odpovídá teoretickým předpokladům. Kmitání měřených tlaků na nízkých hodnotách je způsobeno nepřesností tlakoměru.
+    \subsection{Závěr} 
 
 \pagebreak
 
 % Ukol 4 - 
-\section{Úkol 4 - Porovnání hodnot s výrobcem}
+\section{Úkol 4 - Parametry velkého nosníku}
 
-        \subsection{Teoretický rozbor}
-
-    \textbf{Převody mezi LPM, SLPM a NLPM:}\cite{navod}
-
-    \begin{equation}
-    SLPM = LPM \cdot \frac{294.26}{T_{gas}} \cdot \frac{P_{gas}}{14.696}
-    \end{equation}
-
-    \begin{equation}
-    NLPM = LPM \cdot \frac{273.15}{T_{gas}} \cdot \frac{P_{gas}}{14696}
-    \end{equation}
-
-    Z toho odvodíme:
-
-    \begin{equation}
-    \dfrac{SLPM}{NLPM} = \dfrac{294.26}{273.15}
-    \end{equation}
-
-
-    
-    \subsection{Postup měření}
-    \begin{enumerate}
-        \item Byly naměřeny hodnoty jednotlivými snímači.
-        \item Tyto naměřené hodnoty byly porovnány s katalogovými údaji.
-    \end{enumerate}  
-    \subsection{Zpracované výsledky měření}
-
-    \begin{flushleft}
-    \textbf{GREISINGER GDH 200-07:}
-    \end{flushleft}
-
-    \begin{flushleft}
-    Přístroj má měřicí rozsah 0 - 1999 Pa (přibližně 0 až 19,99 mbar). Námi naměřené hodnoty nabývají 11 až 1300 Pa. Z toho lze usoudit, že měřicí rozsah přístroje je dostačující pro naše měření\cite{greisinger_gdh200}.
-    \end{flushleft}
-
-    \begin{flushleft}
-    \textbf{EGGS DELTA PULSE FLP15-G2PA:}
-    \end{flushleft}
-
-    \begin{equation}
-         LPM = NLPM \cdot \frac{T_{gas}}{273,15} \cdot \frac{14,696}{P_{gas}} = 22.5 \cdot \frac{297.35}{273.15} \cdot \frac{14.696}{14.427} = 25\text{ l/min}
-    \end{equation}
-
-    \begin{flushleft}
-    Kalibrace námi používaného přístroje byla provedena pro údaje uvedené v datasheetu pro nominální velikost 15 mm. Pro tuto nominální hodnotu bylo z datasheetu zjištěno, že rozsah měření je 55 - 283 l/min. Z toho lze poochopit proč při průtoku 22,5 Nl/min (25 l/min) byla získaná nulová frekvence. Obecně pro nízké hodnoty průtoku byla zobrazovaná hodnota frekvence velmi nestabilní. Maximální hodnota frekvence ze snímače by měla být při maximálním průtoku rovna 200 Hz. My se ale nejsme schopni dostat na tuto frekvenci, jelikož jsme limitováni maximální hodnotou, kterou jsme schopni nastavirt na našem referenčním měřidle\cite{oval_eggs_delta}.
-    \end{flushleft}
-
-    \begin{flushleft}
-    \textbf{IST FS5.A:}
-    \end{flushleft}
-
-    \begin{flushleft}
-    Z datasheetu lze vyčíst, že výstupní napětí přístroje nabývá 2,7 - 6 V. Námi naměřené hodnoty napětí se pohybují v rozmezí 4,335 - 5,433 V a leží tedy v měřicím rozsahu přístroje. V grafu v datasheetu je vidět, že s rostoucí rychlostí proudění má logarimicky narůstat i výstupní napětí. Toto chování je patrné i z našich naměřených hodnot, kde hodnoty napětí zpočátku rostou rychle a poté se růst zpomaluje. Jedinou výjimkou je hodnota při průtoku 220 Nl/min, kdy hodnota napětí klesne. To bude patrně chyba měření\cite{ist_fs5}.
-    \end{flushleft}
-
-    \begin{flushleft}
-    \textbf{HONEYWELL AWM 720P1:}
-    \end{flushleft}
-
-    \begin{equation}
-        SLPM = NLPM \cdot \dfrac{294.26}{273.15} = 220 \cdot 1.077 = 237 \text{ SLPM}
-    \end{equation}
-
-    \begin{flushleft}
-    Senzor je kalibrován pro maximální průtok 200 SLPM. My měříme až na hodnotě 220 NLPM (237 SLPM). Proto hodnoty nad 200 SLPM nejsou zaručeně správné. Z charakteristky v datasheetu lze usoudit že výstupní napětí senzoru roste s rostoucím průtokem logaritmicky. Toto chování je patrné i z našich naměřených hodnot, kde hodnoty napětí zpočátku rostou rychle a poté se růst zpomaluje\cite{honeywell_awm720}.
-    \end{flushleft}
-
-    \begin{flushleft}
-    \textbf{KROHNE VA-40:}
-    \end{flushleft}
-
-    \begin{flushleft}
-    Námi naměřená ztráta tlaku se pohybuje od 1000 - 1400 Pa. Maximální tlaková ztráta je 800 Pa, což neodpovídá naměřeným hodnotám\cite{krohne_va40}.
-    \end{flushleft}
-
-    \begin{flushleft}
-    \textbf{ROSEMOUNT 3051C:}
-    \end{flushleft}
-
-    \begin{flushleft}
-    Přístroj má pracovní pásmo 4 - 20 mA. Všechny námi naměřené hodnoty leží v tomto pásmu\cite{rosemount3051}. 
-    \end{flushleft}
- 
-    \subsection{Závěr}
-    Naměřené hodnoty jednotlivými snímači byly porovnány s katalogovými údaji. Všechny naměřené hodnoty leží v měřicím rozsahu jednotlivých přístrojů.
-
-\pagebreak
-
-
-% Ukol 5 - 
-\section{Úkol 5 - Nejistota citlivosti}
-    Kapitola vychází ze zdrojů \cite{nejistoty}, \cite{nejistoty_prezentace} a \cite{zaokrouhlovani}.
     \subsection{Teoretický rozbor}
-    Vírový průtokoměr využívá Kármánových vírů, které vznikají při obtékání tělesa neproudnicového tvaru, umístěného kolmo na směr proudění.
-    Jejich frekvenci lze vyjádřit vztahem:
-
-    \begin{equation}
-        f = \dfrac{Sr}{a} v
-    \end{equation}
-
-    \subsection{Postup měření}
-    \begin{enumerate}
-        \item Průtok se nastavil na 100 Nl/min.
-        \item Bylo změřeno deset hodnot frekvence $f_{1}$.
-        \item Průtok se nastavil na 150 Nl/min.
-        \item Bylo změřeno deset hodnot frekvence $f_{2}$.
-    \end{enumerate}
-
-    \subsection{Naměřené hodnoty}   
-
-    \begin{protocoltable}[Deset maměřených hodnot frekvence pro Q = 100 Nl/min]{|C|C|C|C|C|C|}{res1}
-        \hline
-        Měření & 1 & 2 & 3 & 4 & 5   \\ \hline
-        $f_{1}$[Hz] & 74.91 & 74.84 & 75.05 & 74.99 & 74.88  \\ \hline
-        \hline
-        Měření & 6 & 7 & 8 & 9 & 10    \\ \hline
-        $f_{1}$[Hz] & 74.92 & 74.76 & 74.82 & 74.88 &  74.87 \\  \hline
-    \end{protocoltable}
-
-     \begin{protocoltable}[Deset maměřených hodnot frekvence pro Q = 150 Nl/min]{|C|C|C|C|C|C|}{res1}
-        \hline
-        Měření & 1 & 2 & 3 & 4 & 5   \\ \hline
-        $f_{2}$[Hz] & 110,0 & 109,5 & 109,7 & 109,9 & 109,8  \\ \hline
-        \hline
-        Měření & 6 & 7 & 8 & 9 & 10    \\ \hline
-        $f_{2}$[Hz] & 109,7 & 109,7 & 109,9 & 110,0 &  109,9 \\  \hline
-    \end{protocoltable}
+        \begin{equation}
+            \sigma = E \cdot \epsilon
+        \end{equation}
+        \begin{conditions}
+            $\sigma_n$ & mechanické napětí v příslušném směru [Pa] \\
+            $E$ & modul pružnosti v tahu [Pa]. Je to konstanta úměrnosti, která je u běžných  \\
+                & kovových materiálů směrově nezávislá \\
+            $\epsilon$ & je poměrná deformace v příslušném směru [-] 
+        \end{conditions}
+        \begin{equation}
+            \mu = \dfrac{\epsilon_t}{\epsilon_n}
+        \end{equation}
+        \begin{conditions}
+            $\mu$ & Poissonovo číslo [-] \\
+            $\epsilon_t$ & poměrná deformace ve směru kolmém na působící sílu [-] \\
+            $\epsilon_n$ & poměrná deformace ve směru působící síly [-]
+        \end{conditions}
+        \begin{align}
+            \sigma_n &= \dfrac{M}{W} \quad [\text{Pa}]\\
+            W &= \dfrac{1}{6} \cdot b \cdot h^2 \quad [\text{m}^3]\\
+            M &= F \cdot r \quad [N\cdot m] 
+        \end{align}
+        \begin{conditions}
+            $\sigma_n$ & mechanické napětí [Pa] \\
+            $M$ & ohybový moment [N$\cdot$m] \\
+            $W$ & modul průřezu nosníku [m$^3$] \\
+            $F$ & síla působící na nosník [N]
+        \end{conditions}
 
     \pagebreak
+    \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item K aparatuře Vishay P-3500 byl připojen tenzometr na velkém nosníku měřící podélnou složku poměrné deformace. 
+        \item Byla zapsána hodnota zobrazená na displeji pro nezatížený nosník.
+        \item Na nosník by zavěšen závěs a zapsána zobrazená hodnota na displeji.
+        \item K závěsu bylo přidáno závaží 1 kg a zapsána zobrazená hodnota na displeji.
+        \item Tímto zůsobem bylo postupováno s přidáváním závaží vždy po 1 kg až do stavu, kdz na nosníku byl zavěšen závěs a 5 kg.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}
+        \begin{itemize}
+            \item $r = 0.4$ m
+            \item $b = 0.08$ m
+            \item $h = 0.006$ m
+        \end{itemize}
+        %   m4 = [0 2.78 3.78 4.78 5.78 6.78 7.78];
+        %   delta_l4_podel = [170 388 463 553 630 698 781];
+        %   delta_l4_pric = [-156 -209 -231 -254 -277 -298 -320];
+
+        \begin{protocoltable}[Naměřené hodnoty z Vishay P-3500 při postupném zatěžování nosníku]{|c|C|C|C|C|C|C|C|}{ukol4-mereni}
+            \hline
+            $m$[kg] & 0 & $m_z$ & $m_z+1$ & $m_z+2$ &  $m_z+3$ & $m_z+4$ & $m_z+5$  \\ 
+            \hline
+            $D_{n}$[$\mu$m$\cdot$m$^{-1}$] & 170 & 388 & 463 & 553 & 630 & 698 & 781  \\  
+            \hline
+            $D_{t}$[$\mu$m$\cdot$m$^{-1}$] & -156 & -209 & -231 & -254 & -277 & -298 & -320  \\  
+            \hline
+        \end{protocoltable}
 
     \subsection{Zpracované výsledky měření}
 
-        Vypočítáme průměry naměřených frekvencí:
+        \printfigure[Závislost údaje Vishay P-3500 $D$ na zatížení nosníku $m$]{src/zatizeni.png}{0.35}{charka}
 
-\begin{equation}
-\begin{aligned}
-\overline{f_{1}} 
-    &= \dfrac{1}{10} \sum_{i=1}^{10} f_{1i} = \\
-    &= \dfrac{74.91 + 74.84 + 75.05 + 74.99 + 74.88 + 74.92 + 74.76 + 74.82 + 74.88 + 74.87}{10} = \\
-    &= 74.89 \text{ Hz}
-\end{aligned}
-\end{equation}
+        
 
-\begin{equation}
-    \overline{f_{2}} = 109.8 \text{ Hz}
-\end{equation}
+        \begin{align*}
+            M &= F \cdot r = m \cdot g \cdot r = 7.78 \cdot 9.81 \cdot 0.4 = 30.50 \ N \cdot \text{m} \\
+            W &= \dfrac{1}{6} \cdot b \cdot h^2 = \dfrac{1}{6} \cdot 0.08 \cdot 0.006^2 = 4.8 \cdot 10^{-7} \ \text{m}^3 \\
+            \sigma_n &= \dfrac{M}{W} = \dfrac{10.9}{4.8 \cdot 10^{-7}} = 6.354\cdot 10^7 \ \text{Pa}
+        \end{align*}
 
+        \begin{equation*}
+            \epsilon_{n} = \dfrac{\Delta D_{n} \cdot 10^{-6}}{K} = \dfrac{|D_{n} - D_{n0}| \cdot 10^{-6}}{K} = \dfrac{|781 - 170| \cdot 10^{-6}}{2.16} = 2.829 \cdot 10^{-4} \\
+        \end{equation*}
 
-\begin{flushleft}
-Výpočet nejistoty typu A:    
-\end{flushleft}
+        \begin{equation*}
+              \epsilon_{t} = \dfrac{\Delta D_{t} \cdot 10^{-6}}{K} = \dfrac{|D_{t} - D_{t0}| \cdot 10^{-6}}{K} = \dfrac{|-320 + 156| \cdot 10^{-6}}{2.16} = 7.591 \cdot 10^{-5} 
+        \end{equation*}
 
-\begin{equation}
-    u_{A}(x) = \sqrt{\dfrac{\sum_{i=1}^{n}(x_{i}-\overline{x})^{2}}{n(n-1)}}  
-\end{equation}
+        \begin{equation*}
+            E = \dfrac{\sigma_n}{\epsilon_n} = \dfrac{6.354\cdot 10^7}{2.829 \cdot 10^{-4}} = 2.243 \cdot 10^{11} \  \text{Pa}
+        \end{equation*}
 
-\begin{equation}
-    u_{A}(f_{1}) = \sqrt{\dfrac{\sum_{i=1}^{10}(f_{1i}-\overline{f_{1}})^{2}}{10(10-1)}} = 0.026 \text{ Hz}
-\end{equation}
+        \begin{equation*}
+            \mu = \dfrac{\epsilon_t}{\epsilon_n} = \dfrac{7.591 \cdot 10^{-5}}{2.829 \cdot 10^{-4}} = 0.2684 
+        \end{equation*}
+        % 0 & 2.270 \cdot 10^{7} & 3.087\cdot 10^{7} & 3.904 \cdot 10^{7} & 4.720 \cdot 10^{7} & 5.537\cdot 10^{7} & 6.354 \cdot 10^{7}
+        % 0	& 1.009 & 1.356 & 1.773 & 2.129 & 2.444 & 2.828
+        % 0 & 24.53 & 34.71 & 45.36 & 56.01 & 65.73 & 75.91
+        % X & 225.0 & 227.6 & 220.2	& 221.6 & 226.6 & 224.7
+        \begin{protocoltable}[Vypočtené hodnoty $E$, $\mu$ a veličiny pro to potřebné]{|c|C|C|C|C|C|C|C|}{ukol4-hodnoty}
+            \hline
+            $m$[kg] & 0 & 2.78 & 3.78 & 4.78 & 5.78 & 6.78 & 7.78  \\ 
+            \hline
+            $D_{n}$[$\mu$m$\cdot$m$^{-1}$] & 170 & 388 & 463 & 553 & 630 & 698 & 781  \\  
+            \hline
+            $D_{t}$[$\mu$m$\cdot$m$^{-1}$] & -156 & -209 & -231 & -254 & -277 & -298 & -320  \\  
+            \hline
+            $M$[N$\cdot$m] & 0 & 10.90 & 14.82 & 18.74 & 22.66 & 26.58 & 30.50  \\  
+            \hline
+            $\sigma_n$[GPa] & 0 & $0.0227$ & $0.03087$ & $0.03904$ & $0.04720$ & $0.05537$ & $0.06354$  \\  
+            \hline
+            $\epsilon_{n}$[$10^{-6}$] & 0	& 100.9 & 135.6 & 177.3 & 212.9 & 244.4 & 282.8  \\  
+            \hline
+            $\epsilon_{t}$[$10^{-6}$] & 0 & 24.53 & 34.71 & 45.36 & 56.01 & 65.73 & 75.910  \\  
+            \hline
+            $E$[GPa] & X & 225.0 & 227.6 & 220.2 & 221.6 & 226.6 & 224.7  \\  
+            \hline
+            $\mu$[-] & X & 0.2431 & 0.2560 & 0.2559 & 0.2630 & 0.2689 &	0.2684  \\  
+            \hline
+        \end{protocoltable}
 
-\begin{equation}
-    u_{A}(f_{2}) = 0.05 \text{ Hz}
-\end{equation}
-
-\begin{flushleft}
-Výpočet nejistoty typu B:    
-\end{flushleft}
-
-\begin{equation}
-    u_{B}(x) = \dfrac{u_{B0}}{\chi }
-\end{equation}
-
-\begin{flushleft}
-Z katalogu snímače byla vyčtena chyba přesnosti 3 \% a rozsah frekvence 200 Hz:    
-\end{flushleft}
-
-\begin{equation}
-    u_{B}(f_{1}) = \dfrac{\Delta{f_{1max}}}{\chi } = \dfrac{0.03 \cdot 200}{\sqrt{3}} = 3.464 \text{ Hz} = u_{B}(f_{2})
-\end{equation}
-
-\begin{flushleft}
-Výpočet kombinované nejistoty C:    
-\end{flushleft}
-
-\begin{equation}
-    u_{C}(x) = \sqrt{u_{A}^{2}(x) + u_{B}^{2}(x)}
-\end{equation}
-
-\begin{equation}
-    u_{C}(f_{1}) = \sqrt{u_{A}^{2}(f1) + u_{B}^{2}(f1)} = \sqrt{0.026^{2} + 3.464^{2}} = 3.464 \text{ Hz}
-\end{equation}
-
-\begin{equation}
-    u_{C}(f_{2}) = 3.464 \text{ Hz}
-\end{equation}
-
-
-\begin{flushleft}
-Vypočet citlivosti (směrnice přímky) z průměru naměřených hodnot pro oba průtoky:
-\end{flushleft}
-
-\begin{equation}
-    \overline{K} =  \dfrac{\overline{f_{2}}-\overline{f_{1}}}{Q_{2}-Q_{1}} = \dfrac{109.8 - 74.89}{150 - 100} = 0.698 \dfrac{Hz}{Nl/min}
-\end{equation}
-
-
-\begin{flushleft}
-Výpočet nejistoty nepřímého měření:
-\end{flushleft}
-
-\begin{equation}
-    u_{y} = \sqrt{\left(\dfrac{\partial y}{\partial x_{1}} \cdot u_{x1}\right)^{2} + \left(\dfrac{\partial y}{\partial x_{2}} \cdot u_{x2}\right)^{2} + ... + \left(\dfrac{\partial y}{\partial x_{n}} \cdot u_{xn}\right)^{2}}
-\end{equation}
+        \begin{align*}
+            \overline{E} &= \dfrac{1}{N} \sum_{i = 0}^{n} E_i = \dfrac{1}{6} \sum_{i = 1}^{6} E = 224.3 \text{GPa} \\
+            \overline{\mu} &= \dfrac{1}{N} \sum_{i = 0}^{n} \mu_i = \dfrac{1}{6} \sum_{i = 1}^{6} \mu_i = 0.2592 
+        \end{align*}
 
 
 
-
-\begin{equation}
-\begin{aligned}
-    u_{K} 
-    &= \sqrt{\left(\dfrac{\partial \overline K}{\partial f_{1}} \cdot u_{C}(f_{1})\right)^{2} + \left(\dfrac{\partial \overline K}{\partial f_{2}} \cdot u_{C}(f_{2})\right)^{2}} = \sqrt{\left(\dfrac{-1}{Q_{2}-Q_{1}} \cdot u_{C}(f_{1})\right)^{2} + \left(\dfrac{1}{Q_{2}-Q_{1}} \cdot u_{C}(f_{2})\right)^{2}} \\
-    &= \sqrt{\left(\dfrac{-1}{150-100} \cdot 3.464\right)^{2} + \left(\dfrac{1}{150-100} \cdot 3.464\right)^{2}} = 0.098 \dfrac{Hz}{Nl/min}
-\end{aligned}
-\end{equation}
-
-\begin{flushleft}
-Výpočet rozšířené nejistoty:
-\end{flushleft}
-
-\begin{equation}
-    U_{K} = u_{K} \cdot k = 2 \cdot 0.098 = 0.196 \dfrac{Hz}{Nl/min}
-\end{equation}
-
-\begin{equation}
-    K = (0.698 \pm 0.196) \dfrac{Hz}{Nl/min}
-\end{equation}
-
-
-\subsection{Závěr}
-V prvním úkolu byly naměřeny převodní charakteristiky čtyř různých snímačů průtoku a byly vyneseny do grafů. Následně byla stanovena citlivost a porovnána s katalogovými údaji. Převodní charakteristika clony vyšla jako kvadratická. Převodní charakteristika vírového průtokoměru vyšla lineární a citlivost vyšla K = 0.7597 Hz$\cdot$$m^{-3}\cdot$$min^{-1}$. Převodní charakteristika termoanemometru má logaritmický charakter. Převodní charakteristika kalorimetrického průtokoměru má logaritmický charakter.
-
-Ve druhém úkolu byla změřena talková ztráta na všech snímačích v závislosti na průtoku měřičem diferenčního tlaku ROSEMOUNT 3051C a tyto závislosti byly vyneseny do grafu. Nejvyšší tlakové ztráty má plováčkový průtokoměr a nejmnižší má kalorimetrický průtokoměr.
-
-Ve třetím úkolu byl u snímače se škrtícím členem změřen průběh tlakového rozdílu v závislosti na vzdálenosti od clony. Změřená charakteristika odpovídá teoretickým předpokladům. Kmitání tlaku při nízkých hodnotách je zapříčiněno nepřesností tlakoměru.
-
-Ve čtvrtém úkolu byly naměřené hodnoty jednotlivými snímači porovnány s katalogovými údaji. Všechny naměřené hodnoty leží v měřicím rozsahu jednotlivých přístrojů. Jedinou výjimkou je hodnota při průtoku 220 Nl/min, kdy hodnota napětí klesne. To byla patrně chyba měření. 
-
-V pátém úkolu bylo naměřeno dvakrát deset hodnot frekvence. Z těchto hodnot se vypočetl průměr a citlivost snímače EGGS DELTA PULSE. Nakonec byla vypočtena nejistota \( K = (0.698 \pm 0.196) \dfrac{Hz}{Nl/min} \).
+    \subsection{Závěr} 
+       
 \pagebreak
 
+\section{Úkol 5 - Parametry velkého nosníku, můstková měření}
 
-% Velký závěr
+    \subsection{Teoretický rozbor}
+    \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Napájecí napětí můstku byla nastaveno na 2 V.
+        \item Pro dvouvodičové zapojení čtvrtmůstku byly změřeny hodnoty napětí na výstupu můstků při postupném zatěžování nosníku viz. úkol 4.
+        \item To samé jsme opakovali pro třívodičové zapojení čtvrtmůstku a pro půlmůstek.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}
+        \begin{protocoltable}[Naměřená napětí z můstků při zatěžování nosníku]{|c|C|C|C|C|C|C|C|}{ukol5-napeti}
+            \hline
+            $m$[kg] & 0 & 2.78 & 3.78 & 4.78 & 5.78 & 6.78 & 7.78  \\ 
+            \hline
+            $U_{1/4} (2v)$[mV] & 0.954 & 0.851 & 0.814 & 0.774 & 0.733 & 0.683 & 0.642  \\  
+            \hline
+            $U_{1/4} (2v)$ s $R$ [mV] & -39.91 & -39.99 & -40.01 & -40.04 & -40.06 & -40.09 & -40.12  \\  
+            \hline
+            $U_{1/4} (3v)$[mV] & 1.362 & 1.260 & 1.224 & 1.192 & 1.139 & 1.105 & 1.075  \\  
+            \hline
+            $U_{1/4} (3v)$ s $R$ [mV] & 1.267 & 1.164 & 1.128 & 1.090 & 1.053 & 1.018 & 0.978 \\  
+            \hline
+            $U_{1/2}$[mV] & -0.119 & -0.251 & -0.297 & -0.346 & -0.396 & -0.442 & -0.492  \\  
+            \hline
+            $U_{1/2}$ s $R$ [mV] & -0.059 & -0.192 & -0.236 & -0.284 & -0.331 & -0.376 & -0.424  \\  
+            \hline
+        \end{protocoltable}
+    \subsection{Zpracované výsledky měření}
+
+        \begin{table}[!h]
+            \centering
+            \caption{Odečtené hodnoty hmotností závěsu pro různé můstky}\label{tab:ukol5-hmotnosti}
+            \vspace{0.3cm}
+            \begin{tabular}{|c|c|}
+                \hline
+                Typ můstku & Odečtená hmotnost $m$ [kg]  \\ 
+                \hline
+                Dvouvodičové zapojení čtvrtmůstku & 2.35  \\ 
+                \hline
+                -//- s předřadným R & 2.94  \\ 
+                \hline
+                Třívodičové zapojení čtvrtmůstku & 2.64  \\ 
+                \hline
+                -//-  s předřadným R & 2.76  \\ 
+                \hline
+                Půlmůstek & 2.72  \\ 
+                \hline
+                Půlmůstek s předřadným R & 2.84  \\ 
+                \hline
+            \end{tabular}
+        \end{table}
+
+        \begin{equation*}
+            \overline{m} = \dfrac{1}{N} \sum_{i = 0}^{n} m_i = \dfrac{1}{6} \sum_{i = 0}^{6} m_i = 2.708 \text{ kg}
+        \end{equation*}
+
+        \begin{equation*}
+            4 \cdot \dfrac{|U_2 - U_{20}|}{U_1} = K \cdot \epsilon \rightarrow \epsilon = 4 \cdot \dfrac{|U_2 - U_{20}|}{K \cdot U_1}
+        \end{equation*}
+
+        % 0 & 95.35 & 129.6 & 166.6 & 204.6 & 250.9 & 288.8
+        % 0	& 74.06 & 92.57 & 120.3 & 138.9 & 166.6 & 194.4
+        % 0 & 94.42 & 127.8 & 157.4 & 206.4 & 237.9 & 265.7
+        % 0 & 95.35 & 128.7 & 163.9 & 198.1 & 230.5 & 267.5
+        % 0 & 122.2 & 164.8 & 210.1 & 256.4 & 299.0 & 345.3
+        % 0 & 123.1 & 163.9 & 208.3 & 251.8 & 293.5 & 337.9
+        
+        \begin{protocoltable}[Vypočtené hodnoty $\epsilon$ z hodnot z tabulky~\ref{tab:ukol5-napeti}]{|c|C|C|C|C|C|C|C|}{ukol5-deformace}
+            \hline
+            $\sigma_n$[GPa] & 0 & $0.0227$ & $0.03087$ & $0.03904$ & $0.04720$ & $0.05537$ & $0.06354$  \\   
+            \hline
+            $\epsilon_{1/4} (2v)$[$10^{-6}$] & 0 & 95.35 & 129.6 & 166.6 & 204.6 & 250.9 & 288.8  \\  
+            \hline
+            $\epsilon_{1/4} (2v)$ s $R$ [$10^{-6}$] & 0	& 74.06 & 92.57 & 120.3 & 138.9 & 166.6 & 194.4  \\  
+            \hline
+            $\epsilon_{1/4} (3v)$[$10^{-6}$] & 0 & 94.42 & 127.8 & 157.4 & 206.4 & 237.9 & 265.7  \\  
+            \hline
+            $\epsilon_{1/4} (3v)$ s $R$ [$10^{-6}$] & 0 & 95.35 & 128.7 & 163.9 & 198.1 & 230.5 & 267.5 \\  
+            \hline
+            $\epsilon_{1/2}$[$10^{-6}$] & 0 & 122.2 & 164.8 & 210.1 & 256.4 & 299.0 & 345.3  \\  
+            \hline
+            $\epsilon_{1/2}$ s $R$ [$10^{-6}$] & 0 & 123.1 & 163.9 & 208.3 & 251.8 & 293.5 & 337.9  \\  
+            \hline
+        \end{protocoltable}
+
+        % X & 238.1 & 238.2 & 234.3 & 230.7 & 220.7 & 220.0
+        % X & 306.6 & 333.5 & 324.4 & 340.0 & 332.3 & 326.8
+        % X & 240.4 & 241.6 & 248.0 & 228.7 & 232.7 & 239.1
+        % X & 238.1 & 239.9 & 238.2 & 238.3 & 240.2 & 237.5
+        % X & 234.0 & 236.0 & 233.9 & 231.8 & 233.2 & 231.7
+        % X & 232.2 & 237.2 & 236.0 & 236.1 & 237.6 & 236.8
+
+        \begin{equation*}
+            E_{1/4}= \dfrac{\sigma_n}{\epsilon}
+        \end{equation*}
+
+        \begin{equation*}
+            E_{1/2} = (1+\mu) \cdot \dfrac{\sigma_n}{\epsilon}
+        \end{equation*}
+
+        \begin{protocoltable}[Vypočtené hodnoty $E$ z hodnot z tabulky~\ref{tab:ukol5-deformace}]{|c|C|C|C|C|C|C|C|}{ukol5-moduly}
+            \hline
+            $E_{1/4} (2v)$[$GPa$] & X & 238.1 & 238.2 & 234.3 & 230.7 & 220.7 & 220.0  \\  
+            \hline
+            $E_{1/4} (2v)$ s $R$ [$GPa$] & X & 306.6 & 333.5 & 324.4 & 340.0 & 332.3 & 326.8 \\  
+            \hline
+            $E_{1/4} (3v)$[$GPa$] & X & 240.4 & 241.6 & 248.0 & 228.7 & 232.7 & 239.1  \\  
+            \hline
+            $E_{1/4} (3v)$ s $R$ [$GPa$] & X & 238.1 & 239.9 & 238.2 & 238.3 & 240.2 & 237.5 \\  
+            \hline
+            $E_{1/2}$[$GPa$] & X & 234.0 & 236.0 & 233.9 & 231.8 & 233.2 & 231.7 \\  
+            \hline
+            $E_{1/2}$ s $R$ [$GPa$] & X & 232.2 & 237.2 & 236.0 & 236.1 & 237.6 & 236.8  \\  
+            \hline
+        \end{protocoltable}
+
+        
+                % 230.3 327.2 238.4 238.7 233.4 236.0
+        \begin{table}[!h]
+            \centering
+            \caption{foo}\label{tab:ukol5-modely-pruznosti}
+            \vspace{0.3cm}
+            \begin{tabular}{|c|c|}
+                \hline
+                Typ můstku & Spočtený model pružnosti $E$ [GPa]  \\ 
+                \hline
+                Dvouvodičové zapojení čtvrtmůstku & 230.3  \\ 
+                \hline
+                -//- s předřadným R & 327.2  \\ 
+                \hline
+                Třívodičové zapojení čtvrtmůstku & 238.4  \\ 
+                \hline
+                -//-  s předřadným R & 238.7  \\ 
+                \hline
+                Půlmůstek & 233.4  \\ 
+                \hline
+                Půlmůstek s předřadným R & 236.0  \\ 
+                \hline
+            \end{tabular}
+        \end{table}
+
+        %
+
+    \subsection{Závěr} 
+       
+
+\pagebreak
+
+\section{Úkol 6 - Nejistota výstupního napětí}
+ 
+    \subsection{Teoretický rozbor}
+        \begin{equation}
+            U = f(U_z, R_1, R_2, R_3, R_t) = U_z \cdot \left( \dfrac{R_1}{R_1+R_2} - \dfrac{R_t}{R_3+R_t} \right) \quad [\text{mV}]
+        \end{equation}
+    \subsection{Postup měření}
+
+    \begin{enumerate}
+        \item Bylo proměřeno napájecí napětí můstku pomocí multimetru.
+        \item V konfiguraci třívodičového zapojení čtvrtmůstku bylo změřeno výstupní napětí můstku pomocí multimetru.
+        \item Byly změřeny jednotlivé odpory v můstku pomocí multimetru.
+        \item Byl změřen odpor nezatíženého tenzometru pomocí multimetru.
+    \end{enumerate}
+
+    \subsection{Naměřené hodnoty}
+            \begin{table}[!h]
+            \centering
+            \caption{Naměřené hodnoty výstupního napětí, napájecího napětí a odporů v můstku}\label{tab:nejistota6}
+            \vspace{0.3cm}
+            \begin{tabular}{|c|c|}
+                \hline
+                $U$[mV] & 1.445  \\ 
+                \hline
+                $U_z$[V] & 1.999  \\ 
+                \hline
+                $R_t$[$\Omega$] & 119.84  \\ 
+                \hline
+                $R_1$[$\Omega$] & 120.13  \\ 
+                \hline
+                $R_2$[$\Omega$] & 120.14  \\ 
+                \hline
+                $R_3$[$\Omega$] & 120.18  \\ 
+                \hline
+            \end{tabular}
+        \end{table}
+    \subsection{Zpracované výsledky měření}
+
+    \begin{align*}
+        U_{teor} &= U_z \cdot \left( \dfrac{R_1}{R_1+R_2} - \dfrac{R_t}{R_3+R_t} \right)\\
+        U_{teor} &= 1.999 \cdot \left( \dfrac{120.13}{120.13+120.14} - \dfrac{119.84}{120.18+199.84} \right) \rightarrow \boxed{U_{teor} = 1.374 \cdot 10^{-3} \ \text{V}}
+    \end{align*}
+
+    \begin{align*}
+        u_B(U_z) &= \dfrac{\Delta U_z}{\chi} = \dfrac{\dfrac{\delta_{UH}}{100} \cdot U_z +\dfrac{\delta_{UR}}{100} \cdot U_R}{\chi} \\
+        u_B(U_z) &= \dfrac{\dfrac{0.0035}{100} \cdot 1.999 +\dfrac{0.0005}{100} \cdot 10}{\sqrt{3}} = 6.926 \cdot 10^{-5} \ \text{V}
+    \end{align*}
+
+    \begin{align*}
+        u_B(R_1) &= \dfrac{\Delta R_1}{\chi} = \dfrac{\dfrac{\delta_{RH}}{100} \cdot R +\dfrac{\delta_{RR}}{100} \cdot U_R}{\chi} \\
+        u_B(R_1) &= \dfrac{\dfrac{0.010}{100} \cdot 120.13 +\dfrac{0.001}{100} \cdot 1000}{\sqrt{3}} = 1.270 \cdot 10^{-2} \ \text{V}
+    \end{align*}
+
+    \begin{align*}
+        A_{U_z} &=  \dfrac{\partial f}{\partial U_z} = \left( \dfrac{R_1}{R_1+R_2} - \dfrac{R_t}{R_3+R_t} \right) = 6.875 \cdot 10^{-4}\\
+        A_{R_1} &=  \dfrac{\partial f}{\partial R_1} = U_z \cdot \dfrac{R_2}{{(R_1 + R_2)^2}} = 4.160\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1} \\
+        A_{R_2} &=  \dfrac{\partial f}{\partial R_2} = -U_z \cdot \dfrac{R_1}{{(R_1 + R_2)^2}} = -4.160\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1} \\
+        A_{R_3} &=  \dfrac{\partial f}{\partial R_3} = -U_z \cdot \dfrac{R_t}{{(R_3 + R_t)^2}} = -4.158\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1} \\
+        A_{R_t} &=  \dfrac{\partial f}{\partial R_4} = U_z \cdot \dfrac{R_3}{{(R_3 + R_t)^2}} = 4.170\cdot 10^{-3} \ \text{V} \cdot \Omega^{-1}\\
+    \end{align*}
+
+    \begin{equation*}
+        u_c(U_{teor}) = \sqrt{   \sum_{i = 0}^{n} (A_i \cdot u_c(i))^2    } = 9.774 \cdot 10^{-5} \ \text{V}
+    \end{equation*}
+
+    \begin{equation*}
+        U(U_{teor}) = k_r \cdot u_c(U_{teor}) = 2 \cdot 9.774 \cdot 10^{-5} = 1.955 \cdot 10^{-4} \ \text{V}
+    \end{equation*}
+
+    \begin{equation*}
+        U_{teor} = (1.374 \pm 0.1955) \ \text{mV} \rightarrow \boxed{U_{teor} = (1.4 \pm 0.2) \ \text{mV}}
+    \end{equation*}
+
+    \begin{protocoltable}[Uncertainty budget pro určení výstupního napětí můstku]{|C|C|c|C|}{ukol6-budget-mustek}
+            \hline
+            Veličina & Hodnota & $\Delta_{MAX}$ & $\chi$ \\
+            \hline 
+            $U_z$[V] & $1.999$ V & $1.200 \cdot 10^{-4} \  V $ & $\sqrt{3}$\\
+            \hline
+            $R_1$[$\Omega$] & $120.13 \ \Omega$  &  $2.201 \cdot 10^{-2} \  \Omega $ & $\sqrt{3}$\\
+            \hline
+            $R_2$[$\Omega$] & $120.14 \ \Omega$  &  $2.201 \cdot 10^{-2} \  \Omega  $ & $\sqrt{3}$\\
+            \hline
+            $R_3$[$\Omega$] & $120.18 \ \Omega$  &  $2.201 \cdot 10^{-2} \  \Omega  $ & $\sqrt{3}$\\
+            \hline
+            $R_t$[$\Omega$] & $119.84 \ \Omega$  & $1.420 \cdot 10^{-2} \  \Omega  $ & $\sqrt{3}$\\
+            \hline
+            Veličina & $u_{B}$ & $\frac{\partial \rho}{\partial x_i}$ & $u_c$ \\
+            \hline
+            $U_z$[V] & $9.774 \cdot 10^{-5}$ V & $6.875 \cdot 10^{-4}$  &  $9.774 \cdot 10^{-5}$ V \\
+            \hline
+            $R_1$[$\Omega$] & $1.271 \cdot 10^{-2} \ \Omega$ & $4.160 \cdot 10^{-3} \  \Omega \cdot V^{-1} $ & $1.271 \cdot 10^{-2} \ \Omega$ \\
+            \hline
+            $R_2$[$\Omega$] & $1.271 \cdot 10^{-2} \ \Omega$ & $-4.160 \cdot 10^{-3} \  \Omega \cdot V^{-1} $ & $1.271 \cdot 10^{-2} \ \Omega$ \\
+            \hline
+            $R_3$[$\Omega$] & $1.271 \cdot 10^{-2} \ \Omega$ & $-4.158 \cdot 10^{-3} \  \Omega \cdot V^{-1} $ & $1.271 \cdot 10^{-2} \ \Omega$ \\
+            \hline
+            $R_t$[$\Omega$] & $8.195 \cdot 10^{-3} \ \Omega$ & $4.170 \cdot 10^{-3} \  \Omega \cdot V^{-1} $ & $8.195 \cdot 10^{-3} \ \Omega$ \\
+            \hline
+            \multicolumn{2}{|c|}{$U_{teor} = 1.445\cdot 10^{-3}$ V} & \multicolumn{2}{c|}{$u_C = 9.774 \cdot 10^{-5}$ V} \\
+            \hline
+        \end{protocoltable}
+
+    \subsection{Závěr} 
+    
 \section{Závěr}
 
+V prvním úkolu jsme byly seznámeni tenzometrickou aparaturou Vishay P-3500 a s popisem přístroje pro zjišťování citlivosti tenzometrů. 
+
+
 \pagebreak
+
+% Vishay P-3500, SN. 106013
+% P. pro cejchování tenzometrů, SN. DKP1167
+% Tenzometry, SN. DKP479
+% UNI-T UTD2025C, SN. 2100000787
+% Agilent 34401A, SN. MY44002660
+% RC generátor Hung Chang 8204A, SN. D7064
+% Instek GPD-3303S, SN. GES836987
+
 
 
 % Seznam přístrojů
@@ -603,28 +725,24 @@ V pátém úkolu bylo naměřeno dvakrát deset hodnot frekvence. Z těchto hodn
         \hline
         Typ & Přístroj & Inventární číslo  \\
         \hline
-        Multimetr & UNI-T UT804 & SN. 6100019215 \\
+        Tenzometrická aparatura & Vishay P-3500 & SN. 106013 \\
         \hline
-        Multimetr & UNI-T UT804 & SN. 6100019198 \\
+        P. pro cejchování tenzometrů &  - & SN. DKP1167 \\
         \hline
-        Digitální osciloskop  &  Siglent SDS1102X+ & SN. SDS1XECC2R0309 \\
+        Tenzometry & - & SN. DKP479 \\
         \hline
         Meteostanice & Testo 622 & SN. 39507568/505 \\
         \hline
-        Snímač dif. tlaku & Rosemount 3051C & SN. 7079598/1297 \\
+        Osciloskop & UNI-T UTD2025C & SN. 2100000787 \\
         \hline
-        Snímač dif. tlaku & Greisinger GDH 200-07 & SN. 1106025\\
+        Multimetr & Agilent 34401A & SN. MY44002660\\
         \hline
-        Vírový průtokoměr & EGGS DELTA PULSE FLP15-G2PA & SN. P16X501F\\
+        RC generátor & Hung Chang 8204A & SN. D7064\\
         \hline
-        Plováčkový průtokoměr & Krohne VA-40 & SN. D120000000285677\\
+        Lab. zdroj & Instek GPD-3303S & SN. GES836987\\
         \hline
-        Termoanemometr & IST FS5.A & X\\
-        \hline
-        Kalorimetrický průtokoměr & Honewell AWM 720P1 & SN. 1037N 564482\\
-        \hline
-        Přípravek & Přípravek s turbodmychadlem & SN. IEC39034-01\\
-        \hline
+
+
     \end{protocoltable}%
 
 \pagebreak
